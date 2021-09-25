@@ -13,7 +13,8 @@ public class Main {
 	public static int b;
 	/** pocet koni*/
 	public static int K;
-	
+	/** pocet letounu*/
+	public static int L;
 	
 	
 	/**
