@@ -7,8 +7,18 @@ import java.util.Scanner;
  */
 public class Main {
 	
+	/** Souradnice Parize X*/
+	public static int a;
+	/** Souradnice Parize Y*/
+	public static int b;
+	/** pocet koni*/
+	public static int K;
+	
+	
+	
 	/**
 	 * Metoda na nacitani dat ze souboru
+	 * :-) - oznaceni komentare -> necist data az do konce radku
 	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
 	 */
 	public static void parser(String jmenoSouboru) {
