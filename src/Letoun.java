@@ -58,5 +58,9 @@ public class Letoun {
 	public void setV(double V) {
 		this.V = V;
 	}
+	
+	public String toString() {
+		return String.format("Letoun: x = %d, y = %d, m = %d, v = %f", X, Y, M, V);
+	}
 
 }

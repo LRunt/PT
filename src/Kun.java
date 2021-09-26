@@ -58,5 +58,9 @@ public class Kun {
 	public void setN(int n) {
 		this.n = n;
 	}
+	
+	public String toString() {
+		return String.format("Kun: x = %d, y = %d, m = %d, n = %d", x, y, m, n);
+	}
 
 }
