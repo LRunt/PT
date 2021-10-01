@@ -8,9 +8,9 @@ import java.util.Scanner;
 public class Main {
 	
 	/** Souradnice Parize X*/
-	public static int a;
+	public static double a;
 	/** Souradnice Parize Y*/
-	public static int b;
+	public static double b;
 	/** pocet koni*/
 	public static int K;
 	/** pocet letounu*/
@@ -38,11 +38,11 @@ public class Main {
 				} else {
 					switch (cast) {
 						case 0:
-							a = Integer.parseInt(retezec);
+							a = Double.parseDouble(retezec);
 							cast++;
 							break;
 						case 1:
-							b = Integer.parseInt(retezec);
+							b = Double.parseDouble(retezec);
 							cast++;
 							break;
 						case 2:
@@ -51,7 +51,8 @@ public class Main {
 							kone = new Kun[K];
 							break;
 						case 3:
-							int x = 0, y = 0, m = 0, n = 0, p = 0;
+							double x = 0, y = 0;
+							int m = 0, n = 0, p = 0;
 							while(aktK < K) {
 								if(retezec.equals(":-)")) {
 									sc.nextLine();
@@ -59,11 +60,11 @@ public class Main {
 									System.out.println(retezec);
 									switch(p) {
 									case 0:
-										x = Integer.parseInt(retezec);
+										x = Double.parseDouble(retezec);
 										p++;
 										break;
 									case 1:
-										y = Integer.parseInt(retezec);
+										y = Double.parseDouble(retezec);
 										p++;
 										break;
 									case 2:
@@ -90,7 +91,8 @@ public class Main {
 							letadla = new Letoun[L];
 							break;
 						case 5:
-							int X = 0, Y = 0, M = 0, P = 0;
+							double X = 0, Y = 0;
+							int M = 0, P = 0;
 							double V;
 							while(aktL < L) {
 								if(retezec.equals(":-)")) {
@@ -99,11 +101,11 @@ public class Main {
 									System.out.println(retezec);
 									switch(P) {
 									case 0:
-										X = Integer.parseInt(retezec);
+										X = Double.parseDouble(retezec);
 										P++;
 										break;
 									case 1:
-										Y = Integer.parseInt(retezec);
+										Y = Double.parseDouble(retezec);
 										P++;
 										break;
 									case 2:
@@ -156,8 +158,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/tutorial.txt");
-		System.out.printf("Pariz: x = %d, y = %d \n",a, b);
+		parser("data/grid2000.txt");
+		System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
 		System.out.printf("Pocet letounu: %d \n", L);

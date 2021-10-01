@@ -5,9 +5,9 @@
 public class Letoun {
 	
 	/** Souradnice letadla*/
-	private int X;
+	private double X;
 	/** Souradnice letadla*/
-	private int Y;
+	private double Y;
 	/** Maximalni nosnost letounu*/
 	private int M;
 	/** Rychlost letu*/
@@ -20,26 +20,26 @@ public class Letoun {
 	 * @param M - nosnost letounu
 	 * @param V - rychlost letu
 	 */
-	public Letoun(int X, int Y, int M, double V) {
+	public Letoun(double X, double Y, int M, double V) {
 		this.X = X;
 		this.Y = Y;
 		this.M = M;
 		this.V = V;
 	}
 	
-	public int getX() {
+	public double getX() {
 		return X;
 	}
 	
-	public void setX(int X) {
+	public void setX(double X) {
 		this.X = X;
 	}
 	
-	public int getY() {
+	public double getY() {
 		return Y;
 	}
 	
-	public void setY(int Y) {
+	public void setY(double Y) {
 		this.Y = Y;
 	}
 	
@@ -60,7 +60,7 @@ public class Letoun {
 	}
 	
 	public String toString() {
-		return String.format("Letoun: x = %d, y = %d, m = %d, v = %f", X, Y, M, V);
+		return String.format("Letoun: x = %f, y = %f, m = %d, v = %f", X, Y, M, V);
 	}
 
 }

@@ -5,9 +5,9 @@
 public class Kun {
 	
 	/** Souradnice kone x*/
-	private int x;
+	private double x;
 	/** Souradnice kone y*/
-	private int y;
+	private double y;
 	/** hmotnost kone s vybavenim */
 	private int m;
 	/** doba nalozeni kone */
@@ -20,26 +20,26 @@ public class Kun {
 	 * @param m - hmotnost kone
 	 * @param n - doba nalozeni
 	 */
-	public Kun(int x, int y, int m, int n) {
+	public Kun(double x, double y, int m, int n) {
 		this.x = x;
 		this.y = y;
 		this.m = m;
 		this.n = n;
 	}
 	
-	public int getx() {
+	public double getx() {
 		return x;
 	}
 	
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 	
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
@@ -60,7 +60,7 @@ public class Kun {
 	}
 	
 	public String toString() {
-		return String.format("Kun: x = %d, y = %d, m = %d, n = %d", x, y, m, n);
+		return String.format("Kun: x = %f, y = %f, m = %d, n = %d", x, y, m, n);
 	}
 
 }
