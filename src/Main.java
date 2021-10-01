@@ -19,6 +19,8 @@ public class Main {
 	public static Kun[] kone;
 	/** pole letounu */
 	public static Letoun[] letadla;
+	/** Cas od zacatku simulace */
+	public static double cas;
 	
 	
 	/**
@@ -152,18 +154,27 @@ public class Main {
 			System.out.println(letadla[i].toString());
 		}
 	}
+	
+	public static void delej() {
+		
+	}
 
 	/**
 	 * Vstupni metoda
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/grid2000.txt");
+		parser("data/tutorial.txt");
 		System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
 		System.out.printf("Pocet letounu: %d \n", L);
 		vypisLetounu();
+		letadla[0].start();
+		letadla[0].letKeKoni(kone[0], kone[1]);
+		letadla[0].letDoFrancie(kone[1]);
+		letadla[0].letZFrancieKeKoni(kone[2]);
+		letadla[0].letounPristal();
 	}
 
 }

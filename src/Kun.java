@@ -4,6 +4,10 @@
  */
 public class Kun {
 	
+	/** Uchovava zaznam kolik koni existuje*/
+	private static int pocetKoni = 0;
+	/** Cislo kone (ID)*/
+	private int cislo; 
 	/** Souradnice kone x*/
 	private double x;
 	/** Souradnice kone y*/
@@ -25,9 +29,10 @@ public class Kun {
 		this.y = y;
 		this.m = m;
 		this.n = n;
+		cislo = pocetKoni++;
 	}
 	
-	public double getx() {
+	public double getX() {
 		return x;
 	}
 	
@@ -59,8 +64,12 @@ public class Kun {
 		this.n = n;
 	}
 	
+	public int getCislo() {
+		return cislo;
+	}
+	
 	public String toString() {
-		return String.format("Kun: x = %f, y = %f, m = %d, n = %d", x, y, m, n);
+		return String.format("Kun %d: x = %f, y = %f, m = %d, n = %d",cislo, x, y, m, n);
 	}
 
 }
