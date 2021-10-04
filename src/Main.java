@@ -1,6 +1,3 @@
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 /**
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.2 (04-10-2021)
@@ -22,131 +19,16 @@ public class Main {
 	/** Cas od zacatku simulace */
 	public static double cas;
 	
-	
-	/**
-	 * Metoda na nacitani dat ze souboru
-	 * :-) - oznaceni komentare -> necist data az do konce radku
-	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
-	 */
-	public static void parser1(String jmenoSouboru) {
-		String retezec;
-		try(Scanner sc = new Scanner(Paths.get(jmenoSouboru))){
-			int cast = 0, aktK = 0, aktL = 0, pocetAtributu = 4;
-			while(sc.hasNext()) {
-				retezec = sc.next();
-				
-				if(retezec.equals(":-)")) {
-					sc.nextLine();
-				} else {
-					switch (cast) {
-						case 0:
-							a = Double.parseDouble(retezec);
-							cast++;
-							break;
-						case 1:
-							b = Double.parseDouble(retezec);
-							cast++;
-							break;
-						case 2:
-							K = Integer.parseInt(retezec);
-							cast++;
-							kone = new Kun[K];
-							break;
-						case 3:
-							double x = 0, y = 0;
-							int m = 0, n = 0, p = 0;
-							while(aktK < K) {
-								if(retezec.equals(":-)")) {
-									sc.nextLine();
-								} else {
-									System.out.println(retezec);
-									switch(p) {
-									case 0:
-										x = Double.parseDouble(retezec);
-										p++;
-										break;
-									case 1:
-										y = Double.parseDouble(retezec);
-										p++;
-										break;
-									case 2:
-										m = Integer.parseInt(retezec);
-										p++;
-										break;
-									case 3:
-										n = Integer.parseInt(retezec);
-										p = 0;
-										kone[aktK] = new Kun(x, y, m, n);
-										aktK++;
-										break;
-									}
-								}
-								if(aktK != K) {
-									retezec = sc.next();
-								}
-							}
-							cast++;
-							break;
-						case 4:
-							L = Integer.parseInt(retezec);
-							cast++;
-							letouny = new Letoun[L];
-							break;
-						case 5:
-							double X = 0, Y = 0;
-							int M = 0, P = 0;
-							double V;
-							while(aktL < L) {
-								if(retezec.equals(":-)")) {
-									sc.nextLine();
-								} else {
-									System.out.println(retezec);
-									switch(P) {
-									case 0:
-										X = Double.parseDouble(retezec);
-										P++;
-										break;
-									case 1:
-										Y = Double.parseDouble(retezec);
-										P++;
-										break;
-									case 2:
-										M = Integer.parseInt(retezec);
-										P++;
-										break;
-									case 3:
-										V = Double.parseDouble(retezec);
-										P = 0;
-										letouny[aktL] = new Letoun(X, Y, M, V);
-										aktL++;
-										break;
-									}
-								}
-								if(aktL != L) {
-									retezec = sc.next();
-								}
-							}
-							cast++;
-							break;
-					}
-					//System.out.println(retezec);
-				}
-			}
-		}catch (Exception ex){
-			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
-		}
-	}
-	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
 	 * do konce radku
 	 * 
 	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
 	 */
-	public static void parser2(String jmenoSouboru) {
+	public static void parser(String jmenoSouboru) {
 		try {
 			Parser ps= new Parser(jmenoSouboru);
-			int[] souradnice = ps.getSouradnice();
+			double[] souradnice = ps.getSouradnice();
 			a = souradnice[0];
 			b = souradnice[1];
 			kone = ps.getKone();
@@ -179,10 +61,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		long start, stop;
-		start = System.currentTimeMillis();
-		parser1("data/tutorial.txt");
-		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
+		parser("data/tutorial.txt");
+		System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
 		System.out.printf("Pocet letounu: %d \n", L);
@@ -191,24 +71,7 @@ public class Main {
 		letouny[0].letKeKoni(kone[0], kone[1]);
 		letouny[0].letDoFrancie(kone[1]);
 		letouny[0].letZFrancieKeKoni(kone[2]);
-		letouny[0].letounPristal();*/
-		stop = System.currentTimeMillis();
-		System.out.println("Čas čtení parser 1 = " + (stop - start));
-		System.out.println("---------------------------------------------------------------");
-		start = System.currentTimeMillis();
-		parser2("data/tutorial.txt");
-		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
-		System.out.printf("Pocet koni: %d \n", K);
-		vypisKoni();
-		System.out.printf("Pocet letounu: %d \n", L);
-		vypisLetounu();
-		letouny[0].start();
-		letouny[0].letKeKoni(kone[0], kone[1]);
-		letouny[0].letDoFrancie(kone[1]);
-		letouny[0].letZFrancieKeKoni(kone[2]);
-		letouny[0].letounPristal();*/
-		stop = System.currentTimeMillis();
-		System.out.println("Čas čtení parser 2 = " + (stop - start));
+		letouny[0].letounPristal();
 	}
 
 }

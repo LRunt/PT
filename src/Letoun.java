@@ -1,4 +1,6 @@
 /**
+ * Instance tridy Letoun reprezentuje Letouny, ktere maji za ukol dopravit kone do Parize
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.1 (01-10-2021)
  */

@@ -1,4 +1,6 @@
 /**
+ * Instance tridy Kun reprezentuje kone, ktery ma byt prevezen do Parize
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.1 (01-10-2021)
  */

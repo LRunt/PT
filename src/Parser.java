@@ -3,41 +3,54 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
+ * Trida, ktera se stara o nacitani souboru
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.0 (04-10-2021)
  */
 public class Parser {
 	
-	Scanner sc;
-	String retezec;
+	/** Scanner souboru */
+	private Scanner sc;
+	/** Promenna do ktere se uklada vstupni retezec */
+	private String retezec;
 	
 
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public Parser(String jmenoSouboru) throws IOException{
 		sc = new Scanner(Paths.get(jmenoSouboru));
 	}
 	
-	public int [] getSouradnice() {
-		int [] souradnice = new int[2];
+	/**
+	 * Metoda ziska ze souboru souradnice Parize
+	 * @return souradnice
+	 */
+	public double[] getSouradnice() {
+		double[] souradnice = new double[2];
 		int tmp = 0;
 		while (sc.hasNext()) {
 			retezec = sc.next();
 			if(isKomentar(retezec))
 				continue;
 			else if(tmp == 0) {
-				souradnice[0] = Integer.parseInt(retezec);
+				souradnice[0] = Double.parseDouble(retezec);
 				tmp++;
 			}
 			else {
-				souradnice[1] = Integer.parseInt(retezec);
+				souradnice[1] = Double.parseDouble(retezec);
 				break;
 			}
 		}
 		return souradnice;
 	}
 	
+	
+	/**
+	 * Metoda vytvori ze souboru kone
+	 * @return pole koni
+	 */
 	public Kun[] getKone() {
 		Kun[] kone = null;
 		Kun kun = new Kun();
@@ -54,11 +67,11 @@ public class Parser {
 					break;
 				case 1:
 					kun = new Kun();
-					kun.setX(Integer.parseInt(retezec));
+					kun.setX(Double.parseDouble(retezec));
 					tmp = 2;
 					break;
 				case 2:
-					kun.setY(Integer.parseInt(retezec));
+					kun.setY(Double.parseDouble(retezec));
 					tmp = 3;
 					break;
 				case 3:
@@ -78,6 +91,10 @@ public class Parser {
 		return kone;
 	}
 	
+	/**
+	 * Metoda vytvori ze souboru letouny na dopravu koni
+	 * @return pole letounu
+	 */
 	public Letoun[] getLetouny() {
 		Letoun[] letouny = null;
 		Letoun let = new Letoun();
@@ -94,11 +111,11 @@ public class Parser {
 					break;
 				case 1:
 					let = new Letoun();
-					let.setX(Integer.parseInt(retezec));
+					let.setX(Double.parseDouble(retezec));
 					tmp = 2;
 					break;
 				case 2:
-					let.setY(Integer.parseInt(retezec));
+					let.setY(Double.parseDouble(retezec));
 					tmp = 3;
 					break;
 				case 3:
@@ -118,6 +135,11 @@ public class Parser {
 		return letouny;
 	}
 	
+	/**
+	 * Metoda rozhoduje, zda se jedná o komentář
+	 * @param retezec vstupni retezec
+	 * @return true - je to komentar, false - neni to komentar
+	 */
 	private boolean isKomentar(String retezec) {
 		if(retezec.equals(":-)")) {
 			sc.nextLine();
