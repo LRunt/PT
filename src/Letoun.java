@@ -1,6 +1,6 @@
 /**
- * @author Lukas Runt
- * @version 1.0 (25-09-2021)
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.1 (01-10-2021)
  */
 public class Letoun {
 	
@@ -8,9 +8,9 @@ public class Letoun {
 	private static int pocetLetounu = 0;
 	/** Cislo letounu (ID)*/
 	private int cislo; 
-	/** Souradnice letadla*/
+	/** Souradnice letouny*/
 	private double X;
-	/** Souradnice letadla*/
+	/** Souradnice letouny*/
 	private double Y;
 	/** Maximalni nosnost letounu*/
 	private int M;
@@ -20,7 +20,7 @@ public class Letoun {
 	private int celkemN = 0;
 	
 	/**
-	 * Konstruktor letadla
+	 * Konstruktor letouny
 	 * @param X - x-ova souradnice
 	 * @param Y - y-ova souradnice
 	 * @param M - nosnost letounu
@@ -33,6 +33,9 @@ public class Letoun {
 		this.V = V;
 		cislo = pocetLetounu++;
 	}
+	
+	/*Defaultni konstruktor*/
+	public Letoun( ) {}
 	
 	/**
 	 * Letoun startuje
@@ -67,7 +70,7 @@ public class Letoun {
 	 * @param kun1 Kun, ke kteremu se poleti
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
-		System.out.printf("Cas: %f, Letoun: %d, Pristani ve Francii, Odlet v: %f, Let ke koni: %d\n", Main.cas, cislo, Main.cas + celkemN, cislo);
+		System.out.printf("Cas: %f, Letoun: %d, Pristani ve Francii, Odlet v: %f, Let ke koni: %d\n", Main.cas, cislo, Main.cas + celkemN, kun1.getCislo());
 		Main.cas += celkemN;
 		celkemN = 0;
 	}
@@ -110,6 +113,9 @@ public class Letoun {
 		this.V = V;
 	}
 	
+	/**
+	 * @return textova reprezentace instance letounu
+	 */
 	public String toString() {
 		return String.format("Letoun %d: x = %f, y = %f, m = %d, v = %f", cislo, X, Y, M, V);
 	}

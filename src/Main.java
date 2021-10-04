@@ -2,8 +2,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
- * @author Lukas Runt
- * @version 1.0 (24-09-2021)
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.2 (04-10-2021)
  */
 public class Main {
 	
@@ -18,7 +18,7 @@ public class Main {
 	/** pole koni */
 	public static Kun[] kone;
 	/** pole letounu */
-	public static Letoun[] letadla;
+	public static Letoun[] letouny;
 	/** Cas od zacatku simulace */
 	public static double cas;
 	
@@ -28,7 +28,7 @@ public class Main {
 	 * :-) - oznaceni komentare -> necist data az do konce radku
 	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
 	 */
-	public static void parser(String jmenoSouboru) {
+	public static void parser1(String jmenoSouboru) {
 		String retezec;
 		try(Scanner sc = new Scanner(Paths.get(jmenoSouboru))){
 			int cast = 0, aktK = 0, aktL = 0, pocetAtributu = 4;
@@ -90,7 +90,7 @@ public class Main {
 						case 4:
 							L = Integer.parseInt(retezec);
 							cast++;
-							letadla = new Letoun[L];
+							letouny = new Letoun[L];
 							break;
 						case 5:
 							double X = 0, Y = 0;
@@ -117,7 +117,7 @@ public class Main {
 									case 3:
 										V = Double.parseDouble(retezec);
 										P = 0;
-										letadla[aktL] = new Letoun(X, Y, M, V);
+										letouny[aktL] = new Letoun(X, Y, M, V);
 										aktL++;
 										break;
 									}
@@ -129,10 +129,29 @@ public class Main {
 							cast++;
 							break;
 					}
-					System.out.println(retezec);
+					//System.out.println(retezec);
 				}
 			}
 		}catch (Exception ex){
+			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
+		}
+	}
+	
+	/**
+	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
+	 * do konce radku
+	 * 
+	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
+	 */
+	public static void parser2(String jmenoSouboru) {
+		try {
+			Parser ps= new Parser(jmenoSouboru);
+			int[] souradnice = ps.getSouradnice();
+			a = souradnice[0];
+			b = souradnice[1];
+			kone = ps.getKone();
+			letouny = ps.getLetouny();
+		} catch (Exception ex) {
 			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
 		}
 	}
@@ -150,13 +169,9 @@ public class Main {
 	 * Metoda vypise pole letounu do konzole
 	 */
 	public static void vypisLetounu() {
-		for(int i = 0; i < letadla.length; i++) {
-			System.out.println(letadla[i].toString());
+		for(int i = 0; i < letouny.length; i++) {
+			System.out.println(letouny[i].toString());
 		}
-	}
-	
-	public static void delej() {
-		
 	}
 
 	/**
@@ -164,17 +179,36 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/tutorial.txt");
-		System.out.printf("Pariz: x = %f, y = %f \n",a, b);
+		long start, stop;
+		start = System.currentTimeMillis();
+		parser1("data/tutorial.txt");
+		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
 		System.out.printf("Pocet letounu: %d \n", L);
 		vypisLetounu();
-		letadla[0].start();
-		letadla[0].letKeKoni(kone[0], kone[1]);
-		letadla[0].letDoFrancie(kone[1]);
-		letadla[0].letZFrancieKeKoni(kone[2]);
-		letadla[0].letounPristal();
+		letouny[0].start();
+		letouny[0].letKeKoni(kone[0], kone[1]);
+		letouny[0].letDoFrancie(kone[1]);
+		letouny[0].letZFrancieKeKoni(kone[2]);
+		letouny[0].letounPristal();*/
+		stop = System.currentTimeMillis();
+		System.out.println("Čas čtení parser 1 = " + (stop - start));
+		System.out.println("---------------------------------------------------------------");
+		start = System.currentTimeMillis();
+		parser2("data/tutorial.txt");
+		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
+		System.out.printf("Pocet koni: %d \n", K);
+		vypisKoni();
+		System.out.printf("Pocet letounu: %d \n", L);
+		vypisLetounu();
+		letouny[0].start();
+		letouny[0].letKeKoni(kone[0], kone[1]);
+		letouny[0].letDoFrancie(kone[1]);
+		letouny[0].letZFrancieKeKoni(kone[2]);
+		letouny[0].letounPristal();*/
+		stop = System.currentTimeMillis();
+		System.out.println("Čas čtení parser 2 = " + (stop - start));
 	}
 
 }

@@ -1,6 +1,6 @@
 /**
- * @author Lukas Runt
- * @version 1.0 (25-09-2021)
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.1 (01-10-2021)
  */
 public class Kun {
 	
@@ -25,12 +25,17 @@ public class Kun {
 	 * @param n - doba nalozeni
 	 */
 	public Kun(double x, double y, int m, int n) {
+		this();
 		this.x = x;
 		this.y = y;
 		this.m = m;
 		this.n = n;
-		cislo = pocetKoni++;
 	}
+	
+	/* Defaultni konstruktor*/
+	public Kun() {
+		cislo = pocetKoni++;
+	};
 	
 	public double getX() {
 		return x;
@@ -68,6 +73,10 @@ public class Kun {
 		return cislo;
 	}
 	
+	/**
+	 * Textova reprezentace instance kone
+	 * @return textova reprezentace instance kone
+	 */
 	public String toString() {
 		return String.format("Kun %d: x = %f, y = %f, m = %d, n = %d",cislo, x, y, m, n);
 	}
