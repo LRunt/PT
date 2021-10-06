@@ -1,3 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+import kolekce.RozvrhovaAkce;
+
 /**
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.2 (04-10-2021)
@@ -33,6 +40,7 @@ public class Main {
 			b = souradnice[1];
 			kone = ps.getKone();
 			letouny = ps.getLetouny();
+			ps.sc.close();
 		} catch (Exception ex) {
 			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
 		}
@@ -55,23 +63,42 @@ public class Main {
 			System.out.println(letouny[i].toString());
 		}
 	}
+	
+	/*public static void nacitaniRychle(String jmenoSouboru) {
+		try {
+			PrintWriter pw = new PrintWriter(
+							 new BufferedWriter(
+							 new FileWriter(
+							 new File(jmenoSouboru))));
+			
+			}
+			pw.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
 
 	/**
 	 * Vstupni metoda
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/tutorial.txt");
-		System.out.printf("Pariz: x = %f, y = %f \n",a, b);
+		long start, stop;
+		start = System.currentTimeMillis();
+		parser("data/grid2000.txt");
+		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
 		System.out.printf("Pocet letounu: %d \n", L);
-		vypisLetounu();
-		letouny[0].start();
+		vypisLetounu();*/
+		stop = System.currentTimeMillis();
+		System.out.println("Trvani programu: " + (stop - start));
+		/*letouny[0].start();
 		letouny[0].letKeKoni(kone[0], kone[1]);
 		letouny[0].letDoFrancie(kone[1]);
 		letouny[0].letZFrancieKeKoni(kone[2]);
-		letouny[0].letounPristal();
+		letouny[0].letounPristal();*/
 	}
 
 }

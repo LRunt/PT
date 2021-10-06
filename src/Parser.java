@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Parser {
 	
 	/** Scanner souboru */
-	private Scanner sc;
+	public Scanner sc;
 	/** Promenna do ktere se uklada vstupni retezec */
 	private String retezec;
 	
