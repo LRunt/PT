@@ -1,9 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 
-import kolekce.RozvrhovaAkce;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -33,6 +28,7 @@ public class Main {
 	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
 	 */
 	public static void parser(String jmenoSouboru) {
+		System.out.println("Zacina nacitani dat.");
 		try {
 			Parser ps= new Parser(jmenoSouboru);
 			double[] souradnice = ps.getSouradnice();
@@ -41,13 +37,14 @@ public class Main {
 			kone = ps.getKone();
 			letouny = ps.getLetouny();
 			ps.sc.close();
+			System.out.println("Data uspesne nactena.");
 		} catch (Exception ex) {
 			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
 		}
 	}
 	
 	/**
-	 * Metoda vypise pole koni do konmzole
+	 * Metoda vypise pole koni do konzole
 	 */
 	public static void vypisKoni() {
 		for(int i = 0; i < kone.length; i++) {
@@ -65,14 +62,14 @@ public class Main {
 	}
 	
 	/*public static void nacitaniRychle(String jmenoSouboru) {
+		//[] vstup = new ArrayList<>(); 
+		
 		try {
-			PrintWriter pw = new PrintWriter(
-							 new BufferedWriter(
-							 new FileWriter(
-							 new File(jmenoSouboru))));
-			
+			List<String> seznamRadek = Files.readAllLines(Paths.get(jmenoSouboru));
+			vstup = seznamRadek.stream().filter(s -> s.matches("[0-9]+")).toArray();
+			for(String radka : seznamRadek) {
+				System.out.println(radka);
 			}
-			pw.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +83,7 @@ public class Main {
 	public static void main(String[] args) {
 		long start, stop;
 		start = System.currentTimeMillis();
-		parser("data/grid2000.txt");
+		parser("data/parser.txt");
 		/*System.out.printf("Pariz: x = %f, y = %f \n",a, b);
 		System.out.printf("Pocet koni: %d \n", K);
 		vypisKoni();
@@ -94,11 +91,12 @@ public class Main {
 		vypisLetounu();*/
 		stop = System.currentTimeMillis();
 		System.out.println("Trvani programu: " + (stop - start));
-		/*letouny[0].start();
+		letouny[0].start();
 		letouny[0].letKeKoni(kone[0], kone[1]);
 		letouny[0].letDoFrancie(kone[1]);
 		letouny[0].letZFrancieKeKoni(kone[2]);
-		letouny[0].letounPristal();*/
+		letouny[0].letounPristal();
+		//nacitaniRychle("data/parser.txt");
 	}
 
 }
