@@ -59,7 +59,7 @@ public class Letoun {
 	 */ 
 	public void letKeKoni(Kun kun1, Kun kun2) {
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", Main.cas, cislo, kun1.getCislo(), Main.cas + kun1.getN(), kun2.getCislo());
-		Main.cas += kun1.getN() + (spoctiVzdalenost(kun2.getX(), kun2.getY()) / V);
+		Main.cas += kun1.getN() + (Utils.spoctiVzdalenost(this, kun2.getX(), kun2.getY()) / V);
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
 		X = kun2.getX();
@@ -72,7 +72,7 @@ public class Letoun {
 	 */
 	public void letDoFrancie(Kun kun1) {
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", Main.cas, cislo, kun1.getCislo(), Main.cas + kun1.getN());
-		Main.cas += kun1.getN() + (spoctiVzdalenost(Main.a, Main.b) / V);
+		Main.cas += kun1.getN() + (Utils.spoctiVzdalenost(this, Main.a, Main.b) / V);
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
 		X = Main.a;
@@ -85,7 +85,7 @@ public class Letoun {
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
 		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", Main.cas, cislo, Main.cas + celkemN, kun1.getCislo());
-		Main.cas += celkemN + (spoctiVzdalenost(kun1.getX(), kun1.getY()) / V);
+		Main.cas += celkemN + (Utils.spoctiVzdalenost(this, kun1.getX(), kun1.getY()) / V);
 		celkemN = 0;
 		aktNakl = 0;
 		X = kun1.getX();
@@ -97,23 +97,11 @@ public class Letoun {
 	 */
 	public void letounPristal() {
 		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", Main.cas, cislo, Main.cas + celkemN);
-		Main.cas += celkemN + (spoctiVzdalenost(Main.a, Main.b) / V);
+		Main.cas += celkemN + (Utils.spoctiVzdalenost(this , Main.a, Main.b) / V);
 		celkemN = 0;
 		aktNakl = 0;
 		X = Main.a;
 		Y = Main.b;
-	}
-	
-	/**
-	 * Metoda spocte vzdalenost do mista kam leti letadlo
-	 * @param Xx - x-ova souradnice kam leti ledadlo
-	 * @param Yy - y-ova souradnice kam leti letadlo
-	 * @return prima vzdalenost
-	 */
-	private double spoctiVzdalenost(double Xx, double Yy) {
-		double x = Math.abs(X - Xx);
-		double y = Math.abs(Y - Yy);
-		return Math.sqrt(x * x + y * y);
 	}
 	
 	public double getX() {

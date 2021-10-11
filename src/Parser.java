@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -51,8 +52,8 @@ public class Parser {
 	 * Metoda vytvori ze souboru kone
 	 * @return pole koni
 	 */
-	public Kun[] getKone() {
-		Kun[] kone = null;
+	public ArrayList<Kun> getKone() {
+		ArrayList<Kun> kone = new ArrayList<>();
 		Kun kun = new Kun();
 		int pocetK = 0, aktK = 0, tmp = 0;
 		while (sc.hasNext()) {
@@ -62,7 +63,6 @@ public class Parser {
 			switch (tmp) {
 				case 0: 
 					pocetK = Integer.parseInt(retezec);
-					kone = new Kun[pocetK];
 					tmp = 1;
 					break;
 				case 1:
@@ -80,7 +80,7 @@ public class Parser {
 					break;
 				case 4:
 					kun.setN(Integer.parseInt(retezec));
-					kone[aktK] = kun;
+					kone.add(kun);
 					aktK++;
 					tmp = 1;
 					break;	
@@ -95,8 +95,8 @@ public class Parser {
 	 * Metoda vytvori ze souboru letouny na dopravu koni
 	 * @return pole letounu
 	 */
-	public Letoun[] getLetouny() {
-		Letoun[] letouny = null;
+	public ArrayList<Letoun> getLetouny() {
+		ArrayList<Letoun> letouny = new ArrayList<>();
 		Letoun let = new Letoun();
 		int pocetL = 0, aktL = 0, tmp = 0;
 		while (sc.hasNext()) {
@@ -106,7 +106,6 @@ public class Parser {
 			switch (tmp) {
 				case 0: 
 					pocetL = Integer.parseInt(retezec);
-					letouny = new Letoun[pocetL];
 					tmp = 1;
 					break;
 				case 1:
@@ -124,7 +123,7 @@ public class Parser {
 					break;
 				case 4:
 					let.setV(Double.parseDouble(retezec));
-					letouny[aktL] = let;
+					letouny.add(let);
 					aktL++;
 					tmp = 1;
 					break;	

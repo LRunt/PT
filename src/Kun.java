@@ -4,7 +4,7 @@
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.1 (01-10-2021)
  */
-public class Kun {
+public class Kun{
 	
 	/** Uchovava zaznam kolik koni existuje*/
 	private static int pocetKoni = 0;
