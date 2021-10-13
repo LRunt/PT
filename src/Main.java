@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -20,8 +19,8 @@ public class Main {
 	public static ArrayList<Kun> kone;
 	/** pole letounu */
 	public static ArrayList<Letoun> letouny;
-	/** Cas od zacatku simulace */
-	public static double cas;
+	/*/** Cas od zacatku simulace 
+	public static double cas;*/
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
@@ -98,7 +97,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/parser.txt");
+		parser("data/random100.txt");
 		simulace();
 	}
 

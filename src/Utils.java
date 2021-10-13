@@ -1,10 +1,6 @@
 /**
- * 
- */
-
-/**
- * @author Lukáš
- *
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.0 (13-10-2021)
  */
 public class Utils {
 

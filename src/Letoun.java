@@ -9,7 +9,7 @@ public class Letoun {
 	/** Uchovava zaznam kolik letounu existuje*/
 	private static int pocetLetounu = 0;
 	/** Cislo letounu (ID)*/
-	private int cislo; 
+	private final int PORADI = pocetLetounu++; 
 	/** Souradnice letouny*/
 	private double X;
 	/** Souradnice letouny*/
@@ -22,6 +22,8 @@ public class Letoun {
 	private double V;
 	/** Cas vylozeni koni na palube */
 	private double celkemN;
+	/** cas letu letadla */
+	private double cas = 0;
 	
 	/**
 	 * Konstruktor letouny
@@ -40,7 +42,6 @@ public class Letoun {
 	
 	/*Defaultni konstruktor*/
 	public Letoun() {
-		cislo = pocetLetounu++;
 		setAktNakl(0);
 		celkemN = 0;
 	}
@@ -49,7 +50,7 @@ public class Letoun {
 	 * Letoun startuje
 	 */
 	public void start() {
-		System.out.printf("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", Main.cas, cislo, X, Y);
+		System.out.printf("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", cas, PORADI, X, Y);
 	}
 	
 	/**
@@ -58,12 +59,11 @@ public class Letoun {
 	 * @param Kun ke kteremmu se poleti
 	 */ 
 	public void letKeKoni(Kun kun1, Kun kun2) {
-		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", Main.cas, cislo, kun1.getCislo(), Main.cas + kun1.getN(), kun2.getCislo());
-		Main.cas += kun1.getN() + (Utils.spoctiVzdalenost(this, kun2.getX(), kun2.getY()) / V);
+		presun(kun1.getX(), kun1.getY());
+		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN(), kun2.getPoradi());
+		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
-		X = kun2.getX();
-		Y = kun2.getY();
 	}
 	
 	/**
@@ -71,12 +71,11 @@ public class Letoun {
 	 * @param kun1 Kun, ktery se naklada
 	 */
 	public void letDoFrancie(Kun kun1) {
-		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", Main.cas, cislo, kun1.getCislo(), Main.cas + kun1.getN());
-		Main.cas += kun1.getN() + (Utils.spoctiVzdalenost(this, Main.a, Main.b) / V);
+		presun(kun1.getX(), kun1.getY());
+		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN());
+		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
-		X = Main.a;
-		Y = Main.b;
 	}
 	
 	/**
@@ -84,24 +83,32 @@ public class Letoun {
 	 * @param kun1 Kun, ke kteremu se poleti
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
-		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", Main.cas, cislo, Main.cas + celkemN, kun1.getCislo());
-		Main.cas += celkemN + (Utils.spoctiVzdalenost(this, kun1.getX(), kun1.getY()) / V);
+		presun(Main.a, Main.b);
+		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
+		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
-		X = kun1.getX();
-		Y = kun1.getY();
 	}
 	
 	/**
 	 * Letoun vyloozil kone v Parizi na zustava
 	 */
 	public void letounPristal() {
-		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", Main.cas, cislo, Main.cas + celkemN);
-		Main.cas += celkemN + (Utils.spoctiVzdalenost(this , Main.a, Main.b) / V);
+		presun(Main.a, Main.b);
+		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", cas, PORADI, cas + celkemN);
+		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
-		X = Main.a;
-		Y = Main.b;
+		
+	}
+	
+	/**
+	 * Metoda presouva letadlo z bodu A do bodu B
+	 */
+	private void presun(double x, double y) {
+		cas += Utils.spoctiVzdalenost(this , x, y) / V;
+		setX(x);
+		setY(y);
 	}
 	
 	public double getX() {
@@ -148,7 +155,7 @@ public class Letoun {
 	 * @return textova reprezentace instance letounu
 	 */
 	public String toString() {
-		return String.format("Letoun %d: x = %f, y = %f, m = %d, v = %f", cislo, X, Y, M, V);
+		return String.format("Letoun %d: x = %f, y = %f, m = %d, v = %f", PORADI, X, Y, M, V);
 	}
 
 	
