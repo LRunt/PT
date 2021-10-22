@@ -44,6 +44,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Zakladni simulace pomoci greedy algoritmu
+	 */
 	public static void simulace() {
 		System.out.println("Zacatek simulace:");
 		ArrayList<Kun> koneKPreprave = kone;
@@ -83,25 +86,22 @@ public class Main {
 	public static void vypisLetounu() {
 		letouny.stream().forEach(s -> System.out.println(s));
 	}
-	
-	/*public static void nacitaniRychle(String jmenoSouboru) {
-		try {
-			List<String> seznamRadek = Files.readAllLines(Paths.get(jmenoSouboru));
-			seznamRadek.stream().forEach(s -> s.replace(":-)", "â�ş"));
-			seznamRadek.stream().forEach(s -> s = s.split("â�ş")[0]);
-			seznamRadek.stream().forEach(s -> System.out.println(s));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
+	/**
+	 * Metoda seradi letouny podle rychlosti
+	 */
+	public static void serazeniLetounu() {
+		Collections.sort(letouny, (l1,l2) -> (int)(l2.getV() * 1000 - l1.getV() * 1000));
+	}
+	
+	
 	/**
 	 * Vstupni metoda
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/random100.txt");
+		parser("data/each1.txt");
+		serazeniLetounu();
 		simulace();
 	}
 
