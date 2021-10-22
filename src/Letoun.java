@@ -76,6 +76,7 @@ public class Letoun {
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
+		presun(Main.a, Main.b);
 	}
 	
 	/**
@@ -83,11 +84,11 @@ public class Letoun {
 	 * @param kun1 Kun, ke kteremu se poleti
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
-		presun(Main.a, Main.b);
 		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
 		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
+		presun(kun1.getX(), kun1.getY());
 	}
 	
 	/**

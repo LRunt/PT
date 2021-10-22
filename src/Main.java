@@ -45,7 +45,7 @@ public class Main {
 	}
 	
 	public static void simulace() {
-		System.out.println("Zacatek simulace");
+		System.out.println("Zacatek simulace:");
 		ArrayList<Kun> koneKPreprave = kone;
 		letouny.get(0).start();
 		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
@@ -55,8 +55,10 @@ public class Main {
 			if(koneKPreprave.size() == 1) {
 				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
-			}else if(letouny.get(0).getX() == a &&  letouny.get(0).getX() == b) {
+			} else if(letouny.get(0).getX() == a &&  letouny.get(0).getX() == b) {
 				letouny.get(0).letZFrancieKeKoni(koneKPreprave.get(0));
+			} else if(letouny.get(0).getM() < letouny.get(0).getAktNakl() + koneKPreprave.get(0).getM() + koneKPreprave.get(1).getM() ) {
+				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 			} else{
 				letouny.get(0).letKeKoni(koneKPreprave.get(0), koneKPreprave.get(1));
