@@ -21,6 +21,8 @@ public class Main {
 	public static ArrayList<Kun> kone;
 	/** pole letounu */
 	public static ArrayList<Letoun> letouny;
+	/** zjistuje jestli je letoun v parizi*/
+	public static boolean jeVeFrancii = false;
 	/*/** Cas od zacatku simulace 
 	public static double cas;*/
 	
@@ -60,11 +62,16 @@ public class Main {
 			if(koneKPreprave.size() == 1) {
 				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
-			} else if(letouny.get(0).getX() == a &&  letouny.get(0).getX() == b) {
+				jeVeFrancii = true;
+				//leti z parize
+			} else if(jeVeFrancii) {
 				letouny.get(0).letZFrancieKeKoni(koneKPreprave.get(0));
+				jeVeFrancii = false;
+				//leti do parize
 			} else if(letouny.get(0).getM() < letouny.get(0).getAktNakl() + koneKPreprave.get(0).getM() + koneKPreprave.get(1).getM() ) {
 				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
+				jeVeFrancii = true;
 			} else{
 				letouny.get(0).letKeKoni(koneKPreprave.get(0), koneKPreprave.get(1));
 				koneKPreprave.remove(0);
@@ -102,7 +109,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/random100.txt");
+		parser("data/fibonacci.txt");
 		JFrame okno = new JFrame();
 		okno.setTitle("Semestralni prace - PT");
 		okno.setResizable(false);
