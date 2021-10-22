@@ -48,8 +48,10 @@ public class Main {
 		System.out.println("Zacatek simulace");
 		ArrayList<Kun> koneKPreprave = kone;
 		letouny.get(0).start();
+		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
 		while(koneKPreprave.size() > 0) {
-			Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
+			Kun nasledujiciKun = koneKPreprave.get(0);
+			Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(nasledujiciKun, k1) - Utils.spoctiVzdalenost(nasledujiciKun, k2)));
 			if(koneKPreprave.size() == 1) {
 				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
@@ -83,8 +85,8 @@ public class Main {
 	/*public static void nacitaniRychle(String jmenoSouboru) {
 		try {
 			List<String> seznamRadek = Files.readAllLines(Paths.get(jmenoSouboru));
-			seznamRadek.stream().forEach(s -> s.replace(":-)", "☺"));
-			seznamRadek.stream().forEach(s -> s = s.split("☺")[0]);
+			seznamRadek.stream().forEach(s -> s.replace(":-)", "â�ş"));
+			seznamRadek.stream().forEach(s -> s = s.split("â�ş")[0]);
 			seznamRadek.stream().forEach(s -> System.out.println(s));
 		}
 		catch (Exception e) {
