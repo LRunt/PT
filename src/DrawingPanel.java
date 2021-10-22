@@ -66,13 +66,13 @@ public class DrawingPanel extends Component {
 	private void drawKone(Graphics2D g2) {
 		g2.setColor(Color.RED);
 		for(Kun kun : Main.kone) {
-			g2.drawOval((int)((kun.getX() * scale) + posunutiX)- POMER_KRUHU/2, (int)((kun.getY() * scale) + posunutiY)- POMER_KRUHU/2, POMER_KRUHU, POMER_KRUHU);
+			g2.drawOval((int)((kun.getX() * scale) + posunutiX) - POMER_KRUHU/2, (int)((kun.getY() * scale) + posunutiY)- POMER_KRUHU/2, POMER_KRUHU, POMER_KRUHU);
 		}
 	}
 	
 	private void drawPariz(Graphics g2) {
 		g2.setColor(Color.BLUE);
-		g2.drawOval((int)((Main.a * scale) + posunutiX) - POMER_KRUHU/2, (int)((Main.b * scale) + posunutiY)/2 - POMER_KRUHU/2, POMER_KRUHU, POMER_KRUHU);
+		g2.drawOval((int)((Main.a * scale) + posunutiX) - POMER_KRUHU/2, (int)((Main.b * scale) + posunutiY) - POMER_KRUHU/2, POMER_KRUHU, POMER_KRUHU);
 	}
 	
 	private void drawLetouny(Graphics2D g2) {
