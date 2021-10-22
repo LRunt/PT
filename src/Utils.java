@@ -1,15 +1,10 @@
+import java.util.Collections;
+
 /**
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.0 (13-10-2021)
  */
 public class Utils {
-
-	/**
-	 * 
-	 */
-	public Utils() {
-		
-	}
 	
 	/**
 	 * Metoda spocte vzdalenost do mista kam leti letadlo
@@ -46,6 +41,26 @@ public class Utils {
 		double x = Math.abs(letoun.getX() - X1);
 		double y = Math.abs(letoun.getY() - Y1);
 		return Math.sqrt(x * x + y * y);
+	}
+	
+	public static double getNejvetsiXKone() {
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getX() * 1000 - k1.getX() * 1000));
+		return Main.kone.get(0).getX();
+	}
+	
+	public static double getNejmensiXKone() {
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getX() * 1000 - k2.getX() * 1000));
+		return Main.kone.get(0).getX();
+	}
+	
+	public static double getNejvetsiYKone() {
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getY() * 1000 - k1.getY() * 1000));
+		return Main.kone.get(0).getX();
+	}
+	
+	public static double getNejmensiYKone() {
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getY() * 1000 - k2.getY() * 1000));
+		return Main.kone.get(0).getX();
 	}
 
 }

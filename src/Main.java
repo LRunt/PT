@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.JFrame;
+
 /**
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.2 (04-10-2021)
@@ -100,9 +102,19 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/each1.txt");
-		serazeniLetounu();
-		simulace();
+		parser("data/random100.txt");
+		JFrame okno = new JFrame();
+		okno.setTitle("Semestralni prace - PT");
+		okno.setResizable(false);
+		
+		okno.add(new DrawingPanel());//pridani komponenty
+		okno.pack(); //udela resize okna dle komponent
+		
+		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//skonceni po zavreni okna
+		okno.setLocationRelativeTo(null);//vycentrovat na obrazovce
+		okno.setVisible(true);
+		/*serazeniLetounu();
+		simulace();*/
 	}
 
 }
