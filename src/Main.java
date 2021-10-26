@@ -116,7 +116,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/fibonacci.txt");
+		parser("data/random100.txt");
 		JFrame okno = new JFrame();
 		okno.setTitle("Semestralni prace - PT");
 		okno.setResizable(false);

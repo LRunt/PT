@@ -107,6 +107,7 @@ public class DrawingPanel extends Component {
 			//leti do francie
 			} else if(Main.letouny.get(0).getM() < Main.letouny.get(0).getAktNakl() + koneKPreprave.get(0).getM() + koneKPreprave.get(1).getM() ) {
 				g2.drawLine((int)((Main.letouny.get(0).getX() * scale) + posunutiX), (int)((Main.letouny.get(0).getY() * scale) + posunutiY), (int)((koneKPreprave.get(0).getX() * scale) + posunutiX), (int)((koneKPreprave.get(0).getY() * scale) + posunutiY));
+				g2.drawLine((int)((Main.a * scale) + posunutiX), (int)((Main.b * scale) + posunutiY), (int)((koneKPreprave.get(0).getX() * scale) + posunutiX), (int)((koneKPreprave.get(0).getY() * scale) + posunutiY));
 				Main.letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 				jeVeFrancii = true;
