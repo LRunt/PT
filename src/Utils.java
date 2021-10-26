@@ -7,6 +7,27 @@ import java.util.Collections;
 public class Utils {
 	
 	/**
+	 * Metoda spocita cas letu
+	 * @param letoun - letoun ktery leti
+	 * @param kun - kun pro ktereho se leti
+	 * @return celkovy cas letu
+	 */
+	public static double spoctiCas(Letoun letoun, Kun kun)  {
+		return spoctiVzdalenost(letoun,kun)/ letoun.getV() + kun.getN();
+	}
+
+	/**
+	 * Metoda spocita cas letu
+	 * @param rychlost - rychlost letounu
+	 * @param kun1 - kun od ktereho se leti
+	 * @param kun2 - kun ke teremu se leti
+	 * @return celkovy cas letu
+	 */
+	public static double spoctiCas(double rychlost, Kun kun1, Kun kun2)  {
+		return spoctiVzdalenost(kun1,kun2)/ rychlost + kun2.getN();
+	}
+	
+	/**
 	 * Metoda spocte vzdalenost do mista kam leti letadlo
 	 * @param Xx - x-ova souradnice kam leti ledadlo
 	 * @param Yy - y-ova souradnice kam leti letadlo
