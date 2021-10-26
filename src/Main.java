@@ -90,6 +90,13 @@ public class Main {
 	}
 	
 	/**
+	 * Metoda vypise pozici Parize
+	 */
+	public static void vypisParize() {
+		System.out.printf("Pariz: x = %f; y = %f\n");
+	}
+	
+	/**
 	 * Metoda vypise pole letounu do konzole
 	 */
 	public static void vypisLetounu() {
