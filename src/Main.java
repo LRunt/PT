@@ -99,7 +99,7 @@ public class Main {
 		while(pocetKoni >= prevezenoKoni) {
 			//System.out.println(prevezenoKoni + "; " + pocetKoni);
 			while(i < letouny.size()) {
-				if(letouny.get(0).getV()/2.0 < letouny.get(i).getV()) {
+				if(letouny.get(0).getV()/4.0 < letouny.get(i).getV()) {
 					Letoun aktLet = letouny.get(i);
 					if(letouny.get(i).getNasledujiciKun() == null) {
 						letouny.get(i).start();
@@ -131,8 +131,9 @@ public class Main {
 						koneKPreprave.remove(0);
 						prevezenoKoni++;
 					}i++;
+				}else {
+					i++;
 				}
-				
 			}
 			i = 0;
 		}
