@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -25,6 +29,8 @@ public class Main {
 	public static boolean jeVeFrancii = false;
 	/*/** Cas od zacatku simulace 
 	public static double cas;*/
+	/** Celkovy retezec */
+	public static String retezec = "";
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
@@ -108,6 +114,18 @@ public class Main {
 	 */
 	public static void serazeniLetounu() {
 		Collections.sort(letouny, (l1,l2) -> (int)(l2.getV() * 1000 - l1.getV() * 1000));
+	}
+	
+	public static void vypisDoSouboru() {
+		try {
+			 PrintWriter pw = new PrintWriter(
+                     new BufferedWriter(
+                     new FileWriter(new File("Vystup.txt"))));
+			 pw.print(retezec);
+			 pw.close();
+		}catch(Exception ex) {
+			 ex.printStackTrace();
+		}
 	}
 	
 	

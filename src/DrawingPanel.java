@@ -121,5 +121,6 @@ public class DrawingPanel extends Component {
 		}
 		Main.letouny.get(0).letounPristal();
 		System.out.println("Konec simulace");
+		Main.vypisDoSouboru();
 	}
 }

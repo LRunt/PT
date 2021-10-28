@@ -51,6 +51,7 @@ public class Letoun {
 	 */
 	public void start() {
 		System.out.printf("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", cas, PORADI, X, Y);
+		Main.retezec += String.format("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", cas, PORADI, X, Y);
 	}
 	
 	/**
@@ -61,6 +62,7 @@ public class Letoun {
 	public void letKeKoni(Kun kun1, Kun kun2) {
 		presun(kun1.getX(), kun1.getY());
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN(), kun2.getPoradi());
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN(), kun2.getPoradi());
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
@@ -73,6 +75,7 @@ public class Letoun {
 	public void letDoFrancie(Kun kun1) {
 		presun(kun1.getX(), kun1.getY());
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN());
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN());
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
@@ -85,6 +88,7 @@ public class Letoun {
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
 		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
 		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
@@ -97,6 +101,7 @@ public class Letoun {
 	public void letounPristal() {
 		presun(Main.a, Main.b);
 		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", cas, PORADI, cas + celkemN);
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", cas, PORADI, cas + celkemN);
 		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
