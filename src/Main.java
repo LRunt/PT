@@ -17,15 +17,15 @@ public class Main {
 	public static double a;
 	/** Souradnice Parize Y*/
 	public static double b;
-	/** pocet koni*/
+	/** Pocet koni*/
 	public static int K;
-	/** pocet letounu*/
+	/** Pocet letounu*/
 	public static int L;
-	/** pole koni */
+	/** Pole koni */
 	public static ArrayList<Kun> kone;
-	/** pole letounu */
+	/** Pole letounu */
 	public static ArrayList<Letoun> letouny;
-	/** zjistuje jestli je letoun v parizi*/
+	/** Zjistuje jestli je letoun v Parizi*/
 	public static boolean jeVeFrancii = false;
 	/*/** Cas od zacatku simulace 
 	public static double cas;*/
@@ -36,7 +36,7 @@ public class Main {
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
 	 * do konce radku
 	 * 
-	 * @param jmenoSouboru jak se jmenuje soubor, ze ktereho ziskame data
+	 * @param jmenoSouboru nazev soubor, ze ktereho ziskame data
 	 */
 	public static void parser(String jmenoSouboru) {
 		System.out.println("Zacina nacitani dat.");
@@ -61,10 +61,10 @@ public class Main {
 		System.out.println("Zacatek simulace:");
 		ArrayList<Kun> koneKPreprave = kone;
 		letouny.get(0).start();
-		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
+		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) *  100 - Utils.spoctiVzdalenost(letouny.get(0), k2) * 100));
 		while(koneKPreprave.size() > 0) {
 			Kun nasledujiciKun = koneKPreprave.get(0);
-			Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(nasledujiciKun, k1) - Utils.spoctiVzdalenost(nasledujiciKun, k2)));
+			Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(nasledujiciKun, k1) * 1000 - Utils.spoctiVzdalenost(nasledujiciKun, k2) * 1000));
 			if(koneKPreprave.size() == 1) {
 				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
@@ -89,56 +89,64 @@ public class Main {
 	}
 	
 	/**
-	 * 
+	 * Simulace s vice letadly
 	 */
 	public static void simulace2() {
-		int pocetKoni = kone.size(), prevezenoKoni = 0, i = 0;
+		int pocetKoni = kone.size(), prevezenoKoni = 0;
 		System.out.println("Zacatek simulace:");
 		ArrayList<Kun> koneKPreprave = kone;
-		serazeniLetounu();
+		//serazeniLetounu();
+		selekceLetadel();
 		while(pocetKoni >= prevezenoKoni) {
 			//System.out.println(prevezenoKoni + "; " + pocetKoni);
-			while(i < letouny.size()) {
-				if(letouny.get(0).getV()/4.0 < letouny.get(i).getV()) {
-					Letoun aktLet = letouny.get(i);
-					if(letouny.get(i).getNasledujiciKun() == null) {
-						letouny.get(i).start();
-						Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet, k1) - Utils.spoctiVzdalenost(aktLet, k2)));
-						letouny.get(i).setNasledujiciKun(koneKPreprave.get(0));
-						koneKPreprave.remove(0);
-					} else if(koneKPreprave.size() > 0) {
-						Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2)));
-					}
-					if(koneKPreprave.size() == 0) {
-						letouny.get(i).letDoFrancie(letouny.get(i).getNasledujiciKun());
-						prevezenoKoni++;
-						jeVeFrancii = true;
-						//leti z parize
-					} else if(jeVeFrancii) {
-						letouny.get(i).letZFrancieKeKoni(letouny.get(i).getNasledujiciKun());
-						jeVeFrancii = false;
-						//leti do parize
-					} else if(letouny.get(i).getM() < letouny.get(i).getAktNakl() + letouny.get(i).getNasledujiciKun().getM() + koneKPreprave.get(0).getM() ) {
-						letouny.get(i).letDoFrancie(letouny.get(i).getNasledujiciKun());
-						//koneKPreprave.remove(0);
-						letouny.get(i).setNasledujiciKun(koneKPreprave.get(0));
-						koneKPreprave.remove(0);
-						prevezenoKoni++;
-						jeVeFrancii = true;
-					} else{
-						letouny.get(i).letKeKoni(letouny.get(i).getNasledujiciKun(), koneKPreprave.get(0));
-						letouny.get(i).setNasledujiciKun(koneKPreprave.get(0));
-						koneKPreprave.remove(0);
-						prevezenoKoni++;
-					}i++;
-				}else {
-					i++;
-				}
+			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() - l2.getCas()));
+			Letoun aktLet = letouny.get(0);
+			if(letouny.get(0).getNasledujiciKun() == null && koneKPreprave.size() >= 2) {
+				letouny.get(0).start();
+				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet, k1) * 100 - Utils.spoctiVzdalenost(aktLet, k2) * 100));
+				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
+				koneKPreprave.remove(0);
+			} else if(koneKPreprave.size() > 1) {
+				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) * 1000 - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2) * 1000));
 			}
-			i = 0;
+			if(koneKPreprave.size() == 0) {
+				if(letouny.get(0).getNasledujiciKun() == null) {
+					prevezenoKoni++;
+				} else if(letouny.get(0).getNasledujiciKun().prevezen == false) {
+					letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
+					prevezenoKoni++;
+					jeVeFrancii = true;
+					letouny.get(0).getNasledujiciKun().prevezen = true;
+				} else {
+					prevezenoKoni++;
+				}
+				//leti z parize
+			} else if(jeVeFrancii) {
+				if(koneKPreprave.size() == 0 || letouny.get(0).getNasledujiciKun() == null) {
+					letouny.get(0).letounPristal();
+				} else {
+					letouny.get(0).letZFrancieKeKoni(letouny.get(0).getNasledujiciKun());
+					jeVeFrancii = false;
+				}
+				//leti do parize
+			} else if(letouny.get(0).getM() < letouny.get(0).getAktNakl() + letouny.get(0).getNasledujiciKun().getM() + koneKPreprave.get(0).getM() ) {
+				letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
+				//koneKPreprave.remove(0);
+				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
+				koneKPreprave.remove(0);
+				prevezenoKoni++;
+				jeVeFrancii = true;
+			} else{
+				letouny.get(0).letKeKoni(letouny.get(0).getNasledujiciKun(), koneKPreprave.get(0));
+				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
+				koneKPreprave.remove(0);
+				prevezenoKoni++;
+			}
 		}
-		letouny.stream().forEach(l -> l.letounPristal());
+		letouny.stream().filter(l -> l.getNasledujiciKun() != null).forEach(l -> l.letounPristal());
 		System.out.println("Konec simulace");
+		Collections.sort(letouny, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
+		System.out.printf("Simulace trvala: %.0f",letouny.get(0).getCas());
 	}	
 			
 			
@@ -166,6 +174,28 @@ public class Main {
 		letouny.get(0).letounPristal();
 		System.out.println("Konec simulace");
 	}*/
+	
+	public static void selekceLetadel() {
+		serazeniLetounu();
+		Double nejRychlost = letouny.get(0).getV();
+		System.out.println(nejRychlost/5.0);
+		for(int i = 0; i < letouny.size(); i++) {
+			if(letouny.get(i).getV() < nejRychlost/10.0) {
+				letouny.remove(i);
+				i--;
+				}
+		}
+	}
+	
+	public static void vypisCelkovehoCasu() {
+		letouny.stream().forEach(l -> System.out.println(l));
+		//letouny.stream().max((l1, l2) -> (int)(l1.getCas() - l2.getCas()));
+	}
+	
+	public static void serazeniPodleCisla() {
+		Collections.sort(letouny, (l1,l2) -> (int)(l2.getPoradi()- l1.getPoradi()));
+		//System.out.
+	}
 	
 	/**
 	 * Metoda vypise pole koni do konzole
@@ -213,9 +243,16 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/tutorial.txt");
-		vypisKoni();
+		parser("data/random10000.txt");
+		//vypisKoni();
 		vypisLetounu();
+		simulace2();
+		/*Simulace sim = new Simulace(kone);
+		sim.createGraf();*/
+		vypisDoSouboru();
+		
+		
+		
 		/*JFrame okno = new JFrame();
 		okno.setTitle("Semestralni prace - PT");
 		okno.setResizable(false);
@@ -226,7 +263,6 @@ public class Main {
 		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//skonceni po zavreni okna
 		okno.setLocationRelativeTo(null);//vycentrovat na obrazovce
 		okno.setVisible(true);*/
-		simulace2();
 	}
 
 }
