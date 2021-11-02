@@ -2,8 +2,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * @author Lukas
- *
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.0 (30-10-2021)
  */
 public class Graf {
 

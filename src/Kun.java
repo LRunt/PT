@@ -2,7 +2,7 @@
  * Instance tridy Kun reprezentuje kone, ktery ma byt prevezen do Parize
  * 
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.1 (01-10-2021)
+ * @version 1.2 (28-10-2021)
  */
 public class Kun{
 	
@@ -14,10 +14,12 @@ public class Kun{
 	private double x;
 	/** Souradnice kone y*/
 	private double y;
-	/** hmotnost kone s vybavenim */
+	/** Hmotnost kone s vybavenim */
 	private int m;
-	/** doba nalozeni kone */
+	/** Doba nalozeni kone */
 	private int n;
+	/** Kun je prevezen */
+	public boolean prevezen;
 
 	/**
 	 * Konstruktor kone
@@ -36,6 +38,7 @@ public class Kun{
 	
 	/* Defaultni konstruktor*/
 	public Kun() {
+		prevezen = false;
 	};
 	
 	public double getX() {

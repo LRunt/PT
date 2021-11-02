@@ -11,8 +11,8 @@ import java.util.Collections;
  */
 
 /**
- * @author Lukas Runt
- *
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.1 (01-10-2021)
  */
 public class DrawingPanel extends Component {
 	

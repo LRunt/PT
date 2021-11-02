@@ -2,7 +2,7 @@
  * Instance tridy Letoun reprezentuje Letouny, ktere maji za ukol dopravit kone do Parize
  * 
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.1 (01-10-2021)
+ * @version 1.2 (28-10-2021)
  */
 public class Letoun {
 	
@@ -22,11 +22,13 @@ public class Letoun {
 	private double V;
 	/** Cas vylozeni koni na palube */
 	private double celkemN;
-	/** cas letu letadla */
+	/** Cas letu letadla */
 	private double cas = 0;
+	/** Nasledujici kun */
+	private Kun nasledujiciKun;
 	
 	/**
-	 * Konstruktor letouny
+	 * Konstruktor letounu
 	 * @param X - x-ova souradnice
 	 * @param Y - y-ova souradnice
 	 * @param M - nosnost letounu
@@ -56,8 +58,8 @@ public class Letoun {
 	
 	/**
 	 * Letoun naklada kone a bude nakladat dalsiho
-	 * @param Kun, ktery se naklada
-	 * @param Kun ke kteremmu se poleti
+	 * @param Kun, ktery je nakladan
+	 * @param Kun, ke kteremmu se poleti
 	 */ 
 	public void letKeKoni(Kun kun1, Kun kun2) {
 		presun(kun1.getX(), kun1.getY());
@@ -70,7 +72,7 @@ public class Letoun {
 	
 	/**
 	 * Letoun nalozil kone a leti na olympianu
-	 * @param kun1 Kun, ktery se naklada
+	 * @param kun1 Kun, ktery je nakladan
 	 */
 	public void letDoFrancie(Kun kun1) {
 		presun(kun1.getX(), kun1.getY());
@@ -96,7 +98,7 @@ public class Letoun {
 	}
 	
 	/**
-	 * Letoun vyloozil kone v Parizi na zustava
+	 * Letoun vylozil kone v Parizi, kde zustava
 	 */
 	public void letounPristal() {
 		presun(Main.a, Main.b);
@@ -155,6 +157,22 @@ public class Letoun {
 
 	public void setAktNakl(int aktNakl) {
 		this.aktNakl = aktNakl;
+	}
+	
+	public Kun getNasledujiciKun() {
+		return nasledujiciKun;
+	}
+	
+	public void setNasledujiciKun(Kun nasledujiciKun) {
+		this.nasledujiciKun = nasledujiciKun;
+	}
+	
+	public int getPoradi() {
+		return PORADI;
+	}
+	
+	public double getCas() {
+		return cas;
 	}
 	
 	/**

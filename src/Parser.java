@@ -13,7 +13,7 @@ public class Parser {
 	
 	/** Scanner souboru */
 	public Scanner sc;
-	/** Promenna do ktere se uklada vstupni retezec */
+	/** Promenna, do ktere se uklada vstupni retezec */
 	private String retezec;
 	
 
@@ -135,7 +135,7 @@ public class Parser {
 	}
 	
 	/**
-	 * Metoda rozhoduje, zda se jedná o komentář
+	 * Metoda rozhoduje, zda se jedna o komentar
 	 * @param retezec vstupni retezec
 	 * @return true - je to komentar, false - neni to komentar
 	 */
