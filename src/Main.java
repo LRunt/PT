@@ -70,8 +70,12 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		parser("data/grid200.txt");
-		//simulace2();
+	
+		parser("data/random100.txt");	
+		Utils.vypisKoni();
+		System.out.println("----------------------------");
+		Utils.vypisLetounu();
+		System.out.println("----------------------------");
 		Simulace sim = new Simulace();
 		sim.greedySimulace();
 		//vypisDoSouboru();

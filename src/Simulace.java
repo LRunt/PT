@@ -6,16 +6,18 @@ import java.util.Collections;
  * @version 1.2 (02-11-2021)
  */
 public class Simulace {
-	/** typedef koni z mainu*/
+	/** Typedef koni z mainu*/
 	private ArrayList<Kun> kone = Main.kone;
-	/** typedef letounu z mainu*/
+	/** Typedef letounu z mainu*/
 	private ArrayList<Letoun> letouny = Main.letouny;
 	/** Graf konu*/
 	private Graf graf;
-	/** Zjistuje jestli je letoun v Parizi*/
-	private boolean jeVeFrancii = false;
 	/** Index kone v seznamu */ 
 	private int index = 0;
+	/** Odstranuje chybu */
+	private static final int K = 1000;
+	/** Kolikrat muze byt kun dal, nez letoun poleti do Parize */
+	private static final int MAX_VZDALENOST = 2;
 
 	/**
 	 * 
@@ -80,15 +82,15 @@ public class Simulace {
 		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
 		Utils.selekceLetadel();
 		while(pocetKoni >= prevezenoKoni) {
-			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() * 1000 - l2.getCas() * 1000));
+			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 			Letoun aktLet = letouny.get(0);
 			if(letouny.get(0).getNasledujiciKun() == null && koneKPreprave.size() >= 1) {
 				letouny.get(0).start();
-				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet, k1) * 100 - Utils.spoctiVzdalenost(aktLet, k2) * 100));
+				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet, k1) * K - Utils.spoctiVzdalenost(aktLet, k2) * K));
 				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 			} else if(koneKPreprave.size() > 1) {
-				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) * 1000 - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2) * 1000));
+				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) * K - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2) * K));
 			}
 			if(koneKPreprave.size() == 0) {
 				if(letouny.get(0).getNasledujiciKun() == null) {
@@ -96,27 +98,24 @@ public class Simulace {
 				} else if(letouny.get(0).getNasledujiciKun().prevezen == false) {
 					letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
 					prevezenoKoni++;
-					jeVeFrancii = true;
 					letouny.get(0).getNasledujiciKun().prevezen = true;
 				} else {
 					prevezenoKoni++;
 				}
 				//leti z parize
-			} else if(jeVeFrancii) {
+			} else if(letouny.get(0).getJeVParizi()) {
 				if(koneKPreprave.size() == 0 || letouny.get(0).getNasledujiciKun() == null) {
 					letouny.get(0).letounPristal();
 				} else {
 					letouny.get(0).letZFrancieKeKoni(letouny.get(0).getNasledujiciKun());
-					jeVeFrancii = false;
 				}
 				//leti do parize
-/*vylepsit*/} else if(letetDoParize(koneKPreprave, letouny.get(0))) {
+			} else if(letetDoParize(koneKPreprave, letouny.get(0))) {
 				letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
 				//koneKPreprave.remove(0);
 				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 				prevezenoKoni++;
-				jeVeFrancii = true;
 			} else{
 				letouny.get(0).letKeKoni(letouny.get(0).getNasledujiciKun(), koneKPreprave.get(index));
 				letouny.get(0).setNasledujiciKun(koneKPreprave.get(index));
@@ -127,8 +126,10 @@ public class Simulace {
 		letouny.stream().filter(l -> l.getNasledujiciKun() != null).forEach(l -> l.letounPristal());
 		System.out.println("Konec simulace");
 		Collections.sort(letouny, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
-		System.out.printf("Simulace trvala: %.0f",letouny.get(0).getCas());
+		System.out.printf("Simulace trvala: %.0f\n",letouny.get(0).getCas());
+		System.out.printf("Bylo prepraveno %d koni.\n", kone.size());
 		Main.retezec += String.format("Simulace trvala: %.0f",letouny.get(0).getCas());
+	
 	}
 	
 	/**
@@ -138,7 +139,7 @@ public class Simulace {
 	public boolean letetDoParize(ArrayList<Kun> koneKPreprave, Letoun l) {
 		index = 0;
 		double vzdalenostDoParize = Utils.spoctiVzdalenost(l, Main.a, Main.b), vzdalenostKeKoni = 0;
-		while(index < koneKPreprave.size() && vzdalenostDoParize * 2 > vzdalenostKeKoni) {
+		while(index < koneKPreprave.size() && vzdalenostDoParize * MAX_VZDALENOST > vzdalenostKeKoni) {
 			vzdalenostKeKoni = Utils.spoctiVzdalenost(l, koneKPreprave.get(index));
 			if(!(l.getM() < l.getAktNakl() + l.getNasledujiciKun().getM() + koneKPreprave.get(index).getM())) {
 				return false;

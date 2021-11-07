@@ -6,10 +6,14 @@ import java.util.Collections;
  * @version 1.0 (13-10-2021)
  */
 public class Utils {
-	/** typedef letounu z mainu*/
+	/** Typedef letounu z mainu*/
 	private static ArrayList<Letoun> letouny = Main.letouny;
-	/** typedef koni z mainu*/
+	/** Typedef koni z mainu*/
 	private static ArrayList<Kun> kone = Main.kone;
+	/** Odstranuje chybu */
+	private static final int K = 1000;
+	/** Kolikrat muze byt mensi rychlost letadla */
+	private static final double KOLIKRAT_MENSI = 6.0;
 	
 	/**
 	 * Metoda spocita cas letu
@@ -76,7 +80,7 @@ public class Utils {
 		serazeniLetounu();
 		Double nejRychlost = letouny.get(0).getV();
 		for(int i = 0; i < letouny.size(); i++) {
-			if(letouny.get(i).getV() < nejRychlost/5.0) {
+			if(letouny.get(i).getV() < nejRychlost/KOLIKRAT_MENSI) {
 				letouny.remove(i);
 				i--;
 				}
@@ -115,7 +119,7 @@ public class Utils {
 	 * Metoda seradi letouny podle rychlosti
 	 */
 	public static void serazeniLetounu() {
-		Collections.sort(letouny, (l1,l2) -> (int)(l2.getV() * 1000 - l1.getV() * 1000));
+		Collections.sort(letouny, (l1,l2) -> (int)(l2.getV() * K - l1.getV() * K));
 	}
 	
 	/**
@@ -123,7 +127,7 @@ public class Utils {
 	 * @return Nejvetsi X-ova souradnice kone
 	 */
 	public static double getNejvetsiXKone() {
-		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getX() * 1000 - k1.getX() * 1000));
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getX() * K - k1.getX() * K));
 		return Main.kone.get(0).getX();
 	}
 	
@@ -132,7 +136,7 @@ public class Utils {
 	 * @return Nejmensi X-ova souradnice kone
 	 */
 	public static double getNejmensiXKone() {
-		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getX() * 1000 - k2.getX() * 1000));
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getX() * K - k2.getX() * K));
 		return Main.kone.get(0).getX();
 	}
 	
@@ -141,7 +145,7 @@ public class Utils {
 	 * @return Nejvetsi Y-ova souradnice kone 
 	 */
 	public static double getNejvetsiYKone() {
-		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getY() * 1000 - k1.getY() * 1000));
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k2.getY() * K - k1.getY() * K));
 		return Main.kone.get(0).getX();
 	}
 	
@@ -150,7 +154,7 @@ public class Utils {
 	 * @return Nejmensi Y-ova souradnice kone
 	 */
 	public static double getNejmensiYKone() {
-		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getY() * 1000 - k2.getY() * 1000));
+		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getY() * K - k2.getY() * K));
 		return Main.kone.get(0).getX();
 	}
 

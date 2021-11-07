@@ -18,6 +18,8 @@ public class Letoun {
 	private int M;
 	/** Aktualni naklad letounu*/
 	private int aktNakl;
+	/** Koni na palube*/
+	private int pocKoni;
 	/** Rychlost letu*/
 	private double V;
 	/** Cas vylozeni koni na palube */
@@ -26,6 +28,8 @@ public class Letoun {
 	private double cas = 0;
 	/** Nasledujici kun */
 	private Kun nasledujiciKun;
+	/** Uchovava jestli je letoun v Parizi */
+	private boolean jeVParizi;
 	
 	/**
 	 * Konstruktor letounu
@@ -46,6 +50,8 @@ public class Letoun {
 	public Letoun() {
 		setAktNakl(0);
 		celkemN = 0;
+		pocKoni = 0;
+		jeVParizi = false;
 	}
 	
 	/**
@@ -68,6 +74,7 @@ public class Letoun {
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
+		pocKoni++;
 	}
 	
 	/**
@@ -81,6 +88,8 @@ public class Letoun {
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
+		pocKoni++;
+		jeVParizi = true;
 		presun(Main.a, Main.b);
 	}
 	
@@ -89,11 +98,13 @@ public class Letoun {
 	 * @param kun1 Kun, ke kteremu se poleti
 	 */
 	public void letZFrancieKeKoni(Kun kun1) {
-		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
-		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, cas + celkemN, kun1.getPoradi());
+		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Prevezeno koni: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, pocKoni, cas + celkemN, kun1.getPoradi());
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Prevezeno koni: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, pocKoni, cas + celkemN, kun1.getPoradi());
 		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
+		pocKoni = 0;
+		jeVParizi = false;
 		presun(kun1.getX(), kun1.getY());
 	}
 	
@@ -102,11 +113,12 @@ public class Letoun {
 	 */
 	public void letounPristal() {
 		presun(Main.a, Main.b);
-		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", cas, PORADI, cas + celkemN);
-		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Vylozeno v: %.0f\n", cas, PORADI, cas + celkemN);
+		System.out.printf("Cas: %.0f, Letoun: %d, Pristani ve Francii, Prepraveno koni %d, Vylozeno v: %.0f\n", cas, PORADI, pocKoni, cas + celkemN);
+		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Pristani ve Francii, Prepraveno koni %d, Vylozeno v: %.0f\n", cas, PORADI, pocKoni, cas + celkemN);
 		cas += celkemN;
 		celkemN = 0;
 		aktNakl = 0;
+		pocKoni = 0;
 		
 	}
 	
@@ -173,6 +185,10 @@ public class Letoun {
 	
 	public double getCas() {
 		return cas;
+	}
+	
+	public boolean getJeVParizi() {
+		return jeVParizi;
 	}
 	
 	/**
