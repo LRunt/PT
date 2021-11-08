@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -27,6 +28,7 @@ public class Main {
 	public static ArrayList<Letoun> letouny;
 	/** Celkovy retezec */
 	public static String retezec = "";
+	public static Scanner sc; 
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
@@ -65,19 +67,71 @@ public class Main {
 		}
 	}
 	
+	public static void menu() {
+		System.out.println(
+				  "-------------------------------------------------------------------------------------------------\r\n"
+				+ "|██████╗░██████╗░███████╗██████╗░██████╗░░█████╗░██╗░░░██╗░█████╗░  ██╗░░██╗░█████╗░███╗░░██╗██╗|\r\n"
+				+ "|██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██║░░░██║██╔══██╗  ██║░██╔╝██╔══██╗████╗░██║██║|\r\n"
+				+ "|██████╔╝██████╔╝█████╗░░██████╔╝██████╔╝███████║╚██╗░██╔╝███████║  █████═╝░██║░░██║██╔██╗██║██║|\r\n"
+				+ "|██╔═══╝░██╔══██╗██╔══╝░░██╔═══╝░██╔══██╗██╔══██║░╚████╔╝░██╔══██║  ██╔═██╗░██║░░██║██║╚████║██║|\r\n"
+				+ "|██║░░░░░██║░░██║███████╗██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██║░╚██╗╚█████╔╝██║░╚███║██║|\r\n"
+				+ "|╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═╝░░╚═╝░╚════╝░╚═╝░░╚══╝╚═╝|\r\n"
+				+ "-------------------------------------------------------------------------------------------------\r\n"
+				+ "|     1 - Simulace     |     2 - Generator dat     |     3 - Ovladani     |      4 - Konec      |\r\n"
+				+ "-------------------------------------------------------------------------------------------------");
+		volba();
+	}
+	
+	public static void volba() {
+		sc = new Scanner(System.in);
+		int volba;
+		try {
+			volba = sc.nextInt();
+			if(volba < 1 || volba > 4) {
+				throw new Exception();
+			}
+		} catch(Exception ex) {
+			System.out.println("Nevalidni volba");
+			volba();
+			return;
+		}
+		switch(volba) {
+		  case 1:
+			parser("data/random100.txt");
+			Simulace sim = new Simulace();
+			sim.greedySimulace();
+			System.out.println("Pro pokracovani zmackni ENTER.");
+			try{System.in.read();}
+	        catch(Exception e){}
+		    break;
+		  case 2:
+		    System.out.println("Zatim to nic nedela :-(");
+		    break;
+		  case 3:
+		    System.out.println("Work in progress");
+			 break;
+		  case 4:
+			  System.exit(0);
+			 break;
+		}
+
+	}
+	
 	/**
 	 * Vstupni metoda
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	
-		parser("data/random100.txt");	
+		while(true) {
+			menu();
+		}
+		/*parser("data/random100.txt");	
 		Utils.vypisKoni();
 		System.out.println("----------------------------");
 		Utils.vypisLetounu();
 		System.out.println("----------------------------");
 		Simulace sim = new Simulace();
-		sim.greedySimulace();
+		sim.greedySimulace();*/
 		//vypisDoSouboru();
 		
 		
