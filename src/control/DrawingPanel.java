@@ -1,3 +1,4 @@
+package control;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -5,6 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import model.Kun;
+import model.Letoun;
+import view.Main;
 
 /**
  * 

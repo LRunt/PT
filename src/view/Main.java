@@ -1,3 +1,4 @@
+package view;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,6 +8,12 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+
+import control.Parser;
+import control.Simulace;
+import control.Utils;
+import model.Kun;
+import model.Letoun;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -28,7 +35,7 @@ public class Main {
 	public static ArrayList<Letoun> letouny;
 	/** Celkovy retezec */
 	public static String retezec = "";
-	public static Scanner sc; 
+	public static Scanner sc = new Scanner(System.in);
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
@@ -36,20 +43,18 @@ public class Main {
 	 * 
 	 * @param jmenoSouboru nazev soubor, ze ktereho ziskame data
 	 */
-	public static void parser(String jmenoSouboru) {
+	public static void parser(String jmenoSouboru) throws Exception{
 		System.out.println("Zacina nacitani dat.");
-		try {
-			Parser ps= new Parser(jmenoSouboru);
-			double[] souradnice = ps.getSouradnice();
-			a = souradnice[0];
-			b = souradnice[1];
-			kone = ps.getKone();
-			letouny = ps.getLetouny();
-			ps.sc.close();
-			System.out.println("Data uspesne nactena.");
-		} catch (Exception ex) {
-			System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru + "(" + ex.getMessage() + ")");
-		}
+		Parser ps= new Parser(jmenoSouboru);
+		double[] souradnice = ps.getSouradnice();
+		a = souradnice[0];
+		b = souradnice[1];
+		kone = ps.getKone();
+		letouny = ps.getLetouny();
+		ps.sc.close();
+		System.out.println("Data uspesne nactena.");
+			//System.err.println("HUPSÍK DUPSÍK!");
+			//System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru);
 	}
 	
 	/**
@@ -67,6 +72,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Metoda vypisuje menu
+	 */
 	public static void menu() {
 		System.out.println(
 				  "-------------------------------------------------------------------------------------------------\r\n"
@@ -77,44 +85,119 @@ public class Main {
 				+ "|██║░░░░░██║░░██║███████╗██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██║░╚██╗╚█████╔╝██║░╚███║██║|\r\n"
 				+ "|╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═╝░░╚═╝░╚════╝░╚═╝░░╚══╝╚═╝|\r\n"
 				+ "-------------------------------------------------------------------------------------------------\r\n"
-				+ "|     1 - Simulace     |     2 - Generator dat     |     3 - Ovladani     |      4 - Konec      |\r\n"
+				+ "|  1 - Start  |  2 - Generace dat  |  3 - Ovladani  |  4 - Debug  | 5 - Jiny soubor | 6 - Konec |\r\n"
 				+ "-------------------------------------------------------------------------------------------------");
 		volba();
 	}
 	
+	/**
+	 * Metoda vypisuje menu
+	 */
+	public static void simulace() {
+		System.out.println(
+				  "-------------------------------------------------------------------------------------------\r\n"
+				+ "|░░░░░░░░░░░░░░██████╗██╗███╗░░░███╗██╗░░░██╗██╗░░░░░░█████╗░░█████╗░███████╗░░░░░░░░░░░░░|\r\n"
+				+ "|░░░░░░░░░░░░░██╔════╝██║████╗░████║██║░░░██║██║░░░░░██╔══██╗██╔══██╗██╔════╝░░░░░░░░░░░░░|\r\n"
+				+ "|░░░░░░░░░░░░░╚█████╗░██║██╔████╔██║██║░░░██║██║░░░░░███████║██║░░╚═╝█████╗░░░░░░░░░░░░░░░|\r\n"
+				+ "|░░░░░░░░░░░░░░╚═══██╗██║██║╚██╔╝██║██║░░░██║██║░░░░░██╔══██║██║░░██╗██╔══╝░░░░░░░░░░░░░░░|\r\n"
+				+ "|░░░░░░░░░░░░░██████╔╝██║██║░╚═╝░██║╚██████╔╝███████╗██║░░██║╚█████╔╝███████╗░░░░░░░░░░░░░|\r\n"
+				+ "|░░░░░░░░░░░░░╚═════╝░╚═╝╚═╝░░░░░╚═╝░╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚══════╝░░░░░░░░░░░░░|\r\n"
+				+ "-------------------------------------------------------------------------------------------\r\n"
+				+ "| 1 - Start | 2 - Vypis kone | 3 - Vypis letouny | 4 - Debug | 5 - Jiny soubor | 6 - Menu |\r\n"
+				+ "-------------------------------------------------------------------------------------------");
+		volbaS();
+	}
+	
+	/**
+	 * Metoda ve ktere si uzivatel voli co se ma stat
+	 */
 	public static void volba() {
-		sc = new Scanner(System.in);
+		String vstup = null;
 		int volba;
 		try {
 			volba = sc.nextInt();
-			if(volba < 1 || volba > 4) {
-				throw new Exception();
+			if(volba < 1 || volba > 6) {
+				throw new IllegalArgumentException();
 			}
-		} catch(Exception ex) {
-			System.out.println("Nevalidni volba");
-			volba();
-			return;
-		}
-		switch(volba) {
+			switch(volba) {
 		  case 1:
-			parser("data/random100.txt");
 			Simulace sim = new Simulace();
 			sim.greedySimulace();
 			System.out.println("Pro pokracovani zmackni ENTER.");
 			try{System.in.read();}
-	        catch(Exception e){}
+			catch(Exception e){}
 		    break;
 		  case 2:
-		    System.out.println("Zatim to nic nedela :-(");
+			System.out.println("Zatim to nic nedela :-(");
 		    break;
 		  case 3:
-		    System.out.println("Work in progress");
-			 break;
+			System.out.println("Work in progress");
+			break;
 		  case 4:
-			  System.exit(0);
+			 System.out.print("Neimplementovano");
 			 break;
+		  case 5:
+			 vstupDat();
+			 break;
+		  case 6:
+			 System.exit(0);
+			 break;
+		}	
+		}catch(IllegalArgumentException e) {
+			System.out.println("Nevalidni volba");
 		}
-
+		catch(Exception ex) {
+			System.err.println("HUPSÍK DUPSÍK!");
+			System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
+		}
+		
+	}
+	
+	
+	public static void volbaS() {
+		int volba;
+		try {
+			
+			do {
+				volba = sc.nextInt();
+				if(volba < 1 || volba > 5) {
+					throw new IllegalArgumentException();
+				}
+				switch(volba) {
+				case 1:
+					Simulace sim = new Simulace();
+					sim.greedySimulace();
+					break;
+				case 2:
+					Utils.vypisKoni();
+					break;
+				case 3:
+					Utils.vypisLetounu();
+					break;
+				case 4:
+					System.exit(0);
+					break;
+				case 5:
+				    break;
+				}	
+		}while(volba != 6);
+		}catch(IllegalArgumentException e) {
+			System.out.println("Nevalidni volba");
+		} 
+	}
+	
+	public static boolean vstupDat() {
+		String vstup = null;
+		try {
+			System.out.print("Zadej cestu vstupnich dat: ");
+			vstup = sc.next();
+			parser(vstup);
+			return true;
+		}catch(Exception ex) {
+			System.err.println("HUPSÍK DUPSÍK!");
+			System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
+			return false;
+		}
 	}
 	
 	/**
@@ -122,6 +205,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		do {
+		}while(!vstupDat());
 		while(true) {
 			menu();
 		}

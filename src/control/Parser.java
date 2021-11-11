@@ -1,7 +1,11 @@
+package control;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.Kun;
+import model.Letoun;
 
 /**
  * Trida, ktera se stara o nacitani souboru

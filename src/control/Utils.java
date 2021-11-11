@@ -1,5 +1,9 @@
+package control;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import model.*;
+import view.*;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -92,6 +96,20 @@ public class Utils {
 	 */
 	public static void serazeniPodleCisla() {
 		Collections.sort(letouny, (l1,l2) -> (int)(l2.getPoradi()- l1.getPoradi()));
+	}
+	
+	/**
+	 * Metoda seradi letouny podle nosnosti
+	 */
+	public static void serazeniPodleNosnosti() {
+		Collections.sort(letouny, (l1,l2) -> (int)(l1.getM() - l2.getM()));
+	}
+	
+	/**
+	 * Metoda seradi kone podle hmotnosti
+	 */
+	public static void serazeniPodleHmotnosti() {
+		Collections.sort(kone, (k1,k2) -> (int)(k1.getM() - k2.getM()));
 	}
 	
 	/**

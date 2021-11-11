@@ -1,5 +1,9 @@
+package control;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+
+import model.Kun;
+import model.Letoun;
 
 /**
  * 

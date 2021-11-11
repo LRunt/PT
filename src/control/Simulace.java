@@ -1,5 +1,10 @@
+package control;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import model.Kun;
+import model.Letoun;
+import view.Main;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -81,6 +86,12 @@ public class Simulace {
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
 		Utils.selekceLetadel();
+		Utils.serazeniPodleHmotnosti();
+		Utils.serazeniPodleNosnosti();
+		while(kone.get(0).getM() > letouny.get(0).getM()) {
+			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a musi jit do Parize pesky.");
+			kone.remove(0);
+		}
 		while(pocetKoni >= prevezenoKoni) {
 			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 			Letoun aktLet = letouny.get(0);

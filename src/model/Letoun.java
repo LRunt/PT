@@ -1,3 +1,7 @@
+package model;
+import control.*;
+import view.*;
+
 /**
  * Instance tridy Letoun reprezentuje Letouny, ktere maji za ukol dopravit kone do Parize
  * 

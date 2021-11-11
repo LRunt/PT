@@ -1,3 +1,4 @@
+package model;
 /**
  * Instance tridy Kun reprezentuje kone, ktery ma byt prevezen do Parize
  * 
