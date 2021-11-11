@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
+import control.Generator;
 import control.Parser;
 import control.Simulace;
 import control.Utils;
@@ -17,7 +18,7 @@ import model.Letoun;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.2 (04-10-2021)
+ * @version 2.0 (11-11-2021)
  */
 public class Main {
 	
@@ -91,24 +92,6 @@ public class Main {
 	}
 	
 	/**
-	 * Metoda vypisuje menu
-	 */
-	public static void simulace() {
-		System.out.println(
-				  "-------------------------------------------------------------------------------------------\r\n"
-				+ "|░░░░░░░░░░░░░░██████╗██╗███╗░░░███╗██╗░░░██╗██╗░░░░░░█████╗░░█████╗░███████╗░░░░░░░░░░░░░|\r\n"
-				+ "|░░░░░░░░░░░░░██╔════╝██║████╗░████║██║░░░██║██║░░░░░██╔══██╗██╔══██╗██╔════╝░░░░░░░░░░░░░|\r\n"
-				+ "|░░░░░░░░░░░░░╚█████╗░██║██╔████╔██║██║░░░██║██║░░░░░███████║██║░░╚═╝█████╗░░░░░░░░░░░░░░░|\r\n"
-				+ "|░░░░░░░░░░░░░░╚═══██╗██║██║╚██╔╝██║██║░░░██║██║░░░░░██╔══██║██║░░██╗██╔══╝░░░░░░░░░░░░░░░|\r\n"
-				+ "|░░░░░░░░░░░░░██████╔╝██║██║░╚═╝░██║╚██████╔╝███████╗██║░░██║╚█████╔╝███████╗░░░░░░░░░░░░░|\r\n"
-				+ "|░░░░░░░░░░░░░╚═════╝░╚═╝╚═╝░░░░░╚═╝░╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚══════╝░░░░░░░░░░░░░|\r\n"
-				+ "-------------------------------------------------------------------------------------------\r\n"
-				+ "| 1 - Start | 2 - Vypis kone | 3 - Vypis letouny | 4 - Debug | 5 - Jiny soubor | 6 - Menu |\r\n"
-				+ "-------------------------------------------------------------------------------------------");
-		volbaS();
-	}
-	
-	/**
 	 * Metoda ve ktere si uzivatel voli co se ma stat
 	 */
 	public static void volba() {
@@ -128,13 +111,14 @@ public class Main {
 			catch(Exception e){}
 		    break;
 		  case 2:
-			System.out.println("Zatim to nic nedela :-(");
+			generovaniDat();
 		    break;
 		  case 3:
 			System.out.println("Work in progress");
 			break;
 		  case 4:
 			 System.out.print("Neimplementovano");
+			 System.out.println("Zatim to nic nedela :-(");
 			 break;
 		  case 5:
 			 vstupDat();
@@ -147,43 +131,17 @@ public class Main {
 			System.out.println("Nevalidni volba");
 		}
 		catch(Exception ex) {
-			System.err.println("HUPSÍK DUPSÍK!");
-			System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
+			System.err.println("HUPSÍK DUPSÍK! Doslo k chybe pri cteni souboru: " + vstup);
 		}
 		
 	}
 	
-	
-	public static void volbaS() {
-		int volba;
-		try {
-			
-			do {
-				volba = sc.nextInt();
-				if(volba < 1 || volba > 5) {
-					throw new IllegalArgumentException();
-				}
-				switch(volba) {
-				case 1:
-					Simulace sim = new Simulace();
-					sim.greedySimulace();
-					break;
-				case 2:
-					Utils.vypisKoni();
-					break;
-				case 3:
-					Utils.vypisLetounu();
-					break;
-				case 4:
-					System.exit(0);
-					break;
-				case 5:
-				    break;
-				}	
-		}while(volba != 6);
-		}catch(IllegalArgumentException e) {
-			System.out.println("Nevalidni volba");
-		} 
+	public static void generovaniDat() {
+		String jmenoSouboru;
+		System.out.print("Zadej jmeno exportovaneho souboru: ");
+		jmenoSouboru = sc.next();
+		Generator gen = new Generator(-200, 200, -200, 200);
+		gen.generateSoubor(jmenoSouboru);
 	}
 	
 	public static boolean vstupDat() {
