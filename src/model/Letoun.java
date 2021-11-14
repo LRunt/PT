@@ -11,7 +11,7 @@ import view.*;
 public class Letoun {
 	
 	/** Uchovava zaznam kolik letounu existuje*/
-	private static int pocetLetounu = 0;
+	public static int pocetLetounu = 0;
 	/** Cislo letounu (ID)*/
 	private final int PORADI = pocetLetounu++; 
 	/** Souradnice letouny*/
@@ -123,7 +123,6 @@ public class Letoun {
 		celkemN = 0;
 		aktNakl = 0;
 		pocKoni = 0;
-		
 	}
 	
 	/**
@@ -189,6 +188,10 @@ public class Letoun {
 	
 	public double getCas() {
 		return cas;
+	}
+	
+	public void setCas(double newCas) {
+		this.cas = newCas;
 	}
 	
 	public boolean getJeVParizi() {

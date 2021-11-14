@@ -92,6 +92,7 @@ public class Simulace {
 			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a musi jit do Parize pesky.");
 			kone.remove(0);
 		}
+		Utils.serazeniLetounu();
 		while(pocetKoni >= prevezenoKoni) {
 			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 			Letoun aktLet = letouny.get(0);
@@ -140,7 +141,6 @@ public class Simulace {
 		System.out.printf("Simulace trvala: %.0f\n",letouny.get(0).getCas());
 		System.out.printf("Bylo prepraveno %d koni.\n", kone.size());
 		Main.retezec += String.format("Simulace trvala: %.0f",letouny.get(0).getCas());
-	
 	}
 	
 	/**

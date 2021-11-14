@@ -1,10 +1,13 @@
 package view;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -37,14 +40,20 @@ public class Main {
 	/** Celkovy retezec */
 	public static String retezec = "";
 	public static Scanner sc = new Scanner(System.in);
+	public static String cesta = null;
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
 	 * do konce radku
 	 * 
 	 * @param jmenoSouboru nazev soubor, ze ktereho ziskame data
+	 * @throws IOException 
 	 */
-	public static void parser(String jmenoSouboru) throws Exception{
+	public static void parser(String jmenoSouboru) throws IOException{
+		kone = null;
+		letouny = null;
+		Letoun.pocetLetounu = 0;
+		Kun.pocetKoni = 0;
 		System.out.println("Zacina nacitani dat.");
 		Parser ps= new Parser(jmenoSouboru);
 		double[] souradnice = ps.getSouradnice();
@@ -98,12 +107,14 @@ public class Main {
 		String vstup = null;
 		int volba;
 		try {
+			sc = new Scanner(System.in);
 			volba = sc.nextInt();
 			if(volba < 1 || volba > 6) {
 				throw new IllegalArgumentException();
 			}
 			switch(volba) {
 		  case 1:
+			parser(cesta);
 			Simulace sim = new Simulace();
 			sim.greedySimulace();
 			System.out.println("Pro pokracovani zmackni ENTER.");
@@ -129,15 +140,16 @@ public class Main {
 		}	
 		}catch(IllegalArgumentException e) {
 			System.out.println("Nevalidni volba");
-		}
-		catch(Exception ex) {
+		}catch(InputMismatchException exc) {
+			System.out.println("Nevalidni volba");
+		}catch(IOException ex) {
 			System.err.println("HUPSÍK DUPSÍK! Doslo k chybe pri cteni souboru: " + vstup);
 		}
 		
 	}
 	
 	public static void generovaniDat() {
-		String jmenoSouboru;
+		String jmenoSouboru = "";
 		System.out.print("Zadej jmeno exportovaneho souboru: ");
 		jmenoSouboru = sc.next();
 		Generator gen = new Generator(-200, 200, -200, 200);
@@ -150,6 +162,7 @@ public class Main {
 			System.out.print("Zadej cestu vstupnich dat: ");
 			vstup = sc.next();
 			parser(vstup);
+			cesta = vstup;
 			return true;
 		}catch(Exception ex) {
 			System.err.println("HUPSÍK DUPSÍK!");

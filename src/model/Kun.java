@@ -8,7 +8,7 @@ package model;
 public class Kun{
 	
 	/** Uchovava zaznam kolik koni existuje*/
-	private static int pocetKoni = 0;
+	public static int pocetKoni = 0;
 	/** Cislo kone (ID)*/
 	private final int PORADI = pocetKoni++;
 	/** Souradnice kone x*/

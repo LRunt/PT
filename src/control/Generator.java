@@ -46,7 +46,6 @@ public class Generator {
 		vystup += a + " "; 
 		b = Math.random() * (maxY - minY + 1) + minY;
 		vystup += b + " \n";
-		System.out.printf("%.2f; %.2f\n", a, b);
 	}
 	
 	/**
@@ -57,7 +56,7 @@ public class Generator {
 		vystup += ":-) Pocet koni:\n";
 		vystup += pocetKoni + " \n";
 		for(int i = 0; i < pocetKoni; i++) {
-			vystup += String.format(":-) Kun %d\n:", i + 1);
+			vystup += String.format(":-) Kun %d\n", i + 1);
 			vystup += (Math.random() * (maxX - minX + 1) + minX) + " ";
 			vystup += (Math.random() * (maxY - minY + 1) + minY) + " ";
 			vystup += (int)(Math.random() * (MAX_M - 0 + 1)) + " ";
@@ -73,7 +72,7 @@ public class Generator {
 		vystup += ":-) Pocet letounu:\n";
 		vystup += pocetLetounu + " \n";
 		for(int i = 0; i < pocetLetounu; i++) {
-			vystup += String.format(":-) Letoun %d\n:", i + 1);
+			vystup += String.format(":-) Letoun %d\n", i + 1);
 			vystup += (Math.random() * (maxX - minX + 1) + minX) + " ";
 			vystup += (Math.random() * (maxY - minY + 1) + minY) + " ";
 			vystup += (int)(Math.random() * (MAX_M * 10 - 0 + 1)) + " ";
@@ -82,7 +81,7 @@ public class Generator {
 	}
 	
 	/**
-	 * 
+	 * Metoda vygeneruje nahodne soubor s Parizi, konmi a letouny
 	 * @param jmenoSouboru
 	 */
 	public void generateSoubor(String jmenoSouboru) {
@@ -92,7 +91,7 @@ public class Generator {
 		try {
 			PrintWriter pw = new PrintWriter(
                     new BufferedWriter(
-                    new FileWriter(new File("data/" + jmenoSouboru + ".txt"))));
+                    new FileWriter(new File("export/" + jmenoSouboru + ".txt"))));
 			pw.print(vystup);
 			pw.close();
 		}catch(Exception ex) {

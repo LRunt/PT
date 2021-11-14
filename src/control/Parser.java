@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import model.Kun;
 import model.Letoun;
+import view.Main;
 
 /**
  * Trida, ktera se stara o nacitani souboru
@@ -16,7 +17,7 @@ import model.Letoun;
 public class Parser {
 	
 	/** Scanner souboru */
-	public Scanner sc;
+	public Scanner sc = Main.sc;
 	/** Promenna, do ktere se uklada vstupni retezec */
 	private String retezec;
 	
