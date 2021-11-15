@@ -100,6 +100,22 @@ public class Main {
 		volba();
 	}
 	
+	public static void upravaDat() {
+		do {
+			System.out.println(
+				  "-------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "|                        ██╗░░░██╗██████╗░██████╗░░█████╗░██╗░░░██╗░█████╗░  ██████╗░░█████╗░████████╗                        |\r\n"
+				+ "|                        ██║░░░██║██╔══██╗██╔══██╗██╔══██╗██║░░░██║██╔══██╗  ██╔══██╗██╔══██╗╚══██╔══╝                        |\r\n"
+				+ "|                        ██║░░░██║██████╔╝██████╔╝███████║╚██╗░██╔╝███████║  ██║░░██║███████║░░░██║░░░                        |\r\n"
+				+ "|                        ██║░░░██║██╔═══╝░██╔══██╗██╔══██║░╚████╔╝░██╔══██║  ██║░░██║██╔══██║░░░██║░░░                        |\r\n"
+				+ "|                        ╚██████╔╝██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██████╔╝██║░░██║░░░██║░░░                        |\r\n"
+				+ "|                        ░╚═════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░                        |\r\n"
+				+ "-------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "| 1 - Pridej kone | 2 - Odeber kone | 3 - Vypis kone | 4 - Pridej letadlo | 5 - Odeber letadlo | 6 - Vypis letadla | 7 - Zpet |\r\n"
+				+ "-------------------------------------------------------------------------------------------------------------------------------");
+		}while(volba2());
+		}
+	
 	/**
 	 * Metoda ve ktere si uzivatel voli co se ma stat
 	 */
@@ -125,7 +141,7 @@ public class Main {
 			generovaniDat();
 		    break;
 		  case 3:
-			System.out.println("Work in progress");
+			upravaDat();
 			break;
 		  case 4:
 			 vstupDat();
@@ -141,7 +157,114 @@ public class Main {
 		}catch(IOException ex) {
 			System.err.println("HUPSÍK DUPSÍK! Doslo k chybe pri cteni souboru: " + vstup);
 		}
-		
+	}
+	
+	public static boolean volba2() {
+		int volba;
+		try {
+			sc = new Scanner(System.in);
+			volba = sc.nextInt();
+			if(volba < 1 || volba > 7) {
+				throw new IllegalArgumentException();
+			}
+			switch(volba) {
+		  case 1:
+			tvorbaKone();
+		    break;
+		  case 2:
+			 System.out.print("Zadej cislo kone, ktery ma byt odstranen: ");
+			volba = sc.nextInt();
+			if(volba > 0 && volba < kone.size()) {
+				kone.remove(volba - 1);
+				System.out.printf("Kun %d byl smazan.", volba);
+			} else {
+				throw new IllegalArgumentException();
+			}
+		    break;
+		  case 3:
+			Utils.vypisKoni();
+			break;
+		  case 4:
+			tvorbaLetounu();
+			break;
+		  case 5:
+			System.out.print("Zadej cislo letounu, ktery ma byt odstranen: ");
+			volba = sc.nextInt();
+			if(volba > 0 && volba < letouny.size()) {
+				letouny.remove(volba - 1);
+				System.out.printf("Letoun %d byl smazan.", volba);
+			} else {
+				throw new IllegalArgumentException();
+			}
+			break;
+		  case 6:
+			Utils.vypisLetounu();
+			break;
+		  case 7:
+			return false;
+		}	
+		}catch(IllegalArgumentException e) {
+			System.out.println("Nevalidni volba");
+		}catch(InputMismatchException exc) {
+			System.out.println("Nevalidni volba");
+		}catch(Exception ex) {
+			System.out.println("Random chyba: " + ex.getMessage());
+		}
+		return true;
+	}
+	
+	public static void tvorbaKone() {
+		String vstup;
+		double x, y;
+		int m, n;
+		do {
+			System.out.print("Zadej souradnici x: ");
+			vstup = sc.next();
+		}while(!Utils.isDouble(vstup));
+		x = Double.parseDouble(vstup);
+		do {
+			System.out.print("Zadej souradnici y: ");
+			vstup = sc.next();
+		}while(!Utils.isDouble(vstup));
+		y = Double.parseDouble(vstup);
+		do {
+			System.out.print("Zadej hmotnost kone: ");
+			vstup = sc.next();
+		}while(!Utils.isInteger(vstup));
+		m = Integer.parseInt(vstup);
+		do {
+			System.out.print("Zadej dobu nalozeni kone: ");
+			vstup = sc.next();
+		}while(!Utils.isInteger(vstup));
+		n = Integer.parseInt(vstup);
+		kone.add(new Kun(x, y, m, n));
+	}
+	
+	public static void tvorbaLetounu() {
+		String vstup;
+		double x, y, v;
+		int m;
+		do {
+			System.out.print("Zadej souradnici x: ");
+			vstup = sc.next();
+		}while(!Utils.isDouble(vstup));
+		x = Double.parseDouble(vstup);
+		do {
+			System.out.print("Zadej souradnici y: ");
+			vstup = sc.next();
+		}while(!Utils.isDouble(vstup));
+		y = Double.parseDouble(vstup);
+		do {
+			System.out.print("Zadej nosnost letounu: ");
+			vstup = sc.next();
+		}while(!Utils.isInteger(vstup));
+		m = Integer.parseInt(vstup);
+		do {
+			System.out.print("Zadej rychlost kone: ");
+			vstup = sc.next();
+		}while(!Utils.isDouble(vstup));
+		v = Double.parseDouble(vstup);
+		letouny.add(new Letoun(x, y, m, v));
 	}
 	
 	public static void generovaniDat() {

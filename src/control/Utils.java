@@ -175,5 +175,25 @@ public class Utils {
 		Collections.sort(Main.kone, (k1, k2) -> (int)(k1.getY() * K - k2.getY() * K));
 		return Main.kone.get(0).getX();
 	}
+	
+	public static boolean isDouble(String input) {
+		try {
+			Double.parseDouble(input);
+			return true;
+		} catch (Exception e) {
+			System.out.println("Zadane cislo neni cislo!");
+			return false;
+		}
+	}
+	
+	public static boolean isInteger(String input) {
+		try {
+			Integer.parseInt(input);
+			return true;
+		} catch (Exception e) {
+			System.out.println("Zadany retezec neni cele cislo!");
+			return false;
+		}
+	}
 
 }
