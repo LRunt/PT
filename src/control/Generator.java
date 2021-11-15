@@ -75,7 +75,7 @@ public class Generator {
 			vystup += String.format(":-) Letoun %d\n", i + 1);
 			vystup += (Math.random() * (maxX - minX + 1) + minX) + " ";
 			vystup += (Math.random() * (maxY - minY + 1) + minY) + " ";
-			vystup += (int)(Math.random() * (MAX_M * 10 - 0 + 1)) + " ";
+			vystup += (int)(Math.random() * (MAX_M * 10 - MAX_M + 1)) + " ";
 			vystup += (int)(Math.random() * (MAX_V - 0 + 1)) + "\n";
 		}
 	}

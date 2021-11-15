@@ -95,7 +95,7 @@ public class Main {
 				+ "|██║░░░░░██║░░██║███████╗██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██║░╚██╗╚█████╔╝██║░╚███║██║|\r\n"
 				+ "|╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═╝░░╚═╝░╚════╝░╚═╝░░╚══╝╚═╝|\r\n"
 				+ "-------------------------------------------------------------------------------------------------\r\n"
-				+ "|  1 - Start  |  2 - Generace dat  |  3 - Ovladani  |  4 - Debug  | 5 - Jiny soubor | 6 - Konec |\r\n"
+				+ "|   1 - Start   |   2 - Generace dat   |   3 - Uprava dat   |   4 - Jiny soubor   |  5 - Konec  |\r\n"
 				+ "-------------------------------------------------------------------------------------------------");
 		volba();
 	}
@@ -128,13 +128,9 @@ public class Main {
 			System.out.println("Work in progress");
 			break;
 		  case 4:
-			 System.out.print("Neimplementovano");
-			 System.out.println("Zatim to nic nedela :-(");
-			 break;
-		  case 5:
 			 vstupDat();
 			 break;
-		  case 6:
+		  case 5:
 			 System.exit(0);
 			 break;
 		}	
@@ -166,7 +162,7 @@ public class Main {
 			return true;
 		}catch(Exception ex) {
 			System.err.println("HUPSÍK DUPSÍK!");
-			System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
+	System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
 			return false;
 		}
 	}
