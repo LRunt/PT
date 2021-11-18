@@ -11,11 +11,19 @@ import view.Main;
 
 public class Tisk {
 
+	/**
+	 * Metoda vytiskne vsechny soubory se statistikami
+	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
+	 */
 	public static void tiskni(double casSimulace) {
 		tiskniLetouny();
 		tiskniKone(casSimulace);
+		tiskniStatistiku(casSimulace);
 	}
 
+	/**
+	 * Metoda vytiskne statistiku letounu
+	 */
 	private static void tiskniLetouny() {
 		String jmenoSouboru = "Letouny";
 		Utils.serazeniPodleCisla();
@@ -35,6 +43,10 @@ public class Tisk {
 		}
 	}
 	
+	/**
+	 * Metoda vytiskne statistiku koni
+	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
+	 */
 	private static void tiskniKone(double casSimulace) {
 		String jmenoSouboru = "Kone";
 		Utils.serazeniKonuPodleCisla();
@@ -50,7 +62,31 @@ public class Tisk {
 			pw.close();	
 			System.out.println("Soubor se statistikou koni vygenerovan.");
 		}catch(Exception ex) {
-			System.err.println("TO JE MRZUTE! nepodarilo se vytvorit soubor: " + jmenoSouboru);
+			System.err.println("TO JE ALE SMULA! nepodarilo se vytvorit soubor: " + jmenoSouboru);
+		}
+	}
+	
+	/**
+	 * Matoda vytiskne celkovou statistiku
+	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
+	 */
+	private static void tiskniStatistiku(double casSimulace) {
+		String jmenoSouboru = "Statistika";
+		Utils.serazeniKonuPodleCisla();
+		try {
+			double celkovaDobaLetu = Main.letouny.stream().mapToDouble(l -> l.celkDobaLetu).sum();
+			double celkovaDobaProstoju = Main.letouny.stream().mapToDouble(l -> l.getCas() - l.celkDobaLetu).sum();
+			PrintWriter pw = new PrintWriter(
+							 new BufferedWriter(
+							 new FileWriter(
+							 new File("export/statistika/" + jmenoSouboru + ".txt"))));
+			pw.write(String.format("Celkova doba letu: %.0f\n", celkovaDobaLetu));
+			pw.write(String.format("Celkova doba prostoju: %.0f\n", celkovaDobaProstoju));
+			pw.write(String.format("Celkova doba simulace: %.0f\n", casSimulace));
+			pw.close();	
+			System.out.println("Soubor se statistikou vygenerovan.");
+		}catch(Exception ex) {
+			System.err.println("HEHE nepodarilo se vytvorit soubor: " + jmenoSouboru);
 		}
 	}
 }
