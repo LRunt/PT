@@ -39,7 +39,9 @@ public class Main {
 	public static ArrayList<Letoun> letouny;
 	/** Celkovy retezec */
 	public static String retezec = "";
+	/** Scanner pro vstup z klavesnice */
 	public static Scanner sc = new Scanner(System.in);
+	/** cesta k souboru */
 	public static String cesta = null;
 	
 	/**
@@ -63,8 +65,6 @@ public class Main {
 		letouny = ps.getLetouny();
 		ps.sc.close();
 		System.out.println("Data uspesne nactena.");
-			//System.err.println("HUPSÍK DUPSÍK!");
-			//System.out.println("Doslo k chybe pri cteni souboru: " + jmenoSouboru);
 	}
 	
 	/**
@@ -100,6 +100,9 @@ public class Main {
 		volba();
 	}
 	
+	/**
+	 * Metoda pro menu k uprave dat
+	 */
 	public static void upravaDat() {
 		do {
 			System.out.println(
@@ -159,6 +162,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Metoda, ve ktere uzivatel voli jak se maji data zmenit
+	 * @return true - uzivatel bude pokracovat v uprave, false - uzivatel se chce vratit do hlavniho menu
+	 */
 	public static boolean volba2() {
 		int volba;
 		try {
@@ -213,6 +220,9 @@ public class Main {
 		return true;
 	}
 	
+	/**
+	 * Metoda vytvari noveho kone
+	 */
 	public static void tvorbaKone() {
 		String vstup;
 		double x, y;
@@ -240,6 +250,9 @@ public class Main {
 		kone.add(new Kun(x, y, m, n));
 	}
 	
+	/**
+	 * Metoda vytvari nove letadlo
+	 */
 	public static void tvorbaLetounu() {
 		String vstup;
 		double x, y, v;
@@ -267,6 +280,9 @@ public class Main {
 		letouny.add(new Letoun(x, y, m, v));
 	}
 	
+	/**
+	 * Metoda pro generovani dat
+	 */
 	public static void generovaniDat() {
 		String jmenoSouboru = "";
 		System.out.print("Zadej jmeno exportovaneho souboru: ");
@@ -275,6 +291,10 @@ public class Main {
 		gen.generateSoubor(jmenoSouboru);
 	}
 	
+	/**
+	 * Matoda pro vstup dat
+	 * @return true - data byla nactena, false - pri nacitani doslo k chybe
+	 */
 	public static boolean vstupDat() {
 		String vstup = null;
 		try {
@@ -285,7 +305,7 @@ public class Main {
 			return true;
 		}catch(Exception ex) {
 			System.err.println("HUPSÍK DUPSÍK!");
-	System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
+			System.out.println("Doslo k chybe pri cteni souboru: " + vstup);
 			return false;
 		}
 	}

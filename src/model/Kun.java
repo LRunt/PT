@@ -21,6 +21,10 @@ public class Kun{
 	private int n;
 	/** Kun je prevezen */
 	public boolean prevezen;
+	/** Uchovava udaje o navstivenych mistech a casu transportu*/
+	public String statistika = String.format("Kun %d\nCas;X;Y\n", PORADI);
+	/** Cas kdy se kun dostal do parize */
+	public double cas;
 
 	/**
 	 * Konstruktor kone

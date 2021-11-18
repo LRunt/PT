@@ -1,0 +1,13 @@
+Letoun 1
+Cas;Pocet koni;X;Y;Zatizeni;Kone na palube
+0;0;200000;1400000;0;
+3600;1;200000;1400000;40;1, 
+16200;2;500000;1000000;100;1, 2, 
+27000;0;500000;1000000;0;1, 2, 
+Letadlo stravilo ve vzduchu 5400, doba prostoju je 21600
+Letoun 2
+Cas;Pocet koni;X;Y;Zatizeni;Kone na palube
+0;0;500000;1000000;0;
+16200;1;500000;1000000;90;3, 
+25200;0;500000;1000000;0;3, 
+Letadlo stravilo ve vzduchu 7200, doba prostoju je 18000

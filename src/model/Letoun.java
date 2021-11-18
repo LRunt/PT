@@ -1,4 +1,6 @@
 package model;
+import java.util.ArrayList;
+
 import control.*;
 import view.*;
 
@@ -34,6 +36,12 @@ public class Letoun {
 	private Kun nasledujiciKun;
 	/** Uchovava jestli je letoun v Parizi */
 	private boolean jeVParizi;
+	/** Celkova doba, kdy bylo letadlo ve vzduchu*/
+	public double celkDobaLetu = 0;
+	/** Uchovava udaje o casu, poctu koni na palube, mistech pristani a aktualnim zatizeni */
+	public String statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", PORADI);
+	/** Kone v letadle*/
+	public ArrayList<Kun> nalKone = new ArrayList<Kun>();
 	
 	/**
 	 * Konstruktor letounu
@@ -64,6 +72,7 @@ public class Letoun {
 	public void start() {
 		System.out.printf("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", cas, PORADI, X, Y);
 		Main.retezec += String.format("Cas: %.0f Letoun: %d, Start z mista: %.0f, %.0f\n", cas, PORADI, X, Y);
+		editStatistika();
 	}
 	
 	/**
@@ -75,10 +84,12 @@ public class Letoun {
 		presun(kun1.getX(), kun1.getY());
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN(), kun2.getPoradi());
 		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let ke koni: %d\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN(), kun2.getPoradi());
+		nalKone.add(kun1);
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
 		pocKoni++;
+		editStatistika();
 	}
 	
 	/**
@@ -89,12 +100,14 @@ public class Letoun {
 		presun(kun1.getX(), kun1.getY());
 		System.out.printf("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN());
 		Main.retezec += String.format("Cas: %.0f, Letoun: %d, Naklad kone: %d, Odlet v: %.0f, Let do Francie\n", cas, PORADI, kun1.getPoradi(), cas + kun1.getN());
+		nalKone.add(kun1);
 		cas += kun1.getN();
 		celkemN += kun1.getN();
 		aktNakl += kun1.getM();
 		pocKoni++;
 		jeVParizi = true;
 		presun(Main.a, Main.b);
+		editStatistika();
 	}
 	
 	/**
@@ -110,6 +123,8 @@ public class Letoun {
 		pocKoni = 0;
 		jeVParizi = false;
 		presun(kun1.getX(), kun1.getY());
+		editStatistika();
+		nalKone = new ArrayList<>();
 	}
 	
 	/**
@@ -123,13 +138,33 @@ public class Letoun {
 		celkemN = 0;
 		aktNakl = 0;
 		pocKoni = 0;
+		editStatistika();
+		nalKone.stream().forEach(k -> k.cas = cas);
+		nalKone = new ArrayList<>();
+	}
+	
+	public void editStatistika() {
+		//Cas; aktualni pocet koni na palube; x-ova souradnice, y-ova souradnice; statistika vytizeni v %
+		statistika += String.format("%.0f;%d;%.0f;%.0f;%d;", cas, pocKoni, X, Y, (int)(aktNakl/(M/100.0)));
+		try {
+			for(int i = 0; i < nalKone.size(); i++) {
+				statistika += String.format("%d, ",nalKone.get(i).getPoradi());
+				nalKone.get(i).statistika += String.format("%.0f;%.0f;%.0f\n", cas, X, Y);
+			}
+		}catch(Exception e) {
+			statistika += "zadny kun";
+		}
+		statistika += "\n";
+		
 	}
 	
 	/**
 	 * Metoda presouva letadlo z bodu A do bodu B
 	 */
 	private void presun(double x, double y) {
-		cas += Utils.spoctiVzdalenost(this , x, y) / V;
+		double dobaLetu = Utils.spoctiVzdalenost(this , x, y) / V;
+		cas += dobaLetu;
+		celkDobaLetu += dobaLetu;
 		setX(x);
 		setY(y);
 	}

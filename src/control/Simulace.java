@@ -23,6 +23,7 @@ public class Simulace {
 	private static final int K = 1000;
 	/** Kolikrat muze byt kun dal, nez letoun poleti do Parize */
 	private static final int MAX_VZDALENOST = 2;
+	private static Tisk tiskarna = new Tisk();
 
 	/**
 	 * 
@@ -89,7 +90,7 @@ public class Simulace {
 		Utils.serazeniPodleHmotnosti();
 		Utils.serazeniPodleNosnosti();
 		while(kone.get(0).getM() > letouny.get(0).getM()) {
-			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a musi jit do Parize pesky.");
+			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a tedy bezi sam do Parize.");
 			kone.remove(0);
 		}
 		Utils.serazeniLetounu();
@@ -138,9 +139,11 @@ public class Simulace {
 		letouny.stream().filter(l -> l.getNasledujiciKun() != null).forEach(l -> l.letounPristal());
 		System.out.println("Konec simulace");
 		Collections.sort(letouny, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
-		System.out.printf("Simulace trvala: %.0f\n",letouny.get(0).getCas());
+		double casSimulace = letouny.get(0).getCas();
+		System.out.printf("Simulace trvala: %.0f\n",casSimulace);
 		System.out.printf("Bylo prepraveno %d koni.\n", kone.size());
-		Main.retezec += String.format("Simulace trvala: %.0f",letouny.get(0).getCas());
+		Main.retezec += String.format("Simulace trvala: %.0f",casSimulace);
+		tiskarna.tiskni(casSimulace);
 	}
 	
 	/**

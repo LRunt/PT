@@ -95,7 +95,14 @@ public class Utils {
 	 * Metoda seradi letouny podle cisla
 	 */
 	public static void serazeniPodleCisla() {
-		Collections.sort(letouny, (l1,l2) -> (int)(l2.getPoradi()- l1.getPoradi()));
+		Collections.sort(letouny, (l1, l2) -> (int)(l1.getPoradi()- l2.getPoradi()));
+	}
+	
+	/**
+	 * Metoda seradi kone podle cisla
+	 */
+	public static void serazeniKonuPodleCisla() {
+		Collections.sort(kone, (k1, k2) -> (int)(k1.getPoradi() - k2.getPoradi()));
 	}
 	
 	/**
@@ -176,6 +183,11 @@ public class Utils {
 		return Main.kone.get(0).getX();
 	}
 	
+	/**
+	 * Metoda zjistuje, zda je vstupni retezec cislo 
+	 * @param input vstupni retezec
+	 * @return true - je to cislo, false - neni to cislo
+	 */
 	public static boolean isDouble(String input) {
 		try {
 			Double.parseDouble(input);
@@ -186,6 +198,11 @@ public class Utils {
 		}
 	}
 	
+	/**
+	 * Metoda zjistuje zda je vstupni retezec celym cislem
+	 * @param input vstupni retezec
+	 * @return true - je to cele cislo, false - neni to cele cislo
+	 */
 	public static boolean isInteger(String input) {
 		try {
 			Integer.parseInt(input);
