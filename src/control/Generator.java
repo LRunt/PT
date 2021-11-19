@@ -29,10 +29,10 @@ public class Generator {
 	public double b;
 	public int pocetKoni;
 	public int pocetLetounu;
-	public static final int MAX_POCET = 100;
-	public static final int MAX_M = 2000;
+	public static final int MAX_M = 1500;
 	public static final int MAX_N = 10000;
-	public static final int MAX_V = 10;
+	public static final int MAX_V = 100;
+	public static final int MAX_T = 1000;
 	public String vystup = "";
 	public Random random = new Random();
 
@@ -73,7 +73,7 @@ public class Generator {
 			vystup += (Math.random() * (maxX - minX + 1) + minX) + " ";
 			vystup += (Math.random() * (maxY - minY + 1) + minY) + " ";
 			vystup += (int)(Math.random() * (MAX_M - 0 + 1)) + " ";
-			vystup += (int)(Math.random() * (MAX_N - 0 + 1)) + "\n";
+			vystup += (int)(Math.random() * (MAX_T - 0 + 1)) + "\n";
 		}
 	}
 	
@@ -85,25 +85,17 @@ public class Generator {
 		vystup += ":-) Pocet koni:\n";
 		vystup += pocetKoni + " \n";
 	    List<Double> souradniceX = IntStream.rangeClosed(1, pocetKoni).boxed()
-	                .map(i -> random.nextGaussian() * 100 + 0) //Standard deviation 20, mean 50
+	                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
 	                .collect(Collectors.toList());
 	    List<Double> souradniceY = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * 100 + 0) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
 	    List<Double> hmotnostKone = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * 100000 + 1000) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_M / 10 + MAX_M) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
 	    List<Double> dobaNalozeni = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * 1000 + 10000) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_T / 10 + MAX_T) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
-	    /*System.out.println("X");
-	    souradniceX.stream().forEach(a -> System.out.println(a));
-	    System.out.println("Y");
-	    souradniceY.stream().forEach(a -> System.out.println(a));
-	    System.out.println("Vaha");
-	    hmotnostKone.stream().forEach(a -> System.out.println(a));
-	    System.out.println("Nalozeni");
-	    dobaNalozeni.stream().forEach(a -> System.out.println(a));*/
 	    for(int i = 0; i < pocetKoni; i++) {
 	    	vystup += String.format(":-) Kun %d\n", i + 1);
 			vystup += souradniceX.get(i) + " ";
@@ -138,18 +130,18 @@ public class Generator {
 		vystup += ":-) Pocet letounu:\n";
 		vystup += pocetLetounu + " \n";
 	    List<Double> souradniceX = IntStream.rangeClosed(1, pocetLetounu).boxed()
-	                .map(i -> random.nextGaussian() * 100 + 0) //Standard deviation 20, mean 50
+	                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
 	                .collect(Collectors.toList());
 	    List<Double> souradniceY = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * 100 + 0) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * (maxY - minY) / 2 + (maxY - minY) / 2 + minY) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
 	    List<Double> nosnostLetounu = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * 100000 + 1000) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_N / 10 + MAX_N) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
 	    List<Double> rychlostLetounu = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * 1000 + 10000) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_V /10 + MAX_V) //Standard deviation 20, mean 50
                 .collect(Collectors.toList());
-	    for(int i = 0; i < pocetKoni; i++) {
+	    for(int i = 0; i < pocetLetounu; i++) {
 	    	vystup += String.format(":-) Letoun %d\n", i + 1);
 			vystup += souradniceX.get(i) + " ";
 			vystup += souradniceY.get(i) + " ";
