@@ -212,5 +212,65 @@ public class Utils {
 			return false;
 		}
 	}
+	
+	/**
+	 * Metoda zarucuje, ze vstupni retezec bude cislo
+	 * @param otazka navod pro uzivatele co ma zadavat
+	 * @return cislo
+	 */
+	public static double inputDouble(String otazka) {
+		String vstup;
+		do {
+			System.out.print(otazka);
+			vstup = Main.sc.next();
+		}while(!Utils.isDouble(vstup));
+		return Double.parseDouble(vstup);
+	}
+	
+	/**
+	 * Metoda zarucuje, ze vstupni retezec bude cislo
+	 * @param otazka navod pro uzivatele co ma zadavat
+	 * @param podminka cislo ma byt vetsi nez podminka
+	 * @return cislo
+	 */
+	public static double inputDouble(String otazka, double podminka) {
+		double cislo = podminka - 1;
+		String vstup;
+		while(podminka > cislo) {
+			do {
+				System.out.print(otazka);
+				vstup = Main.sc.next();
+			}while(!Utils.isDouble(vstup));
+			cislo = Double.parseDouble(vstup);
+			if(podminka > cislo) {
+				System.out.println("Cislo musi byt vetsi nez " + podminka);
+			}
+		}
+		
+		return cislo;
+	}
+	
+	/**
+	 * Metoda zarucuje, ze vstupni retezec bude cele cislo
+	 * @param otazka navod pro uzivatele co ma zadavat
+	 * @param podminka pomineno nez kolik ma byt cele cislo vetsi
+	 * @return cele cislo
+	 */
+	public static int inputInteger(String otazka, int podminka) {
+		String vstup;
+		int celeCislo = podminka - 1;
+		while(podminka > celeCislo) {
+			do {
+				System.out.print(otazka);
+				vstup = Main.sc.next();
+			}while(!Utils.isInteger(vstup));
+			celeCislo = Integer.parseInt(vstup);
+			if(podminka > celeCislo) {
+				System.out.println("Cislo musi byt vetsi nez " + (podminka - 1));
+			}
+		}
+		return celeCislo;	
+		
+	}
 
 }

@@ -237,7 +237,7 @@ public class Letoun {
 	 * @return textova reprezentace instance letounu
 	 */
 	public String toString() {
-		return String.format("Letoun %d: x = %f, y = %f, m = %d, v = %f", PORADI, X, Y, M, V);
+		return String.format("Letoun %d: x = %.02f, y = %.02f, m = %d, v = %.02f", PORADI, X, Y, M, V);
 	}
 
 	

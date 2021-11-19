@@ -87,7 +87,7 @@ public class Kun{
 	 * @return textova reprezentace instance kone
 	 */
 	public String toString() {
-		return String.format("Kun %d: x = %f, y = %f, m = %d, n = %d",PORADI, x, y, m, n);
+		return String.format("Kun %d: x = %.02f, y = %.02f, m = %d, n = %d",PORADI, x, y, m, n);
 	}
 
 }

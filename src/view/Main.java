@@ -181,9 +181,9 @@ public class Main {
 		  case 2:
 			 System.out.print("Zadej cislo kone, ktery ma byt odstranen: ");
 			volba = sc.nextInt();
-			if(volba > 0 && volba < kone.size()) {
+			if(volba > 0 && volba <= kone.size()) {
 				kone.remove(volba - 1);
-				System.out.printf("Kun %d byl smazan.", volba);
+				System.out.printf("Kun %d byl smazan.\n", volba);
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -199,7 +199,7 @@ public class Main {
 			volba = sc.nextInt();
 			if(volba > 0 && volba < letouny.size()) {
 				letouny.remove(volba - 1);
-				System.out.printf("Letoun %d byl smazan.", volba);
+				System.out.printf("Letoun %d byl smazan.\n", volba);
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -224,29 +224,12 @@ public class Main {
 	 * Metoda vytvari noveho kone
 	 */
 	public static void tvorbaKone() {
-		String vstup;
 		double x, y;
 		int m, n;
-		do {
-			System.out.print("Zadej souradnici x: ");
-			vstup = sc.next();
-		}while(!Utils.isDouble(vstup));
-		x = Double.parseDouble(vstup);
-		do {
-			System.out.print("Zadej souradnici y: ");
-			vstup = sc.next();
-		}while(!Utils.isDouble(vstup));
-		y = Double.parseDouble(vstup);
-		do {
-			System.out.print("Zadej hmotnost kone: ");
-			vstup = sc.next();
-		}while(!Utils.isInteger(vstup));
-		m = Integer.parseInt(vstup);
-		do {
-			System.out.print("Zadej dobu nalozeni kone: ");
-			vstup = sc.next();
-		}while(!Utils.isInteger(vstup));
-		n = Integer.parseInt(vstup);
+		x = Utils.inputDouble("Zadej souradnici x: ");
+		y = Utils.inputDouble("Zadej souradnici y: ");
+		m = Utils.inputInteger("Zadej hmotnost kone: ", 0);
+		n = Utils.inputInteger("Zadej dobu nalozeni kone: ", 0);
 		kone.add(new Kun(x, y, m, n));
 	}
 	
@@ -254,29 +237,12 @@ public class Main {
 	 * Metoda vytvari nove letadlo
 	 */
 	public static void tvorbaLetounu() {
-		String vstup;
 		double x, y, v;
 		int m;
-		do {
-			System.out.print("Zadej souradnici x: ");
-			vstup = sc.next();
-		}while(!Utils.isDouble(vstup));
-		x = Double.parseDouble(vstup);
-		do {
-			System.out.print("Zadej souradnici y: ");
-			vstup = sc.next();
-		}while(!Utils.isDouble(vstup));
-		y = Double.parseDouble(vstup);
-		do {
-			System.out.print("Zadej nosnost letounu: ");
-			vstup = sc.next();
-		}while(!Utils.isInteger(vstup));
-		m = Integer.parseInt(vstup);
-		do {
-			System.out.print("Zadej rychlost kone: ");
-			vstup = sc.next();
-		}while(!Utils.isDouble(vstup));
-		v = Double.parseDouble(vstup);
+		x = Utils.inputDouble("Zadej souradnici x: ");
+		y = Utils.inputDouble("Zadej souradnici y: ");
+		m = Utils.inputInteger("Zadej nosnost letounu: ", 0);
+		v = Utils.inputDouble("Zadej rychlost kone: ", 0.0);
 		letouny.add(new Letoun(x, y, m, v));
 	}
 	
@@ -285,10 +251,28 @@ public class Main {
 	 */
 	public static void generovaniDat() {
 		String jmenoSouboru = "";
+		int minPocK, maxPocK, minPocL, maxPocL, volba = 0;
+		double minX, maxX, minY, maxY;
 		System.out.print("Zadej jmeno exportovaneho souboru: ");
 		jmenoSouboru = sc.next();
-		Generator gen = new Generator(-200, 200, -200, 200);
-		gen.generateSoubor(jmenoSouboru);
+		minPocK = Utils.inputInteger("Zadej minimalni pocet koni: ", 0);
+		maxPocK = Utils.inputInteger("Zadej maximalni pocet koni: ", minPocK);
+		minPocL = Utils.inputInteger("Zadej minimalni pocet letounu: ", 0);
+		maxPocL = Utils.inputInteger("Zadej maximalni pocet letounu: ", minPocL);
+		minX = Utils.inputDouble("Zadej minimalni X: ");
+		maxX = Utils.inputDouble("Zadej maximalni X: ", minX);
+		minY = Utils.inputDouble("Zadej minimalni Y: ");
+		maxY = Utils.inputDouble("Zadej maximalni Y: ", minY);
+		Generator gen = new Generator(minX, maxX, minY, maxY,minPocK, maxPocK, minPocL, maxPocL);
+		while(volba < 1 || volba > 2) {
+			volba = Utils.inputInteger("Vyber zpusob generovani: 1 - Rovnomerne | 2 - Normalni\n" , 1);
+		}
+		if(volba == 1) {
+			gen.generateData(jmenoSouboru);
+		}
+		if(volba == 2) {
+			gen.generateDataGausian(jmenoSouboru);
+		}
 	}
 	
 	/**
