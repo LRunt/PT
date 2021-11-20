@@ -37,7 +37,7 @@ public class Letoun {
 	/** Uchovava jestli je letoun v Parizi */
 	private boolean jeVParizi;
 	/** Celkova doba, kdy bylo letadlo ve vzduchu*/
-	public double celkDobaLetu = 0;
+	private double celkDobaLetu = 0;
 	/** Uchovava udaje o casu, poctu koni na palube, mistech pristani a aktualnim zatizeni */
 	public String statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", PORADI);
 	/** Kone v letadle*/
@@ -140,10 +140,13 @@ public class Letoun {
 		aktNakl = 0;
 		pocKoni = 0;
 		editStatistika();
-		nalKone.stream().forEach(k -> k.cas = cas);
+		nalKone.stream().forEach(k -> k.setCas(cas));
 		nalKone = new ArrayList<>();
 	}
 	
+	/**
+	 * Metoda pise statistiky konim, ktere letoun prepravuje
+	 */
 	public void editStatistika() {
 		//Cas; aktualni pocet koni na palube; x-ova souradnice, y-ova souradnice; statistika vytizeni v %
 		statistika += String.format("%.0f;%d;%.0f;%.0f;%d;", cas, pocKoni, X, Y, (int)(aktNakl/(M/100.0)));
@@ -165,85 +168,193 @@ public class Letoun {
 	private void presun(double x, double y) {
 		double dobaLetu = Utils.spoctiVzdalenost(this , x, y) / V;
 		cas += dobaLetu;
-		celkDobaLetu += dobaLetu;
+		setCelkDobaLetu(getCelkDobaLetu() + dobaLetu);
 		setX(x);
 		setY(y);
 	}
 	
+	/**
+	 * Vrati X-ovou souradnici letounu
+	 * @return X-ova souradnice letounu
+	 */
 	public double getX() {
 		return X;
 	}
 	
+	/**
+	 * Nastavi X-ovou souradnici letounu
+	 * @param X nova X-ova souradnice
+	 */
 	public void setX(double X) {
 		this.X = X;
 	}
 	
+	/**
+	 * Vrati Y-ovou souradnici letounu
+	 * @return Y-ova souradnice letounu
+	 */
 	public double getY() {
 		return Y;
 	}
 	
+	/**
+	 * Nastavi Y-ovou souradnici letounu
+	 * @param Y nova Y-ova souradnice
+	 */
 	public void setY(double Y) {
 		this.Y = Y;
 	}
 	
+	/**
+	 * Vrati nosnost letounu
+	 * @return nonost letounu
+	 */
 	public int getM() {
 		return M;
 	}
 	
+	/**
+	 * Nastavi nosnost letounu
+	 * @param M nosnost letounu
+	 */
 	public void setM(int M) {
-		this.M = M;
+		if (M < 0) {
+			System.out.println("Nosnost nesmi byt zaporna!");
+		}else {
+			this.M = M;
+		}
 	}
 	
+	/**
+	 * Vrati rychlost letounu
+	 * @return rychlost letounu
+	 */
 	public double getV() {
 		return V;
 	}
 	
+	/**
+	 * Nastavi rychlost letounu
+	 * @param V rychlost letounu
+	 */
 	public void setV(double V) {
-		this.V = V;
+		if (V < 0) {
+			System.out.println("Rychlost nesmi byt zaporna!");
+		}else {
+			this.V = V;
+		}
 	}
 	
+	/**
+	 * Vrati aktualni nalozeni letounu
+	 * @return aktualni nalozeni letounu
+	 */
 	public int getAktNakl() {
 		return aktNakl;
 	}
 
+	/**
+	 * Nastavi aktualni naklad letounu
+	 * @param aktNakl novy aktualni naklad letounu
+	 */
 	public void setAktNakl(int aktNakl) {
 		this.aktNakl = aktNakl;
 	}
 	
+	/**
+	 * Vrati kone, pro ktereho letoun poleti
+	 * @return kun pro ktereho letoun poleti
+	 */
 	public Kun getNasledujiciKun() {
 		return nasledujiciKun;
 	}
 	
+	/**
+	 * Nastavi nasledujiciho zastavku letounu
+	 * @param nasledujiciKun kun kam letoun poleti
+	 */
 	public void setNasledujiciKun(Kun nasledujiciKun) {
 		this.nasledujiciKun = nasledujiciKun;
 	}
 	
+	/**
+	 * Vrati poradove cislo (ID) letounu
+	 * @return poradove cislo letounu (ID)
+	 */
 	public int getPoradi() {
 		return PORADI;
 	}
 	
+	/**
+	 * Vrati cas, ktery letoun pracoval
+	 * @return cas, ktery letoun pracoval
+	 */
 	public double getCas() {
 		return cas;
 	}
 	
+	/**
+	 * Nastavi novy cas, ktery letoun pracuje
+	 * @param newCas novy cas, ktery letoun pracuje
+	 */
 	public void setCas(double newCas) {
-		this.cas = newCas;
+		if(newCas < 0) {
+			System.out.println("Cas nemuze byt zaporny!");
+		}else {
+			this.cas = newCas;
+		}
 	}
 	
-	public boolean getJeVParizi() {
+	/**
+	 * Vraci zda je letoun v Parizi
+	 * @return true - letoun je v Parizi, false - letoun neni v Parizi
+	 */
+	public boolean isJeVParizi() {
 		return jeVParizi;
 	}
 	
+	/**
+	 * Nastavi zda je, nebo neni letoun v Parizi
+	 * @param je stav letounu
+	 */
 	public void setJeVParizi(boolean je) {
 		this.jeVParizi = je;
 	}
 	
+	/**
+	 * Vrati X-ovou startovaci souradnici letounu
+	 * @return X-ova startovaci souradnice letounu
+	 */
 	public double getStartX() {
 		return startX;
 	}
 	
+	/**
+	 * Vrati Y-ovou startovaci souradnici letounu
+	 * @return Y-ova startovaci souradnice letounu
+	 */
 	public double getStartY() {
 		return startY;
+	}
+	
+	/**
+	 * Vrati celkovou dobu vsech letu letounu
+	 * @return celkova doba vsech letu
+	 */
+	public double getCelkDobaLetu() {
+		return celkDobaLetu;
+	}
+
+	/**
+	 * Nastavi celkovou dobu po, ktery je letoun ve vzduchu
+	 * @param celkDobaLetu nova celkova doba letu
+	 */
+	public void setCelkDobaLetu(double celkDobaLetu) {
+		if(celkDobaLetu < 0) {
+			System.out.println("Celkova doba letu nemuze byt zaporna!");
+		}else {
+			this.celkDobaLetu = celkDobaLetu;
+		}
 	}
 	
 	/**
@@ -252,6 +363,8 @@ public class Letoun {
 	public String toString() {
 		return String.format("Letoun %d: x = %.02f, y = %.02f, m = %d, v = %.02f", PORADI, X, Y, M, V);
 	}
+
+	
 
 	
 

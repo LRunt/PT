@@ -13,31 +13,59 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * Trida {@code Generator} zajistuje generovani souboru daneho formatu
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.0 (11-11-2021)
  */
 public class Generator {
-	public double maxX;
-	public double minX;
-	public double maxY;
-	public double minY;
-	public int minPocK;
-	public int maxPocK;
-	public int minPocL;
-	public int maxPocL;
-	public double a;
-	public double b;
-	public int pocetKoni;
-	public int pocetLetounu;
-	public static final int MAX_M = 1500;
-	public static final int MAX_N = 10000;
-	public static final int MAX_V = 100;
-	public static final int MAX_T = 1000;
-	public String vystup = "";
-	public Random random = new Random();
+	/** Minimalni X-ova souradnice*/
+	private double maxX;
+	/** Maximalni X-ova souradnice*/ 
+	private double minX;
+	/** Minimalni Y-ova souradnice*/
+	private double maxY;
+	/** Maximalni Y-ova souradnice*/
+	private double minY;
+	/** Minimalni pocet koni*/
+	private int minPocK;
+	/** Maximalni pocet koni*/
+	private int maxPocK;
+	/** Minimalni pocet letounu*/
+	private int minPocL;
+	/** Maximalni pocet letounu*/
+	private int maxPocL;
+	/** Vygenerovana X-ova souradnice Parize*/
+	private double a;
+	/** Vygenerovana Y-ova souradnice Parize*/
+	private double b;
+	/** Vygenerovany pocet koni*/
+	private int pocetKoni;
+	/** Vygenerovany pocet letounu*/
+	private int pocetLetounu;
+	/** Konstanta generovani hmotnosti koni*/
+	private static final int MAX_M = 1500;
+	/** Konstanta pro generovani nosnosti letounu*/
+	private static final int MAX_N = 10000;
+	/** Konstatnta pro generovani rychlosti letounu*/
+	private static final int MAX_V = 100;
+	/** Konstanta pro generovani doby nalozeni koni*/
+	private static final int MAX_T = 1000;
+	/** Vystup do generovaneho souboru*/
+	private String vystup = "";
+	/** Generator nahodnych cisel*/
+	private Random random = new Random();
 
 	/**
-	 * 
+	 * Konstruktor generatoru dat
+	 * @param minX - Minimalni X-ova souradnice
+	 * @param maxX - Maximalni X-ova souradnice
+	 * @param minY - Minimalni Y-ova souradnice
+	 * @param maxY - Maximalni Y-ova souradnice
+	 * @param minPocK - Minimalni pocet koni
+	 * @param maxPocK - Maximalni pocet koni
+	 * @param minPocL - Minimalni pocet letounu
+	 * @param maxPocL - Maximalni pocet letounu
 	 */
 	public Generator(double minX, double maxX, double minY, double maxY, int minPocK, int maxPocK, int minPocL, int maxPocL) {
 		this.minX = minX;

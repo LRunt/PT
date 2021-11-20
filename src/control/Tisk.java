@@ -9,13 +9,19 @@ import model.Kun;
 import model.Letoun;
 import view.Main;
 
+/**
+ * Trida {@code Tisk} zajistuje tisknuti statistik do souboru
+ * 
+ * @author Lukas Runt, Martina Mlezivova
+ * @version 1.0(20-11-2021)
+ */
 public class Tisk {
 
 	/**
 	 * Metoda vytiskne vsechny soubory se statistikami
 	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
 	 */
-	public static void tiskni(double casSimulace) {
+	public void tiskni(double casSimulace) {
 		tiskniLetouny();
 		tiskniKone(casSimulace);
 		tiskniStatistiku(casSimulace);
@@ -24,7 +30,7 @@ public class Tisk {
 	/**
 	 * Metoda vytiskne statistiku letounu
 	 */
-	private static void tiskniLetouny() {
+	private void tiskniLetouny() {
 		String jmenoSouboru = "Letouny";
 		Utils.serazeniPodleCisla(Main.letouny);
 		try {
@@ -34,7 +40,7 @@ public class Tisk {
 							 new File("export/statistika/" + jmenoSouboru + ".csv"))));
 			for(Letoun letoun : Main.letouny) {
 				pw.print(letoun.statistika);
-				pw.print(String.format("Letadlo stravilo ve vzduchu %.0f, doba prostoju je %.0f\n", letoun.celkDobaLetu, letoun.getCas() - letoun.celkDobaLetu));
+				pw.print(String.format("Letadlo stravilo ve vzduchu %.0f, doba prostoju je %.0f\n", letoun.getCelkDobaLetu(), letoun.getCas() - letoun.getCelkDobaLetu()));
 			}
 			pw.close();	
 			System.out.println("Soubor se statistikou letounu vygenerovan.");
@@ -47,7 +53,7 @@ public class Tisk {
 	 * Metoda vytiskne statistiku koni
 	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
 	 */
-	private static void tiskniKone(double casSimulace) {
+	private void tiskniKone(double casSimulace) {
 		String jmenoSouboru = "Kone";
 		Utils.serazeniKonuPodleCisla(Main.kone);
 		try {
@@ -57,7 +63,7 @@ public class Tisk {
 							 new File("export/statistika/" + jmenoSouboru + ".csv"))));
 			for(Kun kun : Main.kone) {
 				pw.print(kun.statistika);
-				pw.print(String.format("Kun byl v Parizi %.0f pred zacatkem olympiady\n", casSimulace - kun.cas));
+				pw.print(String.format("Kun byl v Parizi %.0f pred zacatkem olympiady\n", casSimulace - kun.getCas()));
 			}
 			pw.close();	
 			System.out.println("Soubor se statistikou koni vygenerovan.");
@@ -70,12 +76,12 @@ public class Tisk {
 	 * Matoda vytiskne celkovou statistiku
 	 * @param casSimulace cas, ktery je potrebny k prepraveni koni
 	 */
-	private static void tiskniStatistiku(double casSimulace) {
+	private void tiskniStatistiku(double casSimulace) {
 		String jmenoSouboru = "Statistika";
 		Utils.serazeniKonuPodleCisla(Main.kone);
 		try {
-			double celkovaDobaLetu = Main.letouny.stream().mapToDouble(l -> l.celkDobaLetu).sum();
-			double celkovaDobaProstoju = Main.letouny.stream().mapToDouble(l -> l.getCas() - l.celkDobaLetu).sum();
+			double celkovaDobaLetu = Main.letouny.stream().mapToDouble(l -> l.getCelkDobaLetu()).sum();
+			double celkovaDobaProstoju = Main.letouny.stream().mapToDouble(l -> l.getCas() - l.getCelkDobaLetu()).sum();
 			PrintWriter pw = new PrintWriter(
 							 new BufferedWriter(
 							 new FileWriter(

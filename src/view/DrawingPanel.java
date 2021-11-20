@@ -19,6 +19,7 @@ import model.Letoun;
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.1 (01-10-2021)
  */
+@SuppressWarnings("serial")
 public class DrawingPanel extends Component {
 	
 	private static double scale;

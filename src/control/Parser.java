@@ -9,10 +9,10 @@ import model.Letoun;
 import view.Main;
 
 /**
- * Trida, ktera se stara o nacitani souboru
+ * Trida {@code Parser} se stara o nacitani vstupnich dat ze souboru
  * 
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.0 (04-10-2021)
+ * @version 2.0 (20-11-2021)
  */
 public class Parser {
 	

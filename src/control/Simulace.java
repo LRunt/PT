@@ -7,6 +7,8 @@ import model.Letoun;
 import view.Main;
 
 /**
+ * Trida {@code Simulace} se stara o simulavani prepravy koni do Parize
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 2.2 (20-11-2021)
  */
@@ -27,13 +29,9 @@ public class Simulace {
 	private static Tisk tiskarna = new Tisk();
 
 	/**
-	 * 
+	 * Metoda vytvori graf
+	 * @return Graf
 	 */
-	public Simulace() {
-		//graf = createGraf();
-		//greedySimulace();
-	}
-
 	public Graf createGraf() {
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> konici = (ArrayList<Kun>) kone.clone(); 
@@ -52,6 +50,9 @@ public class Simulace {
 		return graf;
 	}
 	
+	/**
+	 * Metoda provede simulaci pomoci grafu
+	 */
 	public void simulace() {
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> konici = (ArrayList<Kun>) kone.clone(); 
@@ -80,12 +81,12 @@ public class Simulace {
 	}
 	
 	/**
-	 * Metoda provede simulaci s jedním nebo vice letadly pomoci greedy algoritmu
+	 * Metoda provede simulaci s jednï¿½m nebo vice letadly pomoci greedy algoritmu
 	 */
+	@SuppressWarnings("unchecked")
 	public void greedySimulace() {
 		int pocetKoni = kone.size(), prevezenoKoni = 0;
 		System.out.println("Zacatek simulace:");
-		@SuppressWarnings("unchecked")
 		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
 		ArrayList<Letoun> letounyKPreprave = (ArrayList<Letoun>) letouny.clone();
 		if(letounyKPreprave.size() == 0) {
@@ -111,15 +112,15 @@ public class Simulace {
 			if(koneKPreprave.size() == 0) {
 				Collections.sort(letounyKPreprave,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 				for (Letoun letoun : letounyKPreprave) {
-					if(letoun.getNasledujiciKun().prevezen == false) {
+					if(letoun.getNasledujiciKun().isStav() == false) {
 						letoun.letDoFrancie(letoun.getNasledujiciKun());
 						prevezenoKoni++;
-						letoun.getNasledujiciKun().prevezen = true;
+						letoun.getNasledujiciKun().setStav(true);
 					}
 				}
 				break;
 				//leti z parize
-			} else if(letounyKPreprave.get(0).getJeVParizi()) {
+			} else if(letounyKPreprave.get(0).isJeVParizi()) {
 				if(koneKPreprave.size() == 0 || letounyKPreprave.get(0).getNasledujiciKun() == null) {
 					letounyKPreprave.get(0).letounPristal();
 				} else {
@@ -173,14 +174,14 @@ public class Simulace {
 		letouny.stream().forEach(l -> l.statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", l.getPoradi()));
 		letouny.stream().forEach(l -> l.setJeVParizi(false));
 		letouny.stream().forEach(l -> l.setNasledujiciKun(null));
-		letouny.stream().forEach(l -> l.celkDobaLetu = 0);
+		letouny.stream().forEach(l -> l.setCelkDobaLetu(0));
 		kone.stream().forEach(k -> k.statistika = String.format("Kun %d\nCas;X;Y\n", k.getPoradi()));
-		kone.stream().forEach(k -> k.prevezen = false);
+		kone.stream().forEach(k -> k.setStav(false));
 	}
 	
 	/**
 	 * Metoda rozhodne zda letoun po nabrani kone poleti do Parize nebo k dalsimu koni
-	 * @return
+	 * @return true - letoun poleti do Parize, false - letoun nepoleti do Parize
 	 */
 	private boolean letetDoParize(ArrayList<Kun> koneKPreprave, Letoun l) {
 		index = 0;
@@ -194,39 +195,4 @@ public class Simulace {
 		}
 		return true;
 	}
-	
-	/*/**
-	 * Zakladni simulace pomoci greedy algoritmu
-	 */
-	/*public static void prvniSimulace() {
-		System.out.println("Zacatek simulace:");
-		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) Main.kone.clone();
-		ArrayList<Letoun >letouny = Main.letouny;
-		letouny.get(0).start();
-		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) *  100 - Utils.spoctiVzdalenost(letouny.get(0), k2) * 100));
-		while(koneKPreprave.size() > 0) {
-			Kun nasledujiciKun = koneKPreprave.get(0);
-			Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(nasledujiciKun, k1) * 1000 - Utils.spoctiVzdalenost(nasledujiciKun, k2) * 1000));
-			if(koneKPreprave.size() == 1) {
-				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
-				koneKPreprave.remove(0);
-				jeVeFrancii = true;
-				//leti z parize
-			} else if(jeVeFrancii) {
-				letouny.get(0).letZFrancieKeKoni(koneKPreprave.get(0));
-				jeVeFrancii = false;
-				//leti do parize
-			} else if(letouny.get(0).getM() < letouny.get(0).getAktNakl() + koneKPreprave.get(0).getM() + koneKPreprave.get(1).getM() ) {
-				letouny.get(0).letDoFrancie(koneKPreprave.get(0));
-				koneKPreprave.remove(0);
-				jeVeFrancii = true;
-			} else{
-				letouny.get(0).letKeKoni(koneKPreprave.get(0), koneKPreprave.get(1));
-				koneKPreprave.remove(0);
-			}
-			
-		}
-		letouny.get(0).letounPristal();
-		System.out.println("Konec simulace");
-	}*/
 }

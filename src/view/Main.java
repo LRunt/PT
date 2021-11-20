@@ -1,23 +1,15 @@
 package view;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-
-import control.Generator;
-import control.Parser;
-import control.Simulace;
-import control.Utils;
-import model.Kun;
-import model.Letoun;
+import control.*;
+import model.*;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -55,7 +47,7 @@ public class Main {
 		kone = null;
 		letouny = null;
 		Letoun.pocetLetounu = 0;
-		Kun.pocetKoni = 0;
+		Kun.setPocetKoni(0);
 		System.out.println("Zacina nacitani dat.");
 		Parser ps= new Parser(jmenoSouboru);
 		double[] souradnice = ps.getSouradnice();
@@ -88,12 +80,11 @@ public class Main {
 	public static void menu() {
 		System.out.println(
 				  "-------------------------------------------------------------------------------------------------\r\n"
-				+ "|██████╗░██████╗░███████╗██████╗░██████╗░░█████╗░██╗░░░██╗░█████╗░  ██╗░░██╗░█████╗░███╗░░██╗██╗|\r\n"
-				+ "|██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██║░░░██║██╔══██╗  ██║░██╔╝██╔══██╗████╗░██║██║|\r\n"
-				+ "|██████╔╝██████╔╝█████╗░░██████╔╝██████╔╝███████║╚██╗░██╔╝███████║  █████═╝░██║░░██║██╔██╗██║██║|\r\n"
-				+ "|██╔═══╝░██╔══██╗██╔══╝░░██╔═══╝░██╔══██╗██╔══██║░╚████╔╝░██╔══██║  ██╔═██╗░██║░░██║██║╚████║██║|\r\n"
-				+ "|██║░░░░░██║░░██║███████╗██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██║░╚██╗╚█████╔╝██║░╚███║██║|\r\n"
-				+ "|╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═╝░░╚═╝░╚════╝░╚═╝░░╚══╝╚═╝|\r\n"
+				+ "|######  ######  ####### ######  ######   #####  ##    ##  #####    ##   ##  #####  ###   ## ## |\r\n"
+				+ "|##   ## ##   ## ##      ##   ## ##   ## ##   ## ##    ## ##   ##   ##  ##  ##   ## ####  ## ## |\r\n"
+				+ "|######  ######  #####   ######  ######  #######  ##  ##  #######   #####   ##   ## ## ## ## ## |\r\n"
+				+ "|##      ##   ## ##      ##      ##   ## ##   ##   ####   ##   ##   ##  ##  ##   ## ##  #### ## |\r\n"
+				+ "|##      ##   ## ####### ##      ##   ## ##   ##    ##    ##   ##   ##   ##  #####  ##   ### ## |\r\n"
 				+ "-------------------------------------------------------------------------------------------------\r\n"
 				+ "|   1 - Start   |   2 - Generace dat   |   3 - Uprava dat   |   4 - Jiny soubor   |  5 - Konec  |\r\n"
 				+ "-------------------------------------------------------------------------------------------------");
@@ -107,12 +98,11 @@ public class Main {
 		do {
 			System.out.println(
 				  "-------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "|                        ██╗░░░██╗██████╗░██████╗░░█████╗░██╗░░░██╗░█████╗░  ██████╗░░█████╗░████████╗                        |\r\n"
-				+ "|                        ██║░░░██║██╔══██╗██╔══██╗██╔══██╗██║░░░██║██╔══██╗  ██╔══██╗██╔══██╗╚══██╔══╝                        |\r\n"
-				+ "|                        ██║░░░██║██████╔╝██████╔╝███████║╚██╗░██╔╝███████║  ██║░░██║███████║░░░██║░░░                        |\r\n"
-				+ "|                        ██║░░░██║██╔═══╝░██╔══██╗██╔══██║░╚████╔╝░██╔══██║  ██║░░██║██╔══██║░░░██║░░░                        |\r\n"
-				+ "|                        ╚██████╔╝██║░░░░░██║░░██║██║░░██║░░╚██╔╝░░██║░░██║  ██████╔╝██║░░██║░░░██║░░░                        |\r\n"
-				+ "|                        ░╚═════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝  ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░                        |\r\n"
+				+ "|                        ##    ## ######  ######   #####  ##    ##  #####    ######   #####  ########                         |\r\n"
+				+ "|                        ##    ## ##   ## ##   ## ##   ## ##    ## ##   ##   ##   ## ##   ##    ##                            |\r\n"
+				+ "|                        ##    ## ######  ######  #######  ##  ##  #######   ##   ## #######    ##                            |\r\n"
+				+ "|                        ##    ## ##      ##   ## ##   ##   ####   ##   ##   ##   ## ##   ##    ##                            |\r\n"
+				+ "|                         ######  ##      ##   ## ##   ##    ##    ##   ##   ######  ##   ##    ##                            |\r\n"
 				+ "-------------------------------------------------------------------------------------------------------------------------------\r\n"
 				+ "| 1 - Pridej kone | 2 - Odeber kone | 3 - Vypis kone | 4 - Pridej letadlo | 5 - Odeber letadlo | 6 - Vypis letadla | 7 - Zpet |\r\n"
 				+ "-------------------------------------------------------------------------------------------------------------------------------");
@@ -123,7 +113,6 @@ public class Main {
 	 * Metoda ve ktere si uzivatel voli co se ma stat
 	 */
 	public static void volba() {
-		String vstup = null;
 		int volba;
 		try {
 			sc = new Scanner(System.in);
@@ -301,27 +290,6 @@ public class Main {
 		while(true) {
 			menu();
 		}
-		/*parser("data/random100.txt");	
-		Utils.vypisKoni();
-		System.out.println("----------------------------");
-		Utils.vypisLetounu();
-		System.out.println("----------------------------");
-		Simulace sim = new Simulace();
-		sim.greedySimulace();*/
-		//vypisDoSouboru();
-		
-		
-		//graficka vzualizace simulace 1
-		/*JFrame okno = new JFrame();
-		okno.setTitle("Semestralni prace - PT");
-		okno.setResizable(false);
-		
-		okno.add(new DrawingPanel());//pridani komponenty
-		okno.pack(); //udela resize okna dle komponent
-		
-		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//skonceni po zavreni okna
-		okno.setLocationRelativeTo(null);//vycentrovat na obrazovce
-		okno.setVisible(true);*/
 	}
 
 }

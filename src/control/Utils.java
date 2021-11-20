@@ -6,8 +6,10 @@ import model.*;
 import view.*;
 
 /**
+ * Trida {@code Utils} je sbyrkou nastroju, ktere se volaju odkudkoliv z programu
+ * 
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.0 (13-10-2021)
+ * @version 2.0 (20-11-2021)
  */
 public class Utils {
 	/** Odstranuje chybu */
