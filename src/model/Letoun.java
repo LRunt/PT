@@ -15,7 +15,7 @@ public class Letoun {
 	/** Uchovava zaznam kolik letounu existuje*/
 	public static int pocetLetounu = 0;
 	/** Cislo letounu (ID)*/
-	private final int PORADI = pocetLetounu++; 
+	private final int PORADI = ++pocetLetounu; 
 	/** Souradnice letouny*/
 	private double X;
 	/** Souradnice letouny*/
@@ -42,6 +42,10 @@ public class Letoun {
 	public String statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", PORADI);
 	/** Kone v letadle*/
 	public ArrayList<Kun> nalKone = new ArrayList<Kun>();
+	/** Startovni pozice letounu*/
+	private double startX;
+	/** Startovni pozive letounu*/
+	private double startY;
 	
 	/**
 	 * Konstruktor letounu
@@ -51,15 +55,12 @@ public class Letoun {
 	 * @param V - rychlost letu
 	 */
 	public Letoun(double X, double Y, int M, double V) {
-		this();
 		this.X = X;
 		this.Y = Y;
 		this.M = M;
 		this.V = V;
-	}
-	
-	/*Defaultni konstruktor*/
-	public Letoun() {
+		startX = X;
+		startY = Y;
 		setAktNakl(0);
 		celkemN = 0;
 		pocKoni = 0;
@@ -231,6 +232,18 @@ public class Letoun {
 	
 	public boolean getJeVParizi() {
 		return jeVParizi;
+	}
+	
+	public void setJeVParizi(boolean je) {
+		this.jeVParizi = je;
+	}
+	
+	public double getStartX() {
+		return startX;
+	}
+	
+	public double getStartY() {
+		return startY;
 	}
 	
 	/**

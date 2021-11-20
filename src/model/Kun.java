@@ -10,7 +10,7 @@ public class Kun{
 	/** Uchovava zaznam kolik koni existuje*/
 	public static int pocetKoni = 0;
 	/** Cislo kone (ID)*/
-	private final int PORADI = pocetKoni++;
+	private final int PORADI = ++pocetKoni;
 	/** Souradnice kone x*/
 	private double x;
 	/** Souradnice kone y*/
@@ -34,17 +34,12 @@ public class Kun{
 	 * @param n - doba nalozeni
 	 */
 	public Kun(double x, double y, int m, int n) {
-		this();
 		this.x = x;
 		this.y = y;
 		this.m = m;
 		this.n = n;
-	}
-	
-	/* Defaultni konstruktor*/
-	public Kun() {
 		prevezen = false;
-	};
+	}
 	
 	public double getX() {
 		return x;

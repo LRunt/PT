@@ -55,7 +55,7 @@ public class Simulace {
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> konici = (ArrayList<Kun>) kone.clone(); 
 		boolean jeVeFrancii = false;
-		Utils.serazeniLetounu();
+		Utils.serazeniLetounu(letouny);
 		Collections.sort(konici, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
 		letouny.get(0).start();
 		int aktKun, nasKun, prevezeniKone = 0, pocetKoni = konici.size();
@@ -86,64 +86,78 @@ public class Simulace {
 		System.out.println("Zacatek simulace:");
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
-		Utils.selekceLetadel();
-		Utils.serazeniPodleHmotnosti();
-		Utils.serazeniPodleNosnosti();
-		while(kone.get(0).getM() > letouny.get(0).getM()) {
+		ArrayList<Letoun> letounyKPreprave = (ArrayList<Letoun>) letouny.clone();
+		Utils.selekceLetadel(letounyKPreprave);
+		Utils.serazeniPodleHmotnosti(koneKPreprave);
+		Utils.serazeniPodleNosnosti(letounyKPreprave);
+		while(kone.get(0).getM() > letounyKPreprave.get(0).getM()) {
 			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a tedy bezi sam do Parize.");
 			kone.remove(0);
 		}
-		Utils.serazeniLetounu();
+		Utils.serazeniLetounu(letounyKPreprave);
 		while(pocetKoni >= prevezenoKoni) {
-			Collections.sort(letouny,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
-			Letoun aktLet = letouny.get(0);
-			if(letouny.get(0).getNasledujiciKun() == null && koneKPreprave.size() >= 1) {
-				letouny.get(0).start();
+			Collections.sort(letounyKPreprave,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
+			Letoun aktLet = letounyKPreprave.get(0);
+			if(letounyKPreprave.get(0).getNasledujiciKun() == null && koneKPreprave.size() >= 1) {
+				letounyKPreprave.get(0).start();
 				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet, k1) * K - Utils.spoctiVzdalenost(aktLet, k2) * K));
-				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
+				letounyKPreprave.get(0).setNasledujiciKun(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 			} else if(koneKPreprave.size() > 1) {
 				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) * K - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2) * K));
 			}
 			if(koneKPreprave.size() == 0) {
-				if(letouny.get(0).getNasledujiciKun() == null) {
+				if(letounyKPreprave.get(0).getNasledujiciKun() == null) {
 					prevezenoKoni++;
-				} else if(letouny.get(0).getNasledujiciKun().prevezen == false) {
-					letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
+				} else if(letounyKPreprave.get(0).getNasledujiciKun().prevezen == false) {
+					letounyKPreprave.get(0).letDoFrancie(letounyKPreprave.get(0).getNasledujiciKun());
 					prevezenoKoni++;
-					letouny.get(0).getNasledujiciKun().prevezen = true;
+					letounyKPreprave.get(0).getNasledujiciKun().prevezen = true;
 				} else {
 					prevezenoKoni++;
 				}
 				//leti z parize
-			} else if(letouny.get(0).getJeVParizi()) {
-				if(koneKPreprave.size() == 0 || letouny.get(0).getNasledujiciKun() == null) {
-					letouny.get(0).letounPristal();
+			} else if(letounyKPreprave.get(0).getJeVParizi()) {
+				if(koneKPreprave.size() == 0 || letounyKPreprave.get(0).getNasledujiciKun() == null) {
+					letounyKPreprave.get(0).letounPristal();
 				} else {
-					letouny.get(0).letZFrancieKeKoni(letouny.get(0).getNasledujiciKun());
+					letounyKPreprave.get(0).letZFrancieKeKoni(letounyKPreprave.get(0).getNasledujiciKun());
 				}
 				//leti do parize
-			} else if(letetDoParize(koneKPreprave, letouny.get(0))) {
-				letouny.get(0).letDoFrancie(letouny.get(0).getNasledujiciKun());
+			} else if(letetDoParize(koneKPreprave, letounyKPreprave.get(0))) {
+				letounyKPreprave.get(0).letDoFrancie(letounyKPreprave.get(0).getNasledujiciKun());
 				//koneKPreprave.remove(0);
-				letouny.get(0).setNasledujiciKun(koneKPreprave.get(0));
+				letounyKPreprave.get(0).setNasledujiciKun(koneKPreprave.get(0));
 				koneKPreprave.remove(0);
 				prevezenoKoni++;
 			} else{
-				letouny.get(0).letKeKoni(letouny.get(0).getNasledujiciKun(), koneKPreprave.get(index));
-				letouny.get(0).setNasledujiciKun(koneKPreprave.get(index));
+				letounyKPreprave.get(0).letKeKoni(letounyKPreprave.get(0).getNasledujiciKun(), koneKPreprave.get(index));
+				letounyKPreprave.get(0).setNasledujiciKun(koneKPreprave.get(index));
 				koneKPreprave.remove(index);
 				prevezenoKoni++;
 			}
 		}
-		letouny.stream().filter(l -> l.getNasledujiciKun() != null).forEach(l -> l.letounPristal());
+		letounyKPreprave.stream().filter(l -> l.getNasledujiciKun() != null).forEach(l -> l.letounPristal());
 		System.out.println("Konec simulace");
-		Collections.sort(letouny, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
-		double casSimulace = letouny.get(0).getCas();
+		Collections.sort(letounyKPreprave, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
+		double casSimulace = letounyKPreprave.get(0).getCas();
 		System.out.printf("Simulace trvala: %.0f\n",casSimulace);
 		System.out.printf("Bylo prepraveno %d koni.\n", kone.size());
 		Main.retezec += String.format("Simulace trvala: %.0f",casSimulace);
 		tiskarna.tiskni(casSimulace);
+		nastavStartovniStav();
+	}
+	
+	/**
+	 * Metoda nastavi vsem letounum startovni pozici
+	 */
+	private void nastavStartovniStav() {
+		letouny.stream().forEach(l -> l.setX(l.getStartX()));
+		letouny.stream().forEach(l -> l.setY(l.getStartY()));
+		letouny.stream().forEach(l -> l.setCas(0));
+		letouny.stream().forEach(l -> l.statistika = "");
+		letouny.stream().forEach(l -> l.setJeVParizi(false));
+		kone.stream().forEach(k -> k.statistika = "");
 	}
 	
 	/**

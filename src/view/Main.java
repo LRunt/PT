@@ -133,7 +133,6 @@ public class Main {
 			}
 			switch(volba) {
 		  case 1:
-			parser(cesta);
 			Simulace sim = new Simulace();
 			sim.greedySimulace();
 			System.out.println("Pro pokracovani zmackni ENTER.");
@@ -157,8 +156,6 @@ public class Main {
 			System.out.println("Nevalidni volba");
 		}catch(InputMismatchException exc) {
 			System.out.println("Nevalidni volba");
-		}catch(IOException ex) {
-			System.err.println("HUPSÍK DUPSÍK! Doslo k chybe pri cteni souboru: " + vstup);
 		}
 	}
 	
@@ -189,7 +186,7 @@ public class Main {
 			}
 		    break;
 		  case 3:
-			Utils.vypisKoni();
+			Utils.vypisKoni(kone);
 			break;
 		  case 4:
 			tvorbaLetounu();
@@ -205,7 +202,7 @@ public class Main {
 			}
 			break;
 		  case 6:
-			Utils.vypisLetounu();
+			Utils.vypisLetounu(letouny);
 			break;
 		  case 7:
 			return false;

@@ -10,10 +10,6 @@ import view.*;
  * @version 1.0 (13-10-2021)
  */
 public class Utils {
-	/** Typedef letounu z mainu*/
-	private static ArrayList<Letoun> letouny = Main.letouny;
-	/** Typedef koni z mainu*/
-	private static ArrayList<Kun> kone = Main.kone;
 	/** Odstranuje chybu */
 	private static final int K = 1000;
 	/** Kolikrat muze byt mensi rychlost letadla */
@@ -80,12 +76,12 @@ public class Utils {
 	/**
 	 * Metoda vyradi letadla, ktere maji malou rychlost, ktera by zpomalovala simulaci
 	 */
-	public static void selekceLetadel() {
-		serazeniLetounu();
-		Double nejRychlost = letouny.get(0).getV();
-		for(int i = 0; i < letouny.size(); i++) {
-			if(letouny.get(i).getV() < nejRychlost/KOLIKRAT_MENSI) {
-				letouny.remove(i);
+	public static void selekceLetadel(ArrayList<Letoun> letadla) {
+		serazeniLetounu(letadla);
+		Double nejRychlost = letadla.get(0).getV();
+		for(int i = 0; i < letadla.size(); i++) {
+			if(letadla.get(i).getV() < nejRychlost/KOLIKRAT_MENSI) {
+				letadla.remove(i);
 				i--;
 				}
 		}
@@ -94,36 +90,36 @@ public class Utils {
 	/**
 	 * Metoda seradi letouny podle cisla
 	 */
-	public static void serazeniPodleCisla() {
-		Collections.sort(letouny, (l1, l2) -> (int)(l1.getPoradi()- l2.getPoradi()));
+	public static void serazeniPodleCisla(ArrayList<Letoun> letadla) {
+		Collections.sort(letadla, (l1, l2) -> (int)(l1.getPoradi()- l2.getPoradi()));
 	}
 	
 	/**
 	 * Metoda seradi kone podle cisla
 	 */
-	public static void serazeniKonuPodleCisla() {
-		Collections.sort(kone, (k1, k2) -> (int)(k1.getPoradi() - k2.getPoradi()));
+	public static void serazeniKonuPodleCisla(ArrayList<Kun> konici) {
+		Collections.sort(konici, (k1, k2) -> (int)(k1.getPoradi() - k2.getPoradi()));
 	}
 	
 	/**
 	 * Metoda seradi letouny podle nosnosti
 	 */
-	public static void serazeniPodleNosnosti() {
-		Collections.sort(letouny, (l1,l2) -> (int)(l1.getM() - l2.getM()));
+	public static void serazeniPodleNosnosti(ArrayList<Letoun> letadla) {
+		Collections.sort(letadla, (l1,l2) -> (int)(l1.getM() - l2.getM()));
 	}
 	
 	/**
 	 * Metoda seradi kone podle hmotnosti
 	 */
-	public static void serazeniPodleHmotnosti() {
-		Collections.sort(kone, (k1,k2) -> (int)(k1.getM() - k2.getM()));
+	public static void serazeniPodleHmotnosti(ArrayList<Kun> konici) {
+		Collections.sort(konici, (k1,k2) -> (int)(k1.getM() - k2.getM()));
 	}
 	
 	/**
 	 * Metoda vypise pole koni do konzole
 	 */
-	public static void vypisKoni() {
-		kone.stream().forEach(s -> System.out.println(s));
+	public static void vypisKoni(ArrayList<Kun> konici) {
+		konici.stream().forEach(s -> System.out.println(s));
 	}
 	
 	/**
@@ -136,15 +132,15 @@ public class Utils {
 	/**
 	 * Metoda vypise pole letounu do konzole
 	 */
-	public static void vypisLetounu() {
-		letouny.stream().forEach(s -> System.out.println(s));
+	public static void vypisLetounu(ArrayList<Letoun> letadla) {
+		letadla.stream().forEach(s -> System.out.println(s));
 	}
 
 	/**
 	 * Metoda seradi letouny podle rychlosti
 	 */
-	public static void serazeniLetounu() {
-		Collections.sort(letouny, (l1,l2) -> (int)(l2.getV() * K - l1.getV() * K));
+	public static void serazeniLetounu(ArrayList<Letoun> letadla) {
+		Collections.sort(letadla, (l1,l2) -> (int)(l2.getV() * K - l1.getV() * K));
 	}
 	
 	/**

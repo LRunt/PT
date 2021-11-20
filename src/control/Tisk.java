@@ -26,7 +26,7 @@ public class Tisk {
 	 */
 	private static void tiskniLetouny() {
 		String jmenoSouboru = "Letouny";
-		Utils.serazeniPodleCisla();
+		Utils.serazeniPodleCisla(Main.letouny);
 		try {
 			PrintWriter pw = new PrintWriter(
 							 new BufferedWriter(
@@ -49,7 +49,7 @@ public class Tisk {
 	 */
 	private static void tiskniKone(double casSimulace) {
 		String jmenoSouboru = "Kone";
-		Utils.serazeniKonuPodleCisla();
+		Utils.serazeniKonuPodleCisla(Main.kone);
 		try {
 			PrintWriter pw = new PrintWriter(
 							 new BufferedWriter(
@@ -72,7 +72,7 @@ public class Tisk {
 	 */
 	private static void tiskniStatistiku(double casSimulace) {
 		String jmenoSouboru = "Statistika";
-		Utils.serazeniKonuPodleCisla();
+		Utils.serazeniKonuPodleCisla(Main.kone);
 		try {
 			double celkovaDobaLetu = Main.letouny.stream().mapToDouble(l -> l.celkDobaLetu).sum();
 			double celkovaDobaProstoju = Main.letouny.stream().mapToDouble(l -> l.getCas() - l.celkDobaLetu).sum();

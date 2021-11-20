@@ -59,39 +59,38 @@ public class Parser {
 	 */
 	public ArrayList<Kun> getKone() {
 		ArrayList<Kun> kone = new ArrayList<>();
-		Kun kun = new Kun();
-		int pocetK = 0, aktK = 0, tmp = 0;
-		while (sc.hasNext()) {
+		Kun kun;
+		int pocetK = 1, aktK = 0, tmp = 0, m = 0, n = 0;
+		double x = 0, y = 0;
+		while (sc.hasNext() && aktK < pocetK) {
 			retezec = sc.next();
 			if(isKomentar(retezec))
 				continue;
 			switch (tmp) {
 				case 0: 
 					pocetK = Integer.parseInt(retezec);
-					tmp = 1;
+					tmp++;
 					break;
 				case 1:
-					kun = new Kun();
-					kun.setX(Double.parseDouble(retezec));
-					tmp = 2;
+					x = Double.parseDouble(retezec);
+					tmp++;
 					break;
 				case 2:
-					kun.setY(Double.parseDouble(retezec));
-					tmp = 3;
+					y = Double.parseDouble(retezec);
+					tmp++;
 					break;
 				case 3:
-					kun.setM(Integer.parseInt(retezec));
-					tmp = 4;
+					m = Integer.parseInt(retezec);
+					tmp++;
 					break;
 				case 4:
-					kun.setN(Integer.parseInt(retezec));
+					n = Integer.parseInt(retezec);
+					kun = new Kun(x, y, m, n);
 					kone.add(kun);
 					aktK++;
 					tmp = 1;
 					break;	
 			}
-			if(aktK == pocetK)
-				break;
 		}
 		return kone;
 	}
@@ -102,39 +101,38 @@ public class Parser {
 	 */
 	public ArrayList<Letoun> getLetouny() {
 		ArrayList<Letoun> letouny = new ArrayList<>();
-		Letoun let = new Letoun();
-		int pocetL = 0, aktL = 0, tmp = 0;
-		while (sc.hasNext()) {
+		Letoun let;
+		int pocetL = 1, aktL = 0, tmp = 0, m = 0;
+		double x = 0, y = 0, v = 0;
+		while (sc.hasNext() && aktL < pocetL) {
 			retezec = sc.next();
 			if(isKomentar(retezec))
 				continue;
 			switch (tmp) {
 				case 0: 
 					pocetL = Integer.parseInt(retezec);
-					tmp = 1;
+					tmp++;
 					break;
 				case 1:
-					let = new Letoun();
-					let.setX(Double.parseDouble(retezec));
-					tmp = 2;
+					x = Double.parseDouble(retezec);
+					tmp++;
 					break;
 				case 2:
-					let.setY(Double.parseDouble(retezec));
-					tmp = 3;
+					y = Double.parseDouble(retezec);
+					tmp++;
 					break;
 				case 3:
-					let.setM(Integer.parseInt(retezec));
-					tmp = 4;
+					m = Integer.parseInt(retezec);
+					tmp++;
 					break;
 				case 4:
-					let.setV(Double.parseDouble(retezec));
+					v = Double.parseDouble(retezec);
+					let = new Letoun(x, y, m, v);
 					letouny.add(let);
 					aktL++;
 					tmp = 1;
 					break;	
 			}
-			if(aktL == pocetL)
-				break;
 		}
 		return letouny;
 	}

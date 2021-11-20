@@ -85,16 +85,16 @@ public class Generator {
 		vystup += ":-) Pocet koni:\n";
 		vystup += pocetKoni + " \n";
 	    List<Double> souradniceX = IntStream.rangeClosed(1, pocetKoni).boxed()
-	                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
+	                .map(i -> random.nextGaussian() * (maxX - minX) / 5 + (maxX - minX) / 2 + minX)
 	                .collect(Collectors.toList());
 	    List<Double> souradniceY = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * (maxX - minX) / 5 + (maxX - minX) / 2 + minX) 
                 .collect(Collectors.toList());
 	    List<Double> hmotnostKone = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * MAX_M / 10 + MAX_M) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_M / 5 + MAX_M) 
                 .collect(Collectors.toList());
 	    List<Double> dobaNalozeni = IntStream.rangeClosed(1, pocetKoni).boxed()
-                .map(i -> random.nextGaussian() * MAX_T / 10 + MAX_T) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_T / 5 + MAX_T) 
                 .collect(Collectors.toList());
 	    for(int i = 0; i < pocetKoni; i++) {
 	    	vystup += String.format(":-) Kun %d\n", i + 1);
@@ -130,16 +130,16 @@ public class Generator {
 		vystup += ":-) Pocet letounu:\n";
 		vystup += pocetLetounu + " \n";
 	    List<Double> souradniceX = IntStream.rangeClosed(1, pocetLetounu).boxed()
-	                .map(i -> random.nextGaussian() * (maxX - minX) / 2 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
+	                .map(i -> random.nextGaussian() * (maxX - minX) / 5 + (maxX - minX) / 2 + minX) //Standard deviation 20, mean 50
 	                .collect(Collectors.toList());
 	    List<Double> souradniceY = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * (maxY - minY) / 2 + (maxY - minY) / 2 + minY) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * (maxY - minY) / 5 + (maxY - minY) / 2 + minY) 
                 .collect(Collectors.toList());
 	    List<Double> nosnostLetounu = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * MAX_N / 10 + MAX_N) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_N / 5 + MAX_N) 
                 .collect(Collectors.toList());
 	    List<Double> rychlostLetounu = IntStream.rangeClosed(1, pocetLetounu).boxed()
-                .map(i -> random.nextGaussian() * MAX_V /10 + MAX_V) //Standard deviation 20, mean 50
+                .map(i -> random.nextGaussian() * MAX_V /5 + MAX_V) 
                 .collect(Collectors.toList());
 	    for(int i = 0; i < pocetLetounu; i++) {
 	    	vystup += String.format(":-) Letoun %d\n", i + 1);
@@ -178,11 +178,13 @@ public class Generator {
 	 */
 	public void generateSoubor(String jmenoSouboru) {
 		try {
+			System.out.println("Probiha generovani souboru.");
 			PrintWriter pw = new PrintWriter(
                     new BufferedWriter(
                     new FileWriter(new File("export/" + jmenoSouboru + ".txt"))));
 			pw.print(vystup);
 			pw.close();
+			System.out.println("Soubor vygenerovan.");
 		}catch(Exception ex) {
 			System.err.println("JEMINKOTE! nepodarilo se vytvorit soubor: " + jmenoSouboru);
 		}
