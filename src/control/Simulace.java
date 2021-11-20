@@ -87,6 +87,12 @@ public class Simulace {
 		@SuppressWarnings("unchecked")
 		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
 		ArrayList<Letoun> letounyKPreprave = (ArrayList<Letoun>) letouny.clone();
+		if(letounyKPreprave.size() == 0) {
+			System.out.println("Zadne letadlo neni k dispozici.\nVsechny kone museji jit do Parize pesky.");
+		}
+		if(koneKPreprave.size() == 0) {
+			System.out.println("Neni potreba prepravit zadne kone.");
+		}
 		Utils.selekceLetadel(letounyKPreprave);
 		Utils.serazeniPodleHmotnosti(koneKPreprave);
 		Utils.serazeniPodleNosnosti(letounyKPreprave);
@@ -107,15 +113,15 @@ public class Simulace {
 				Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k1) * K - Utils.spoctiVzdalenost(aktLet.getNasledujiciKun(), k2) * K));
 			}
 			if(koneKPreprave.size() == 0) {
-				if(letounyKPreprave.get(0).getNasledujiciKun() == null) {
-					prevezenoKoni++;
-				} else if(letounyKPreprave.get(0).getNasledujiciKun().prevezen == false) {
-					letounyKPreprave.get(0).letDoFrancie(letounyKPreprave.get(0).getNasledujiciKun());
-					prevezenoKoni++;
-					letounyKPreprave.get(0).getNasledujiciKun().prevezen = true;
-				} else {
-					prevezenoKoni++;
+				Collections.sort(letounyKPreprave,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
+				for (Letoun letoun : letounyKPreprave) {
+					if(letoun.getNasledujiciKun().prevezen == false) {
+						letoun.letDoFrancie(letoun.getNasledujiciKun());
+						prevezenoKoni++;
+						letoun.getNasledujiciKun().prevezen = true;
+					}
 				}
+				break;
 				//leti z parize
 			} else if(letounyKPreprave.get(0).getJeVParizi()) {
 				if(koneKPreprave.size() == 0 || letounyKPreprave.get(0).getNasledujiciKun() == null) {
@@ -155,9 +161,12 @@ public class Simulace {
 		letouny.stream().forEach(l -> l.setX(l.getStartX()));
 		letouny.stream().forEach(l -> l.setY(l.getStartY()));
 		letouny.stream().forEach(l -> l.setCas(0));
-		letouny.stream().forEach(l -> l.statistika = "");
+		letouny.stream().forEach(l -> l.statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", l.getPoradi()));
 		letouny.stream().forEach(l -> l.setJeVParizi(false));
-		kone.stream().forEach(k -> k.statistika = "");
+		letouny.stream().forEach(l -> l.setNasledujiciKun(null));
+		letouny.stream().forEach(l -> l.celkDobaLetu = 0);
+		kone.stream().forEach(k -> k.statistika = String.format("Kun %d\nCas;X;Y\n", k.getPoradi()));
+		kone.stream().forEach(k -> k.prevezen = false);
 	}
 	
 	/**
