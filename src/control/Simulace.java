@@ -8,7 +8,7 @@ import view.Main;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.2 (02-11-2021)
+ * @version 2.2 (20-11-2021)
  */
 public class Simulace {
 	/** Typedef koni z mainu*/
@@ -23,6 +23,7 @@ public class Simulace {
 	private static final int K = 1000;
 	/** Kolikrat muze byt kun dal, nez letoun poleti do Parize */
 	private static final int MAX_VZDALENOST = 2;
+	/** Instance, ktera tiskne statistiky */
 	private static Tisk tiskarna = new Tisk();
 
 	/**
@@ -94,13 +95,8 @@ public class Simulace {
 			System.out.println("Neni potreba prepravit zadne kone.");
 		}
 		Utils.selekceLetadel(letounyKPreprave);
-		Utils.serazeniPodleHmotnosti(koneKPreprave);
-		Utils.serazeniPodleNosnosti(letounyKPreprave);
-		while(kone.get(0).getM() > letounyKPreprave.get(0).getM()) {
-			System.out.print(kone.get(0) + " se nevejde do zadneho letadla a tedy bezi sam do Parize.");
-			kone.remove(0);
-		}
-		Utils.serazeniLetounu(letounyKPreprave);
+		vejdouSeVsichni(letounyKPreprave, koneKPreprave);
+		Utils.selekceLetadel(letounyKPreprave);
 		while(pocetKoni >= prevezenoKoni) {
 			Collections.sort(letounyKPreprave,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 			Letoun aktLet = letounyKPreprave.get(0);
@@ -148,10 +144,23 @@ public class Simulace {
 		Collections.sort(letounyKPreprave, (l1, l2) -> (int)(l2.getCas() - l1.getCas()));
 		double casSimulace = letounyKPreprave.get(0).getCas();
 		System.out.printf("Simulace trvala: %.0f\n",casSimulace);
-		System.out.printf("Bylo prepraveno %d koni.\n", kone.size());
 		Main.retezec += String.format("Simulace trvala: %.0f",casSimulace);
 		tiskarna.tiskni(casSimulace);
 		nastavStartovniStav();
+	}
+	
+	/**
+	 * Metoda zjisti zda se vejdou vsechny kone do letadla, ty cose nevejdou odstrani
+	 */
+	private void vejdouSeVsichni(ArrayList<Letoun> letadla, ArrayList<Kun> kone) {
+		Utils.serazeniPodleNosnosti(letadla);
+		for (int i = 0; i < kone.size(); i++) {
+			if(kone.get(i).getM() > letadla.get(0).getM()) {
+				System.out.print(kone.get(i) + " se nevejde do zadneho letadla a tedy bezi sam do Parize.\n");
+				kone.remove(i); 
+				i--;
+			}
+		}
 	}
 	
 	/**
@@ -173,7 +182,7 @@ public class Simulace {
 	 * Metoda rozhodne zda letoun po nabrani kone poleti do Parize nebo k dalsimu koni
 	 * @return
 	 */
-	public boolean letetDoParize(ArrayList<Kun> koneKPreprave, Letoun l) {
+	private boolean letetDoParize(ArrayList<Kun> koneKPreprave, Letoun l) {
 		index = 0;
 		double vzdalenostDoParize = Utils.spoctiVzdalenost(l, Main.a, Main.b), vzdalenostKeKoni = 0;
 		while(index < koneKPreprave.size() && vzdalenostDoParize * MAX_VZDALENOST > vzdalenostKeKoni) {
