@@ -1,6 +1,7 @@
 package control;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import model.Kun;
 import model.Letoun;
@@ -14,9 +15,9 @@ import view.Main;
  */
 public class Simulace {
 	/** Typedef koni z mainu*/
-	private ArrayList<Kun> kone = Main.kone;
+	private final List<Kun> kone = Main.kone;
 	/** Typedef letounu z mainu*/
-	private ArrayList<Letoun> letouny = Main.letouny;
+	private final List<Letoun> letouny = Main.letouny;
 	/** Graf konu*/
 	private Graf graf;
 	/** Index kone v seznamu */ 
@@ -34,7 +35,7 @@ public class Simulace {
 	 */
 	public Graf createGraf() {
 		@SuppressWarnings("unchecked")
-		ArrayList<Kun> konici = (ArrayList<Kun>) kone.clone(); 
+		List<Kun> konici = (List<Kun>) ((ArrayList<Kun>) kone).clone(); 
 		Graf graf = new Graf(konici.size());
 		for(int i = 0; i < konici.size(); i++) {
 			Kun kun = Main.kone.get(i);
@@ -55,7 +56,7 @@ public class Simulace {
 	 */
 	public void simulace() {
 		@SuppressWarnings("unchecked")
-		ArrayList<Kun> konici = (ArrayList<Kun>) kone.clone(); 
+		List<Kun> konici = (List<Kun>) ((ArrayList<Kun>) kone).clone(); 
 		boolean jeVeFrancii = false;
 		Utils.serazeniLetounu(letouny);
 		Collections.sort(konici, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
@@ -87,8 +88,8 @@ public class Simulace {
 	public void greedySimulace() {
 		int pocetKoni = kone.size(), prevezenoKoni = 0;
 		System.out.println("Zacatek simulace:");
-		ArrayList<Kun> koneKPreprave = (ArrayList<Kun>) kone.clone();
-		ArrayList<Letoun> letounyKPreprave = (ArrayList<Letoun>) letouny.clone();
+		List<Kun> koneKPreprave = (List<Kun>) ((ArrayList<Kun>) kone).clone();
+		List<Letoun> letounyKPreprave = (ArrayList<Letoun>) ((ArrayList<Letoun>) letouny).clone();
 		if(letounyKPreprave.size() == 0) {
 			System.out.println("Zadne letadlo neni k dispozici.\nVsechny kone museji jit do Parize pesky.");
 		}
@@ -112,7 +113,7 @@ public class Simulace {
 			if(koneKPreprave.size() == 0) {
 				Collections.sort(letounyKPreprave,(l1, l2) -> (int)(l1.getCas() * K - l2.getCas() * K));
 				for (Letoun letoun : letounyKPreprave) {
-					if(letoun.getNasledujiciKun().isStav() == false) {
+					if(!letoun.getNasledujiciKun().isStav()) {
 						letoun.letDoFrancie(letoun.getNasledujiciKun());
 						prevezenoKoni++;
 						letoun.getNasledujiciKun().setStav(true);
@@ -153,7 +154,7 @@ public class Simulace {
 	/**
 	 * Metoda zjisti zda se vejdou vsechny kone do letadla, ty cose nevejdou odstrani
 	 */
-	private void vejdouSeVsichni(ArrayList<Letoun> letadla, ArrayList<Kun> kone) {
+	private void vejdouSeVsichni(List<Letoun> letadla, List<Kun> kone) {
 		Utils.serazeniPodleNosnosti(letadla);
 		for (int i = 0; i < kone.size(); i++) {
 			if(kone.get(i).getM() > letadla.get(0).getM()) {
@@ -183,7 +184,7 @@ public class Simulace {
 	 * Metoda rozhodne zda letoun po nabrani kone poleti do Parize nebo k dalsimu koni
 	 * @return true - letoun poleti do Parize, false - letoun nepoleti do Parize
 	 */
-	private boolean letetDoParize(ArrayList<Kun> koneKPreprave, Letoun l) {
+	private boolean letetDoParize(List<Kun> koneKPreprave, Letoun l) {
 		index = 0;
 		double vzdalenostDoParize = Utils.spoctiVzdalenost(l, Main.a, Main.b), vzdalenostKeKoni = 0;
 		while(index < koneKPreprave.size() && vzdalenostDoParize * MAX_VZDALENOST > vzdalenostKeKoni) {

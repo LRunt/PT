@@ -78,7 +78,7 @@ public class Graf {
 class Link {
 	/** Cislo souseda */
 	int neighbour;
-	/** Vaha hrany */
+	/** vaha hrany*/
 	double vaha;
 	/** Odkaz na dalsiho souseda */
 	Link next;
@@ -90,6 +90,7 @@ class Link {
 	 */
 	public Link(int n, double vaha, Link next) {
 		this.neighbour = n;
+		this.vaha = vaha;
 		this.next = next;
 	}
 }

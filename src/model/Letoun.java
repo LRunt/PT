@@ -1,8 +1,10 @@
 package model;
 import java.util.ArrayList;
+import java.util.List;
 
-import control.*;
-import view.*;
+import control.Utils;
+import view.Main;
+
 
 /**
  * Instance tridy Letoun reprezentuje Letouny, ktere maji za ukol dopravit kone do Parize
@@ -41,11 +43,11 @@ public class Letoun {
 	/** Uchovava udaje o casu, poctu koni na palube, mistech pristani a aktualnim zatizeni */
 	public String statistika = String.format("Letoun %d\nCas;Pocet koni;X;Y;Zatizeni;Kone na palube\n", PORADI);
 	/** Kone v letadle*/
-	public ArrayList<Kun> nalKone = new ArrayList<Kun>();
+	public List<Kun> nalKone = new ArrayList<Kun>();
 	/** Startovni pozice letounu*/
-	private double startX;
+	private final double startX;
 	/** Startovni pozive letounu*/
-	private double startY;
+	private final double startY;
 	
 	/**
 	 * Konstruktor letounu
@@ -61,7 +63,7 @@ public class Letoun {
 		this.V = V;
 		startX = X;
 		startY = Y;
-		setAktNakl(0);
+		aktNakl = 0;
 		celkemN = 0;
 		pocKoni = 0;
 		jeVParizi = false;

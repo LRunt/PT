@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-import control.*;
-import model.*;
+import control.Generator;
+import control.Parser;
+import control.Simulace;
+import control.Utils;
+import model.Kun;
+import model.Letoun;
 
 /**
  * @author Lukas Runt, Martina Mlezivova
@@ -26,9 +30,9 @@ public class Main {
 	/** Pocet letounu*/
 	public static int L;
 	/** Pole koni */
-	public static ArrayList<Kun> kone;
+	public static List<Kun> kone;
 	/** Pole letounu */
-	public static ArrayList<Letoun> letouny;
+	public static List<Letoun> letouny;
 	/** Celkovy retezec */
 	public static String retezec = "";
 	/** Scanner pro vstup z klavesnice */
@@ -126,7 +130,7 @@ public class Main {
 			sim.greedySimulace();
 			System.out.println("Pro pokracovani zmackni ENTER.");
 			try{System.in.read();}
-			catch(Exception e){}
+			catch(Exception e){System.out.print("");}
 		    break;
 		  case 2:
 			generovaniDat();
@@ -140,6 +144,9 @@ public class Main {
 		  case 5:
 			 System.exit(0);
 			 break;
+		  default:
+			  System.out.println();
+			  break;
 		}	
 		}catch(IllegalArgumentException e) {
 			System.out.println("Nevalidni volba");
@@ -195,6 +202,9 @@ public class Main {
 			break;
 		  case 7:
 			return false;
+		  default:
+			  System.out.println();
+		  	  break;
 		}	
 		}catch(IllegalArgumentException e) {
 			System.out.println("Nevalidni volba");
@@ -228,7 +238,7 @@ public class Main {
 		x = Utils.inputDouble("Zadej souradnici x: ");
 		y = Utils.inputDouble("Zadej souradnici y: ");
 		m = Utils.inputInteger("Zadej nosnost letounu: ", 0);
-		v = Utils.inputDouble("Zadej rychlost kone: ", 0.0);
+		v = Utils.inputDouble("Zadej rychlost letounu: ", 0.0);
 		letouny.add(new Letoun(x, y, m, v));
 	}
 	

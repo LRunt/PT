@@ -4,8 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import control.Utils;
 import model.Kun;
@@ -93,7 +93,7 @@ public class DrawingPanel extends Component {
 		if(Main.letouny.get(0).getX() == Main.a &&  Main.letouny.get(0).getX() == Main.b) {
 			jeVeFrancii = true;
 		}
-		ArrayList<Kun> koneKPreprave = Main.kone;
+		List<Kun> koneKPreprave = Main.kone;
 		Main.letouny.get(0).start();
 		Collections.sort(koneKPreprave, (k1, k2) -> (int)(Utils.spoctiVzdalenost(Main.letouny.get(0), k1) - Utils.spoctiVzdalenost(Main.letouny.get(0), k2)));
 		while(koneKPreprave.size() > 0) {

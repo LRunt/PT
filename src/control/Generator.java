@@ -20,25 +20,21 @@ import java.util.stream.IntStream;
  */
 public class Generator {
 	/** Minimalni X-ova souradnice*/
-	private double maxX;
+	private final double maxX;
 	/** Maximalni X-ova souradnice*/ 
-	private double minX;
+	private final double minX;
 	/** Minimalni Y-ova souradnice*/
-	private double maxY;
+	private final double maxY;
 	/** Maximalni Y-ova souradnice*/
-	private double minY;
+	private final double minY;
 	/** Minimalni pocet koni*/
-	private int minPocK;
+	private final int minPocK;
 	/** Maximalni pocet koni*/
-	private int maxPocK;
+	private final int maxPocK;
 	/** Minimalni pocet letounu*/
-	private int minPocL;
+	private final int minPocL;
 	/** Maximalni pocet letounu*/
-	private int maxPocL;
-	/** Vygenerovana X-ova souradnice Parize*/
-	private double a;
-	/** Vygenerovana Y-ova souradnice Parize*/
-	private double b;
+	private final int maxPocL;
 	/** Vygenerovany pocet koni*/
 	private int pocetKoni;
 	/** Vygenerovany pocet letounu*/
@@ -54,7 +50,7 @@ public class Generator {
 	/** Vystup do generovaneho souboru*/
 	private String vystup = "";
 	/** Generator nahodnych cisel*/
-	private Random random = new Random();
+	private static Random random = new Random();
 
 	/**
 	 * Konstruktor generatoru dat
@@ -83,9 +79,9 @@ public class Generator {
 	 */
 	public void generateParis() {
 		vystup += String.format(":-) Pariz:\n");
-		a = Math.random() * (maxX - minX + 1) + minX;
+		double a = Math.random() * (maxX - minX + 1) + minX;
 		vystup += a + " "; 
-		b = Math.random() * (maxY - minY + 1) + minY;
+		double b = Math.random() * (maxY - minY + 1) + minY;
 		vystup += b + " \n";
 	}
 	

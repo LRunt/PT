@@ -1,9 +1,10 @@
 package control;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-import model.*;
-import view.*;
+import model.Kun;
+import model.Letoun;
+import view.Main;
 
 /**
  * Trida {@code Utils} je sbyrkou nastroju, ktere se volaju odkudkoliv z programu
@@ -78,7 +79,7 @@ public class Utils {
 	/**
 	 * Metoda vyradi letadla, ktere maji malou rychlost, ktera by zpomalovala simulaci
 	 */
-	public static void selekceLetadel(ArrayList<Letoun> letadla) {
+	public static void selekceLetadel(List<Letoun> letadla) {
 		serazeniLetounu(letadla);
 		Double nejRychlost = letadla.get(0).getV();
 		for(int i = 0; i < letadla.size(); i++) {
@@ -92,35 +93,35 @@ public class Utils {
 	/**
 	 * Metoda seradi letouny podle cisla
 	 */
-	public static void serazeniPodleCisla(ArrayList<Letoun> letadla) {
+	public static void serazeniPodleCisla(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1, l2) -> (int)(l1.getPoradi()- l2.getPoradi()));
 	}
 	
 	/**
 	 * Metoda seradi kone podle cisla
 	 */
-	public static void serazeniKonuPodleCisla(ArrayList<Kun> konici) {
+	public static void serazeniKonuPodleCisla(List<Kun> konici) {
 		Collections.sort(konici, (k1, k2) -> (int)(k1.getPoradi() - k2.getPoradi()));
 	}
 	
 	/**
 	 * Metoda seradi letouny podle nosnosti
 	 */
-	public static void serazeniPodleNosnosti(ArrayList<Letoun> letadla) {
+	public static void serazeniPodleNosnosti(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1,l2) -> (int)(l1.getM() - l2.getM()));
 	}
 	
 	/**
 	 * Metoda seradi kone podle hmotnosti
 	 */
-	public static void serazeniPodleHmotnosti(ArrayList<Kun> konici) {
+	public static void serazeniPodleHmotnosti(List<Kun> konici) {
 		Collections.sort(konici, (k1,k2) -> (int)(k1.getM() - k2.getM()));
 	}
 	
 	/**
 	 * Metoda vypise pole koni do konzole
 	 */
-	public static void vypisKoni(ArrayList<Kun> konici) {
+	public static void vypisKoni(List<Kun> konici) {
 		konici.stream().forEach(s -> System.out.println(s));
 	}
 	
@@ -134,14 +135,14 @@ public class Utils {
 	/**
 	 * Metoda vypise pole letounu do konzole
 	 */
-	public static void vypisLetounu(ArrayList<Letoun> letadla) {
+	public static void vypisLetounu(List<Letoun> letadla) {
 		letadla.stream().forEach(s -> System.out.println(s));
 	}
 
 	/**
 	 * Metoda seradi letouny podle rychlosti
 	 */
-	public static void serazeniLetounu(ArrayList<Letoun> letadla) {
+	public static void serazeniLetounu(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1,l2) -> (int)(l2.getV() * K - l1.getV() * K));
 	}
 	

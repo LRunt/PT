@@ -2,6 +2,7 @@ package control;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Kun;
@@ -38,9 +39,9 @@ public class Parser {
 		int tmp = 0;
 		while (sc.hasNext()) {
 			retezec = sc.next();
-			if(isKomentar(retezec))
+			if(isKomentar(retezec)) {
 				continue;
-			else if(tmp == 0) {
+			} else if(tmp == 0) {
 				souradnice[0] = Double.parseDouble(retezec);
 				tmp++;
 			}
@@ -57,15 +58,16 @@ public class Parser {
 	 * Metoda vytvori ze souboru kone
 	 * @return pole koni
 	 */
-	public ArrayList<Kun> getKone() {
-		ArrayList<Kun> kone = new ArrayList<>();
+	public List<Kun> getKone() {
+		List<Kun> kone = new ArrayList<>();
 		Kun kun;
 		int pocetK = 1, aktK = 0, tmp = 0, m = 0, n = 0;
 		double x = 0, y = 0;
 		while (sc.hasNext() && aktK < pocetK) {
 			retezec = sc.next();
-			if(isKomentar(retezec))
+			if(isKomentar(retezec)) {
 				continue;
+			}
 			switch (tmp) {
 				case 0: 
 					pocetK = Integer.parseInt(retezec);
@@ -90,6 +92,9 @@ public class Parser {
 					aktK++;
 					tmp = 1;
 					break;	
+				default:
+					System.out.println();
+					break;
 			}
 		}
 		return kone;
@@ -99,15 +104,16 @@ public class Parser {
 	 * Metoda vytvori ze souboru letouny na dopravu koni
 	 * @return pole letounu
 	 */
-	public ArrayList<Letoun> getLetouny() {
-		ArrayList<Letoun> letouny = new ArrayList<>();
+	public List<Letoun> getLetouny() {
+		List<Letoun> letouny = new ArrayList<>();
 		Letoun let;
 		int pocetL = 1, aktL = 0, tmp = 0, m = 0;
 		double x = 0, y = 0, v = 0;
 		while (sc.hasNext() && aktL < pocetL) {
 			retezec = sc.next();
-			if(isKomentar(retezec))
+			if(isKomentar(retezec)) {
 				continue;
+			}
 			switch (tmp) {
 				case 0: 
 					pocetL = Integer.parseInt(retezec);
@@ -132,6 +138,9 @@ public class Parser {
 					aktL++;
 					tmp = 1;
 					break;	
+				default:
+					System.out.println();
+					break;
 			}
 		}
 		return letouny;

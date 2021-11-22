@@ -38,7 +38,7 @@ public class Kun{
 		setY(y);
 		setM(m);
 		setN(n);
-		setStav(false);
+		stav = false;
 	}
 	
 	/**
