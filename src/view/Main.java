@@ -41,11 +41,10 @@ public class Main {
 	public static String cesta = null;
 	
 	/**
-	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare -> necist data az
-	 * do konce radku
+	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare, data se nectou az do konce radku
 	 * 
-	 * @param jmenoSouboru nazev soubor, ze ktereho ziskame data
-	 * @throws IOException 
+	 * @param jmenoSouboru Nazev soubor, ze ktereho ziskame data
+	 * @throws IOException Chyba pri nacitani dat ze souboru
 	 */
 	public static void parser(String jmenoSouboru) throws IOException{
 		kone = null;
@@ -292,7 +291,7 @@ public class Main {
 	
 	/**
 	 * Vstupni metoda
-	 * @param args
+	 * @param args Vstupni argumenty
 	 */
 	public static void main(String[] args) {
 		do {

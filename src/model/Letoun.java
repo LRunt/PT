@@ -51,10 +51,10 @@ public class Letoun {
 	
 	/**
 	 * Konstruktor letounu
-	 * @param X - x-ova souradnice
-	 * @param Y - y-ova souradnice
-	 * @param M - nosnost letounu
-	 * @param V - rychlost letu
+	 * @param X X-ova souradnice
+	 * @param Y Y-ova souradnice
+	 * @param M Nosnost letounu
+	 * @param V Rychlost letu
 	 */
 	public Letoun(double X, double Y, int M, double V) {
 		this.X = X;
@@ -80,8 +80,8 @@ public class Letoun {
 	
 	/**
 	 * Letoun naklada kone a bude nakladat dalsiho
-	 * @param Kun, ktery je nakladan
-	 * @param Kun, ke kteremmu se poleti
+	 * @param kun1 Kun, ktery je nakladan
+	 * @param kun2 Kun, ke kteremu se poleti
 	 */ 
 	public void letKeKoni(Kun kun1, Kun kun2) {
 		presun(kun1.getX(), kun1.getY());
@@ -209,7 +209,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati nosnost letounu
-	 * @return nonost letounu
+	 * @return Nonost letounu
 	 */
 	public int getM() {
 		return M;
@@ -217,7 +217,7 @@ public class Letoun {
 	
 	/**
 	 * Nastavi nosnost letounu
-	 * @param M nosnost letounu
+	 * @param M Nosnost letounu
 	 */
 	public void setM(int M) {
 		if (M < 0) {
@@ -229,7 +229,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati rychlost letounu
-	 * @return rychlost letounu
+	 * @return Rychlost letounu
 	 */
 	public double getV() {
 		return V;
@@ -237,7 +237,7 @@ public class Letoun {
 	
 	/**
 	 * Nastavi rychlost letounu
-	 * @param V rychlost letounu
+	 * @param V Rychlost letounu
 	 */
 	public void setV(double V) {
 		if (V < 0) {
@@ -249,7 +249,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati aktualni nalozeni letounu
-	 * @return aktualni nalozeni letounu
+	 * @return Aktualni nalozeni letounu
 	 */
 	public int getAktNakl() {
 		return aktNakl;
@@ -257,7 +257,7 @@ public class Letoun {
 
 	/**
 	 * Nastavi aktualni naklad letounu
-	 * @param aktNakl novy aktualni naklad letounu
+	 * @param aktNakl Novy aktualni naklad letounu
 	 */
 	public void setAktNakl(int aktNakl) {
 		this.aktNakl = aktNakl;
@@ -265,7 +265,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati kone, pro ktereho letoun poleti
-	 * @return kun pro ktereho letoun poleti
+	 * @return Kun pro ktereho letoun poleti
 	 */
 	public Kun getNasledujiciKun() {
 		return nasledujiciKun;
@@ -273,7 +273,7 @@ public class Letoun {
 	
 	/**
 	 * Nastavi nasledujiciho zastavku letounu
-	 * @param nasledujiciKun kun kam letoun poleti
+	 * @param nasledujiciKun Kun kam letoun poleti
 	 */
 	public void setNasledujiciKun(Kun nasledujiciKun) {
 		this.nasledujiciKun = nasledujiciKun;
@@ -281,7 +281,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati poradove cislo (ID) letounu
-	 * @return poradove cislo letounu (ID)
+	 * @return Poradove cislo letounu (ID)
 	 */
 	public int getPoradi() {
 		return PORADI;
@@ -289,7 +289,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati cas, ktery letoun pracoval
-	 * @return cas, ktery letoun pracoval
+	 * @return Cas, ktery letoun pracoval
 	 */
 	public double getCas() {
 		return cas;
@@ -297,7 +297,7 @@ public class Letoun {
 	
 	/**
 	 * Nastavi novy cas, ktery letoun pracuje
-	 * @param newCas novy cas, ktery letoun pracuje
+	 * @param newCas Novy cas, ktery letoun pracuje
 	 */
 	public void setCas(double newCas) {
 		if(newCas < 0) {
@@ -317,7 +317,7 @@ public class Letoun {
 	
 	/**
 	 * Nastavi zda je, nebo neni letoun v Parizi
-	 * @param je stav letounu
+	 * @param je Stav letounu
 	 */
 	public void setJeVParizi(boolean je) {
 		this.jeVParizi = je;
@@ -341,7 +341,7 @@ public class Letoun {
 	
 	/**
 	 * Vrati celkovou dobu vsech letu letounu
-	 * @return celkova doba vsech letu
+	 * @return Celkova doba vsech letu
 	 */
 	public double getCelkDobaLetu() {
 		return celkDobaLetu;
@@ -349,7 +349,7 @@ public class Letoun {
 
 	/**
 	 * Nastavi celkovou dobu po, ktery je letoun ve vzduchu
-	 * @param celkDobaLetu nova celkova doba letu
+	 * @param celkDobaLetu Nova celkova doba letu
 	 */
 	public void setCelkDobaLetu(double celkDobaLetu) {
 		if(celkDobaLetu < 0) {
@@ -360,7 +360,8 @@ public class Letoun {
 	}
 	
 	/**
-	 * @return textova reprezentace instance letounu
+	 * Vrati textovou reprezentaci instance letounu
+	 * @return Textova reprezentace instance letounu
 	 */
 	public String toString() {
 		return String.format("Letoun %d: x = %.02f, y = %.02f, m = %d, v = %.02f", PORADI, X, Y, M, V);

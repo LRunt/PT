@@ -20,9 +20,9 @@ public class Utils {
 	
 	/**
 	 * Metoda spocita cas letu
-	 * @param letoun - letoun, ktery leti
-	 * @param kun - kun, pro ktereho se leti
-	 * @return celkovy cas letu
+	 * @param letoun Letoun, ktery leti
+	 * @param kun Kun, pro ktereho se leti
+	 * @return Celkovy cas letu
 	 */
 	public static double spoctiCas(Letoun letoun, Kun kun)  {
 		return spoctiVzdalenost(letoun,kun)/ letoun.getV() + kun.getN();
@@ -30,10 +30,10 @@ public class Utils {
 
 	/**
 	 * Metoda spocita cas letu
-	 * @param rychlost - rychlost letounu
-	 * @param kun1 - kun od ktereho se leti
-	 * @param kun2 - kun ke teremu se leti
-	 * @return celkovy cas letu
+	 * @param rychlost Rychlost letounu
+	 * @param kun1 Kun od ktereho se leti
+	 * @param kun2 Kun ke teremu se leti
+	 * @return Celkovy cas letu
 	 */
 	public static double spoctiCas(double rychlost, Kun kun1, Kun kun2)  {
 		return spoctiVzdalenost(kun1,kun2)/ rychlost + kun2.getN();
@@ -41,9 +41,9 @@ public class Utils {
 	
 	/**
 	 * Metoda spocte vzdalenost do mista kam leti letadlo
-	 * @param Xx - x-ova souradnice, kam leti ledadlo
-	 * @param Yy - y-ova souradnice, kam leti letadlo
-	 * @return prima vzdalenost
+	 * @param letoun Letoun od ktereho se pocita vzdalenost
+	 * @param kun Kun ke kteremu se pocita vzdalenost
+	 * @return Prima vzdalenost
 	 */
 	public static double spoctiVzdalenost(Letoun letoun, Kun kun) {
 		double x = Math.abs(letoun.getX() - kun.getX());
@@ -53,9 +53,9 @@ public class Utils {
 	
 	/**
 	 * Metoda spocte vzdalenost mezi konmi
-	 * @param Xx - x-ova souradnice, kam leti ledadlo
-	 * @param Yy - y-ova souradnice, kam leti letadlo
-	 * @return prima vzdalenost
+	 * @param kun1 Kun od ktereho se pocita vzdalenost
+	 * @param kun2 Kun ke kteremu se pocita vzdalenost
+	 * @return Prima vzdalenost
 	 */
 	public static double spoctiVzdalenost(Kun kun1, Kun kun2) {
 		double x = Math.abs(kun1.getX() - kun2.getX());
@@ -65,10 +65,10 @@ public class Utils {
 	
 	/**
 	 * Metoda spocte vzdalenost do mista, kam leti letadlo
-	 * @param letoun - letoun, od ktereho pocitame vzdalenost
-	 * @param X1 - x-ova souradnice, kam leti ledadlo
-	 * @param Y2 - y-ova souradnice, kam leti letadlo
-	 * @return prima vzdalenost
+	 * @param letoun Letoun, od ktereho pocitame vzdalenost
+	 * @param X1 x-ova souradnice, kam leti ledadlo
+	 * @param Y1 y-ova souradnice, kam leti letadlo
+	 * @return Prima vzdalenost
 	 */
 	public static double spoctiVzdalenost(Letoun letoun, double X1, double Y1) {
 		double x = Math.abs(letoun.getX() - X1);
@@ -78,6 +78,7 @@ public class Utils {
 	
 	/**
 	 * Metoda vyradi letadla, ktere maji malou rychlost, ktera by zpomalovala simulaci
+	 * @param letadla Pole letadel, ze ktereho se dela selekce
 	 */
 	public static void selekceLetadel(List<Letoun> letadla) {
 		serazeniLetounu(letadla);
@@ -92,6 +93,7 @@ public class Utils {
 	
 	/**
 	 * Metoda seradi letouny podle cisla
+	 * @param letadla Pole letadel, ktere se ma seradit podle cisla
 	 */
 	public static void serazeniPodleCisla(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1, l2) -> (int)(l1.getPoradi()- l2.getPoradi()));
@@ -99,6 +101,7 @@ public class Utils {
 	
 	/**
 	 * Metoda seradi kone podle cisla
+	 * @param konici Pole koni, ktere se ma seradit podle cisla
 	 */
 	public static void serazeniKonuPodleCisla(List<Kun> konici) {
 		Collections.sort(konici, (k1, k2) -> (int)(k1.getPoradi() - k2.getPoradi()));
@@ -106,6 +109,7 @@ public class Utils {
 	
 	/**
 	 * Metoda seradi letouny podle nosnosti
+	 * @param letadla Pole letadel, ktere se ma seradit podle nosnosti
 	 */
 	public static void serazeniPodleNosnosti(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1,l2) -> (int)(l1.getM() - l2.getM()));
@@ -113,6 +117,7 @@ public class Utils {
 	
 	/**
 	 * Metoda seradi kone podle hmotnosti
+	 * @param konici Pole koni, ktere se ma seradit podle hmotnosti
 	 */
 	public static void serazeniPodleHmotnosti(List<Kun> konici) {
 		Collections.sort(konici, (k1,k2) -> (int)(k1.getM() - k2.getM()));
@@ -120,6 +125,7 @@ public class Utils {
 	
 	/**
 	 * Metoda vypise pole koni do konzole
+	 * @param konici Pole koni, ktere se ma vypsat do konzole
 	 */
 	public static void vypisKoni(List<Kun> konici) {
 		konici.stream().forEach(s -> System.out.println(s));
@@ -134,6 +140,7 @@ public class Utils {
 	
 	/**
 	 * Metoda vypise pole letounu do konzole
+	 * @param letadla Pole letadel, ktere se ma vypsat do konzole
 	 */
 	public static void vypisLetounu(List<Letoun> letadla) {
 		letadla.stream().forEach(s -> System.out.println(s));
@@ -141,6 +148,7 @@ public class Utils {
 
 	/**
 	 * Metoda seradi letouny podle rychlosti
+	 * @param letadla Pole letadel, ktere se ma seradit podle rychlosti
 	 */
 	public static void serazeniLetounu(List<Letoun> letadla) {
 		Collections.sort(letadla, (l1,l2) -> (int)(l2.getV() * K - l1.getV() * K));
@@ -184,7 +192,7 @@ public class Utils {
 	
 	/**
 	 * Metoda zjistuje, zda je vstupni retezec cislo 
-	 * @param input vstupni retezec
+	 * @param input Vstupni retezec
 	 * @return true - je to cislo, false - neni to cislo
 	 */
 	public static boolean isDouble(String input) {
@@ -199,7 +207,7 @@ public class Utils {
 	
 	/**
 	 * Metoda zjistuje zda je vstupni retezec celym cislem
-	 * @param input vstupni retezec
+	 * @param input Vstupni retezec
 	 * @return true - je to cele cislo, false - neni to cele cislo
 	 */
 	public static boolean isInteger(String input) {
@@ -214,8 +222,8 @@ public class Utils {
 	
 	/**
 	 * Metoda zarucuje, ze vstupni retezec bude cislo
-	 * @param otazka navod pro uzivatele co ma zadavat
-	 * @return cislo
+	 * @param otazka Navod pro uzivatele co ma zadavat
+	 * @return Cislo
 	 */
 	public static double inputDouble(String otazka) {
 		String vstup;
@@ -228,9 +236,9 @@ public class Utils {
 	
 	/**
 	 * Metoda zarucuje, ze vstupni retezec bude cislo
-	 * @param otazka navod pro uzivatele co ma zadavat
-	 * @param podminka cislo ma byt vetsi nez podminka
-	 * @return cislo
+	 * @param otazka Navod pro uzivatele co ma zadavat
+	 * @param podminka Cislo ma byt vetsi nez podminka
+	 * @return Cislo
 	 */
 	public static double inputDouble(String otazka, double podminka) {
 		double cislo = podminka - 1;
@@ -251,9 +259,9 @@ public class Utils {
 	
 	/**
 	 * Metoda zarucuje, ze vstupni retezec bude cele cislo
-	 * @param otazka navod pro uzivatele co ma zadavat
-	 * @param podminka pomineno nez kolik ma byt cele cislo vetsi
-	 * @return cele cislo
+	 * @param otazka Navod pro uzivatele co ma zadavat
+	 * @param podminka Podmineno nez kolik ma byt cele cislo vetsi
+	 * @return Cele cislo
 	 */
 	public static int inputInteger(String otazka, int podminka) {
 		String vstup;

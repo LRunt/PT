@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * Trida {@code Graf} reprezentuje instanci grafu
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.0 (30-10-2021)
  */
@@ -10,6 +11,7 @@ public class Graf {
 
 		/** Sousedi jednotlivych vrcholu (hrany) */
 		public Link[] edges;
+		/** oznaceni, jestli byl vrchol grafu navstiven*/
 		public boolean[] navstiveno;
 		
 		public Graf(int vertexCount) {
@@ -20,6 +22,7 @@ public class Graf {
 		/**
 		 * Prida do grafu novou obousmernou hranu
 		 * @param start cislo pocatecniho vrcholu
+		 * @param vaha vaha hrany
 		 * @param end cislo koncoveho vrcholu 
 		 */
 		public void addEdge(int start, int end, double vaha) {

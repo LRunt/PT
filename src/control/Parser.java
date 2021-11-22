@@ -25,6 +25,8 @@ public class Parser {
 
 	/**
 	 * Konstruktor
+	 * @param jmenoSouboru Jmeno vstupniho souboru
+	 * @throws IOException chyba pri cteni souboru
 	 */
 	public Parser(String jmenoSouboru) throws IOException{
 		sc = new Scanner(Paths.get(jmenoSouboru));
