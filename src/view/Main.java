@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,8 +36,10 @@ public class Main {
 	public static String retezec = "";
 	/** Scanner pro vstup z klavesnice */
 	public static Scanner sc = new Scanner(System.in);
-	/** cesta k souboru */
+	/** Cesta k souboru */
 	public static String cesta = null;
+	/** Volba v menu */
+	public static int volba;
 	
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare, data se nectou az do konce radku
@@ -116,7 +117,6 @@ public class Main {
 	 * Metoda ve ktere si uzivatel voli co se ma stat
 	 */
 	public static void volba() {
-		int volba;
 		try {
 			sc = new Scanner(System.in);
 			volba = sc.nextInt();
@@ -147,9 +147,7 @@ public class Main {
 			  System.out.println();
 			  break;
 		}	
-		}catch(IllegalArgumentException e) {
-			System.out.println("Nevalidni volba");
-		}catch(InputMismatchException exc) {
+		}catch(Exception e) {
 			System.out.println("Nevalidni volba");
 		}
 	}
@@ -159,7 +157,6 @@ public class Main {
 	 * @return true - uzivatel bude pokracovat v uprave, false - uzivatel se chce vratit do hlavniho menu
 	 */
 	public static boolean volba2() {
-		int volba;
 		try {
 			sc = new Scanner(System.in);
 			volba = sc.nextInt();
@@ -171,14 +168,7 @@ public class Main {
 			tvorbaKone();
 		    break;
 		  case 2:
-			 System.out.print("Zadej cislo kone, ktery ma byt odstranen: ");
-			volba = sc.nextInt();
-			if(volba > 0 && volba <= kone.size()) {
-				kone.remove(volba - 1);
-				System.out.printf("Kun %d byl smazan.\n", volba);
-			} else {
-				throw new IllegalArgumentException();
-			}
+			odstraneniKone();
 		    break;
 		  case 3:
 			Utils.vypisKoni(kone);
@@ -187,14 +177,7 @@ public class Main {
 			tvorbaLetounu();
 			break;
 		  case 5:
-			System.out.print("Zadej cislo letounu, ktery ma byt odstranen: ");
-			volba = sc.nextInt();
-			if(volba > 0 && volba < letouny.size()) {
-				letouny.remove(volba - 1);
-				System.out.printf("Letoun %d byl smazan.\n", volba);
-			} else {
-				throw new IllegalArgumentException();
-			}
+			odstraneniLetounu();
 			break;
 		  case 6:
 			Utils.vypisLetounu(letouny);
@@ -205,14 +188,38 @@ public class Main {
 			  System.out.println();
 		  	  break;
 		}	
-		}catch(IllegalArgumentException e) {
-			System.out.println("Nevalidni volba");
-		}catch(InputMismatchException exc) {
-			System.out.println("Nevalidni volba");
 		}catch(Exception ex) {
-			System.out.println("Random chyba: " + ex.getMessage());
+			System.out.println("Nevalidni volba");
 		}
 		return true;
+	}
+	
+	/**
+	 * Metoda odstrani kone
+	 */
+	public static void odstraneniKone() {
+		System.out.print("Zadej cislo kone, ktery ma byt odstranen: ");
+		volba = sc.nextInt();
+		if(kone.stream().anyMatch(k -> k.getPoradi() == volba)) {
+			kone.removeIf(k -> k.getPoradi() == volba);
+			System.out.printf("Kun %d byl smazan.\n", volba);
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	/**
+	 * Metoda odstrani letoun
+	 */
+	public static void odstraneniLetounu() {
+		System.out.print("Zadej cislo letounu, ktery ma byt odstranen: ");
+		volba = sc.nextInt();
+		if(letouny.stream().anyMatch(l -> l.getPoradi() == volba)) {
+			letouny.removeIf(l -> l.getPoradi() == volba);
+			System.out.printf("Letoun %d byl smazan.\n", volba);
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**

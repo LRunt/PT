@@ -88,8 +88,8 @@ class Link {
   
 	/**
 	 * Vytvori novy prvek seznamu pro ulozeni souseda vrcholu grafu
-	 * @param n cislo souseda
-	 * @param next odkaz na dalsiho souseda
+	 * @param n Cislo souseda
+	 * @param next Odkaz na dalsiho souseda
 	 */
 	public Link(int n, double vaha, Link next) {
 		this.neighbour = n;
