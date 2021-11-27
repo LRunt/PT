@@ -23,15 +23,15 @@ public class Kun{
 	private boolean stav;
 	/** Uchovava udaje o navstivenych mistech a casu transportu*/
 	public String statistika = String.format("Kun %d\nCas;X;Y\n", PORADI);
-	/** Cas kdy se kun dostal do parize */
+	/** Cas kdy se kun dostal do Parize */
 	private double cas;
 
 	/**
 	 * Konstruktor kone
-	 * @param x - x-ova souradnice
-	 * @param y - y-ova souradnice
-	 * @param m - hmotnost kone
-	 * @param n - doba nalozeni
+	 * @param x x-ova souradnice
+	 * @param y y-ova souradnice
+	 * @param m hmotnost kone
+	 * @param n doba nalozeni
 	 */
 	public Kun(double x, double y, int m, int n) {
 		setX(x);
@@ -151,7 +151,7 @@ public class Kun{
 	
 	/**
 	 * Metoda vraci cas, kdy byl kun vylozen v Parizi
-	 * @return cas, kdy se kun dostal do parize
+	 * @return cas, kdy se kun dostal do Parize
 	 */
 	public double getCas() {
 		return cas;

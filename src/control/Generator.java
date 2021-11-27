@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * Trida {@code Generator} zajistuje generovani souboru daneho formatu
  * 
  * @author Lukas Runt, Martina Mlezivova
- * @version 1.0 (11-11-2021)
+ * @version 1.2 (26-11-2021)
  */
 public class Generator {
 	/** Minimalni X-ova souradnice*/
@@ -189,7 +189,7 @@ public class Generator {
 	 * Generovani dat normalniho rozdeleni
 	 * @param jmenoSouboru jmeno generovaneho souboru
 	 */
-	public void generateDataGausian(String jmenoSouboru) {
+	public void generateDataGaussian(String jmenoSouboru) {
 		generateParis();
 		generateKoneGaussian();
 		generateLetounyGaussian();

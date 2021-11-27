@@ -1,0 +1,3 @@
+Celkova doba letu: 12600
+Celkova doba prostoju: 39600
+Celkova doba simulace: 27000

@@ -8,7 +8,7 @@ import model.Letoun;
 import view.Main;
 
 /**
- * Trida {@code Simulace} se stara o simulavani prepravy koni do Parize
+ * Trida {@code Simulace} se stara o simulovani prepravy koni do Parize
  * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 2.2 (20-11-2021)
@@ -18,8 +18,6 @@ public class Simulace {
 	private final List<Kun> kone = Main.kone;
 	/** Typedef letounu z mainu*/
 	private final List<Letoun> letouny = Main.letouny;
-	/** Graf konu*/
-	private Graf graf;
 	/** Index kone v seznamu */ 
 	private int index = 0;
 	/** Odstranuje chybu */
@@ -28,61 +26,9 @@ public class Simulace {
 	private static final int MAX_VZDALENOST = 2;
 	/** Instance, ktera tiskne statistiky */
 	private static Tisk tiskarna = new Tisk();
-
-	/**
-	 * Metoda vytvori graf
-	 * @return Graf
-	 */
-	public Graf createGraf() {
-		@SuppressWarnings("unchecked")
-		List<Kun> konici = (List<Kun>) ((ArrayList<Kun>) kone).clone(); 
-		Graf graf = new Graf(konici.size());
-		for(int i = 0; i < konici.size(); i++) {
-			Kun kun = Main.kone.get(i);
-			Collections.sort(konici, (k1, k2) -> (int)(Utils.spoctiVzdalenost(kun, k1) - Utils.spoctiVzdalenost(kun, k2)));
-			//double nejblizsiVzdalenost = Utils.spoctiVzdalenost(kun, konici.get(1)), 
-			double aktualniVzdalenost = 0;
-			for(int j = 1; j < konici.size(); j++) {
-				aktualniVzdalenost = Utils.spoctiVzdalenost(kun, konici.get(j));
-				graf.addEdge(i, j, aktualniVzdalenost);
-				
-			}
-		}
-		return graf;
-	}
 	
 	/**
-	 * Metoda provede simulaci pomoci grafu
-	 */
-	public void simulace() {
-		@SuppressWarnings("unchecked")
-		List<Kun> konici = (List<Kun>) ((ArrayList<Kun>) kone).clone(); 
-		boolean jeVeFrancii = false;
-		Utils.serazeniLetounu(letouny);
-		Collections.sort(konici, (k1, k2) -> (int)(Utils.spoctiVzdalenost(letouny.get(0), k1) - Utils.spoctiVzdalenost(letouny.get(0), k2)));
-		letouny.get(0).start();
-		int aktKun, nasKun, prevezeniKone = 0, pocetKoni = konici.size();
-		while(prevezeniKone <= pocetKoni) {
-			aktKun = konici.get(0).getPoradi();
-			nasKun = graf.edges[aktKun].neighbour;
-			if(prevezeniKone == pocetKoni - 1) {
-				letouny.get(0).letDoFrancie(Main.kone.get(aktKun));
-				jeVeFrancii = true;
-				prevezeniKone++;
-				//leti z parize
-			} else if(jeVeFrancii) {
-				letouny.get(0).letZFrancieKeKoni(Main.kone.get(aktKun));
-				//leti do parize
-			} else if(letouny.get(0).getM() < letouny.get(0).getAktNakl() + Main.kone.get(aktKun).getM() + Main.kone.get(nasKun).getM()) {
-				letouny.get(0).letDoFrancie(Main.kone.get(aktKun));
-			} else{
-				letouny.get(0).letKeKoni(Main.kone.get(aktKun), Main.kone.get(nasKun));
-			}
-		}
-	}
-	
-	/**
-	 * Metoda provede simulaci s jedn�m nebo vice letadly pomoci greedy algoritmu
+	 * Metoda provede simulaci s jednim nebo vice letadly pomoci greedy algoritmu
 	 */
 	@SuppressWarnings("unchecked")
 	public void greedySimulace() {
@@ -120,14 +66,14 @@ public class Simulace {
 					}
 				}
 				break;
-				//leti z parize
+				//leti z Parize
 			} else if(letounyKPreprave.get(0).isJeVParizi()) {
 				if(koneKPreprave.size() == 0 || letounyKPreprave.get(0).getNasledujiciKun() == null) {
 					letounyKPreprave.get(0).letounPristal();
 				} else {
 					letounyKPreprave.get(0).letZFrancieKeKoni(letounyKPreprave.get(0).getNasledujiciKun());
 				}
-				//leti do parize
+				//leti do Parize
 			} else if(letetDoParize(koneKPreprave, letounyKPreprave.get(0))) {
 				letounyKPreprave.get(0).letDoFrancie(letounyKPreprave.get(0).getNasledujiciKun());
 				//koneKPreprave.remove(0);
@@ -152,7 +98,7 @@ public class Simulace {
 	}
 	
 	/**
-	 * Metoda zjisti zda se vejdou vsechny kone do letadla, ty cose nevejdou odstrani
+	 * Metoda zjisti zda se vejdou vsechny kone do letadla, ty co se nevejdou odstrani
 	 */
 	private void vejdouSeVsichni(List<Letoun> letadla, List<Kun> kone) {
 		Utils.serazeniPodleNosnosti(letadla);

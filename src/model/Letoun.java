@@ -7,7 +7,7 @@ import view.Main;
 
 
 /**
- * Instance tridy Letoun reprezentuje Letouny, ktere maji za ukol dopravit kone do Parize
+ * Instance tridy Letoun reprezentuje letouny, ktere maji za ukol dopravit kone do Parize
  * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 1.2 (28-10-2021)
@@ -46,7 +46,7 @@ public class Letoun {
 	public List<Kun> nalKone = new ArrayList<Kun>();
 	/** Startovni pozice letounu*/
 	private final double startX;
-	/** Startovni pozive letounu*/
+	/** Startovni pozice letounu*/
 	private final double startY;
 	
 	/**
@@ -96,7 +96,7 @@ public class Letoun {
 	}
 	
 	/**
-	 * Letoun nalozil kone a leti na olympianu
+	 * Letoun nalozil kone a leti na olympiadu
 	 * @param kun1 Kun, ktery je nakladan
 	 */
 	public void letDoFrancie(Kun kun1) {
@@ -154,14 +154,15 @@ public class Letoun {
 		statistika += String.format("%.0f;%d;%.0f;%.0f;%d;", cas, pocKoni, X, Y, (int)(aktNakl/(M/100.0)));
 		try {
 			for(int i = 0; i < nalKone.size(); i++) {
-				statistika += String.format("%d, ",nalKone.get(i).getPoradi());
+				if(pocKoni != 0) {
+					statistika += String.format("%d, ",nalKone.get(i).getPoradi());
+				}
 				nalKone.get(i).statistika += String.format("%.0f;%.0f;%.0f\n", cas, X, Y);
 			}
 		}catch(Exception e) {
 			statistika += "zadny kun";
 		}
 		statistika += "\n";
-		
 	}
 	
 	/**

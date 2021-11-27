@@ -15,6 +15,8 @@ import model.Kun;
 import model.Letoun;
 
 /**
+ * Trida {@code Main} slouzi k hlavnimu ovladani programu pomoci menu v konzoli
+ * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 2.0 (11-11-2021)
  */
@@ -44,7 +46,7 @@ public class Main {
 	/**
 	 * Metoda na nacitani dat ze souboru :-) - oznaceni komentare, data se nectou az do konce radku
 	 * 
-	 * @param jmenoSouboru Nazev soubor, ze ktereho ziskame data
+	 * @param jmenoSouboru Nazev souboru, ze ktereho ziskame data
 	 * @throws IOException Chyba pri nacitani dat ze souboru
 	 */
 	public static void parser(String jmenoSouboru) throws IOException{
@@ -144,7 +146,7 @@ public class Main {
 			 System.exit(0);
 			 break;
 		  default:
-			  System.out.println();
+			  System.out.print("");
 			  break;
 		}	
 		}catch(Exception e) {
@@ -273,7 +275,7 @@ public class Main {
 			gen.generateData(jmenoSouboru);
 		}
 		if(volba == 2) {
-			gen.generateDataGausian(jmenoSouboru);
+			gen.generateDataGaussian(jmenoSouboru);
 		}
 	}
 	

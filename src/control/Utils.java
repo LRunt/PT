@@ -7,7 +7,7 @@ import model.Letoun;
 import view.Main;
 
 /**
- * Trida {@code Utils} je sbyrkou nastroju, ktere se volaju odkudkoliv z programu
+ * Trida {@code Utils} je sbirkou nastroju, ktere se volaji odkudkoliv z programu
  * 
  * @author Lukas Runt, Martina Mlezivova
  * @version 2.0 (20-11-2021)
@@ -32,7 +32,7 @@ public class Utils {
 	 * Metoda spocita cas letu
 	 * @param rychlost Rychlost letounu
 	 * @param kun1 Kun od ktereho se leti
-	 * @param kun2 Kun ke teremu se leti
+	 * @param kun2 Kun ke kteremu se leti
 	 * @return Celkovy cas letu
 	 */
 	public static double spoctiCas(double rychlost, Kun kun1, Kun kun2)  {
@@ -40,7 +40,7 @@ public class Utils {
 	}
 	
 	/**
-	 * Metoda spocte vzdalenost do mista kam leti letadlo
+	 * Metoda spocte vzdalenost do mista kam leti letoun
 	 * @param letoun Letoun od ktereho se pocita vzdalenost
 	 * @param kun Kun ke kteremu se pocita vzdalenost
 	 * @return Prima vzdalenost
@@ -64,10 +64,10 @@ public class Utils {
 	}
 	
 	/**
-	 * Metoda spocte vzdalenost do mista, kam leti letadlo
+	 * Metoda spocte vzdalenost do mista, kam leti letoun
 	 * @param letoun Letoun, od ktereho pocitame vzdalenost
-	 * @param X1 x-ova souradnice, kam leti ledadlo
-	 * @param Y1 y-ova souradnice, kam leti letadlo
+	 * @param X1 x-ova souradnice, kam leti letoun
+	 * @param Y1 y-ova souradnice, kam leti letoun
 	 * @return Prima vzdalenost
 	 */
 	public static double spoctiVzdalenost(Letoun letoun, double X1, double Y1) {
